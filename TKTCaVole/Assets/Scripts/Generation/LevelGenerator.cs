@@ -19,7 +19,8 @@ public class LevelGenerator : MonoBehaviour
     private int realSeed;
     [SerializeField] private int iterations;
     [SerializeField] private float distanceBetweenVectors = 500f;
-    [SerializeField] private float maxDistanceFromCenter = 10000f;
+    [SerializeField] private float distanceMultiplier = 3f;
+    private float maxDistanceFromCenter => distanceBetweenVectors * distanceMultiplier;
 
     [Header("Rocks")]
     [SerializeField] private Vector2Int rockCountRange;

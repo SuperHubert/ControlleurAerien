@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponData data;
@@ -28,7 +30,21 @@ public abstract class Weapon : MonoBehaviour
         lastBullet = null;
          if (!canFire) return;
         StartCoroutine(reload());
-        lastBullet = Instantiate(data.BulletPrefab, transform.forward + transform.position, transform.rotation);
-        lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed);
+
+        switch (data.type)
+        {
+            case WeaponType.PewPew:
+                lastBullet = BulletPoolManager.instance.getBullet().gameObject;
+                break;
+            case WeaponType.Rocket:
+                lastBullet = BulletPoolManager.instance.getRocket().gameObject;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        lastBullet.transform.position = transform.position + transform.forward;
+        lastBullet.transform.rotation = transform.rotation;
+        lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);
     }
 }
