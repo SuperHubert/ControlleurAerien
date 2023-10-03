@@ -4,11 +4,13 @@ using UnityEngine;
 public class Gate : MonoBehaviour
 {
     public static int GatesLeft { get; private set; }
-    public static event Action<int> OnGatesLeftUpdated; 
+    public static int TotalGates { get; private set; }
+    public static event Action<int,int> OnGatesLeftUpdated; 
     
     public static void InitGates(int totalGates)
     {
-        GatesLeft = totalGates;
+        TotalGates = totalGates;
+        GatesLeft = TotalGates;
         OnGatesLeftUpdated = null;
     }
 
@@ -19,8 +21,20 @@ public class Gate : MonoBehaviour
         
         GatesLeft--;
         
-        Debug.Log($"{GatesLeft} gates left");
+        Debug.Log($"{GatesLeft}/{TotalGates} gates left");
         
-        OnGatesLeftUpdated?.Invoke(GatesLeft);
+        OnGatesLeftUpdated?.Invoke(GatesLeft,TotalGates);
+
+        if (GatesLeft > 0) return;
+        
+        CompleteLevel();
+    }
+
+    [ContextMenu("Complete Level")]
+    private void CompleteLevel()
+    {
+        //TODO - Transition, score math
+        
+        LevelTracker.CompleteLevel(69);
     }
 }

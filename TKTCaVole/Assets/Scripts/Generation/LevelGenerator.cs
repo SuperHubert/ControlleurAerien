@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class LevelGenerator : MonoBehaviour
 {
     [Header("Prefabs")]
     [SerializeField] private Gate ringPrefab;
     [SerializeField] private List<GameObject> rockPrefabs;
-    [SerializeField] private GameObject shipPrefab;
 
     [Header("Parents")]
     [SerializeField] private Transform ringParent;
@@ -33,7 +30,7 @@ public class LevelGenerator : MonoBehaviour
     
     private void Start()
     {
-        GenerateLevel(startSeed);
+        GenerateLevel(LevelTracker.CurrentLevel);
         
         Gate.InitGates(iterations-1);
     }
@@ -115,5 +112,4 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
-    
 }

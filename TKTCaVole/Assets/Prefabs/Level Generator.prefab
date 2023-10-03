@@ -51,12 +51,13 @@ MonoBehaviour:
   - {fileID: 9203256192350076641, guid: 346be08b490916440980e5901b9837a7, type: 3}
   shipPrefab: {fileID: 0}
   ringParent: {fileID: 0}
-  seed: 0
+  startSeed: 0
   iterations: 30
-  distanceBetweenVectors: 500
-  maxDistanceFromCenter: 1500
-  rockCountRange: {x: 10, y: 30}
-  rockDistanceRange: {x: 50, y: 200}
+  distanceBetweenVectors: 300
+  distanceMultiplier: 3
+  rockCountRange: {x: 3, y: 7}
+  rockDistanceRange: {x: 20, y: 300}
+  rockScale: {x: 1, y: 5}
   minAngle: 0
   generationLayer:
     serializedVersion: 2
