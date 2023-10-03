@@ -26,6 +26,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private Button returnToMenuButton;
 
+    [Header("Other")]
+    [SerializeField] private UILevelManager uiLevelManager;
+
     private static bool gameLaunched;
     
     public static bool skipMenu;
@@ -82,6 +85,8 @@ public class MenuManager : MonoBehaviour
     {
         menuTr.DOLocalMoveX(-1920, 0.75f);
         levelsTr.DOLocalMoveX(0, 0.75f);
+        
+        uiLevelManager.ScrollToLastLevel();
     }
 
     private void ShowMenu()
