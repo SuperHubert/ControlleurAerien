@@ -69,8 +69,7 @@ public class LevelGenerator : MonoBehaviour
 
                     var pos = (vector + previousPos) / 2f;
                     var ring = Instantiate(ringPrefab, pos, Quaternion.identity,ringParent);
-                    ring.SetNumber(i);
-                    ring.gameObject.name = $"Ring {i}";
+                    ring.gameObject.name = $"Gate {i}";
                     ring.transform.forward = look;
 
                     var rockCount = Random.Range(rockCountRange.x, rockCountRange.y);

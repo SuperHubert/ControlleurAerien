@@ -1,19 +1,23 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gate : MonoBehaviour
 {
-    [SerializeField] private int number;
-
-    public void SetNumber(int value)
+    public static int GatesLeft { get; private set; }
+    public static event Action<int> OnGatesLeftUpdated; 
+    
+    public static void InitGates(int totalGates)
     {
-        number = value;
+        GatesLeft = totalGates;
+        OnGatesLeftUpdated = null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger");
+        //TODO - Better Destroy;
+        Destroy(gameObject);
+        
+        GatesLeft--;
+        OnGatesLeftUpdated?.Invoke(GatesLeft);
     }
 }
