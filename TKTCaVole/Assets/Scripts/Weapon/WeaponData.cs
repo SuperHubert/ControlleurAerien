@@ -16,4 +16,5 @@ public class WeaponData : ScriptableObject
     public float speed;
     public float lifeTime;
     public WeaponType type;
+    public int damage;
 }

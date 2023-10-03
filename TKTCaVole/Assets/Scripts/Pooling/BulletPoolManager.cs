@@ -59,8 +59,6 @@ public class BulletPoolManager : MonoBehaviour
         {
             obj = rocketPool[0];
             rocketPool.RemoveAt(0);
-            obj.gameObject.SetActive(true);
-            return obj;
         }
         else
             obj = Instantiate(rocketData.BulletPrefab, transform).GetComponent<Rocket>();
@@ -76,8 +74,6 @@ public class BulletPoolManager : MonoBehaviour
         {
             obj = bulletPool[0];
             bulletPool.RemoveAt(0);
-            obj.gameObject.SetActive(true);
-            return obj;
         }
         else
             obj = Instantiate(bulletData.BulletPrefab, transform).GetComponent<Bullet>();

@@ -9,11 +9,18 @@ public class BulletParent : MonoBehaviour
     [SerializeField] protected BoxCollider coll;
     protected float lifeTime;
     protected float speed;
+    protected int damage;
+    
+    protected virtual void OnEnable()
+    {
+        StartCoroutine(FinalCountDown());
+    }
 
-    public void SetData(float _lifeTime, float _speed)
+    public void SetData(float _lifeTime, float _speed, int _damage)
     {
         lifeTime = _lifeTime;
         speed = _speed;
+        damage = _damage;
     }
 
     protected IEnumerator FinalCountDown()
@@ -32,8 +39,9 @@ public class BulletParent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.GetComponent<Enemy>())
-            Destroy(other.gameObject);
+        IDamageable target = other.GetComponent<IDamageable>();
+        if (target != null)
+            target.TakeDamage(damage);
         switch (this)
         {
             case Bullet:

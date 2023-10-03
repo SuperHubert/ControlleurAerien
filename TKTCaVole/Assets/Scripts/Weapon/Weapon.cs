@@ -45,6 +45,6 @@ public abstract class Weapon : MonoBehaviour
 
         lastBullet.transform.position = transform.position + transform.forward;
         lastBullet.transform.rotation = transform.rotation;
-        lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed);
+        lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);
     }
 }
