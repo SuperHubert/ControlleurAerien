@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 7203841588493640723, guid: 127bbfc1efe868846b6810cc0331dcda,
     type: 3}
-  cooldown: 10
+  cooldown: 1
   speed: 5
   lifeTime: 1000
+  type: 1
+  damage: 1000
