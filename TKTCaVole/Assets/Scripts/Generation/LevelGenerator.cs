@@ -25,6 +25,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Rocks")]
     [SerializeField] private Vector2Int rockCountRange;
     [SerializeField] private Vector2 rockDistanceRange;
+    [SerializeField] private Vector2 rockScale;
     
     private Vector3 VectorForward => distanceBetweenVectors * Vector3.forward;
     [SerializeField] private float minAngle;
@@ -106,7 +107,7 @@ public class LevelGenerator : MonoBehaviour
 
                     var rock = Instantiate(rockPrefabs[Random.Range(0, rockPrefabs.Count)], rockPos, Random.rotation,
                         ringParent);
-
+                    rock.transform.localScale = Random.Range(rockScale.x, rockScale.y) * Vector3.one;
                     rock.name = "Rock";
                     
                     return true;
