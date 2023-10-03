@@ -20,8 +20,10 @@ public class RocketWeapon : Weapon
         
         Transform target = null; // a supprimer
         List<Transform> allEnemies = new List<Transform>();
-        
-        allEnemies.Add(FindObjectOfType<Enemy>().transform); // a changer
+
+        Enemy Myenemy = FindObjectOfType<Enemy>(); // a changer
+        if (Myenemy)
+        allEnemies.Add(Myenemy.transform); // a changer
         
         
         float distance = 0;
