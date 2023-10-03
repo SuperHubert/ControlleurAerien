@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public class UILevelManager : MonoBehaviour
 {
     [SerializeField] private SelectableLevel selectableLevelPrefab;
     [SerializeField] private Transform selectableLevelParent;

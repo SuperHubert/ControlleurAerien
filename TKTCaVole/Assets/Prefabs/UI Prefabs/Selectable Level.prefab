@@ -318,6 +318,8 @@ MonoBehaviour:
   levelText: {fileID: 3071346786148293812}
   highScoreText: {fileID: 7916736366769716347}
   levelTr: {fileID: 8708299710904043902}
+  randomHeightRange: 100
+  maxRandomHeight: 200
   levelId: 0
 --- !u!1 &4831875611284140107
 GameObject:

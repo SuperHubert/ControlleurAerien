@@ -58,7 +58,7 @@ public class LevelTracker : MonoBehaviour
 
     public static float GetLevelHighscoreFromPlayerPrefs(int index)
     {
-        if (index < 0 || index > levelHighscoreTracker.Count)
+        if (index < 0 || index >= levelHighscoreTracker.Count)
         {
             return -2;
         }
@@ -71,7 +71,7 @@ public class LevelTracker : MonoBehaviour
 
     public static float GetLevelHighscore(int index)
     {
-        if (index < 0 || index > levelHighscoreTracker.Count)
+        if (index < 0 || index >= levelHighscoreTracker.Count)
         {
             return -1;
         }
