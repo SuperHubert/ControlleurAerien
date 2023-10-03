@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,11 @@ public class SWITCHPLANE : MonoBehaviour
 {
     [SerializeField] private List<Weapon> _weapons;
     [SerializeField] private Plane plane;
+
+    private void Start()
+    {
+        plane.weapon = _weapons[0];
+    }
 
     // Update is called once per frame
     void Update()

@@ -7,6 +7,8 @@ public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponData data;
 
+    protected GameObject lastBullet;
+
     protected bool canFire = true;
 
     private void Start()
@@ -18,15 +20,15 @@ public abstract class Weapon : MonoBehaviour
     {
         canFire = false;
         yield return new WaitForSeconds(data.cooldown);
-        canFire = true;
+          canFire = true;
     }
 
     public virtual void Shoot()
     {
-        Debug.Log(canFire);
-        if (!canFire) return;
+        lastBullet = null;
+         if (!canFire) return;
         StartCoroutine(reload());
-        Instantiate(data.BulletPrefab, transform.forward, transform.rotation, transform);
-        
+        lastBullet = Instantiate(data.BulletPrefab, transform.forward + transform.position, transform.rotation);
+        lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed);
     }
 }

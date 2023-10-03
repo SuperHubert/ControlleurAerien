@@ -7,4 +7,6 @@ public class WeaponData : ScriptableObject
 {
     public GameObject BulletPrefab;
     public float cooldown;
+    public float speed;
+    public float lifeTime;
 }
