@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -28,14 +30,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float minAngle;
     [SerializeField] private LayerMask generationLayer;
     
-    private void Start()
-    {
-        GenerateLevel(LevelTracker.CurrentLevel);
-        
-        Gate.InitGates(iterations-1);
-    }
-
-    private void GenerateLevel(int seed)
+    
+    public void GenerateLevel(int seed,Action callback)
     {
         realSeed = seed != 0 ? seed : Random.Range(99999,999999);
         Random.InitState(realSeed);
@@ -94,7 +90,11 @@ public class LevelGenerator : MonoBehaviour
                     i--;
                 }
                 
+                Gate.InitGates(iterations-1);
+                
                 yield return null;
+                
+                callback.Invoke();
 
                 bool PlaceRock(Vector3 origin)
                 {

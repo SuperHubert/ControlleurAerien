@@ -16,6 +16,12 @@ public class Gate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        TriggerGate();
+    }
+
+    [ContextMenu("Trigger")]
+    private void TriggerGate()
+    {
         //TODO - Better Destroy;
         Destroy(gameObject);
         
