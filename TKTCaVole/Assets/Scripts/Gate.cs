@@ -18,6 +18,9 @@ public class Gate : MonoBehaviour
         Destroy(gameObject);
         
         GatesLeft--;
+        
+        Debug.Log($"{GatesLeft} gates left");
+        
         OnGatesLeftUpdated?.Invoke(GatesLeft);
     }
 }

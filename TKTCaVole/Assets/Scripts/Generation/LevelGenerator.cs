@@ -15,7 +15,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform ringParent;
 
     [Header("Settings")]
-    [SerializeField] private int seed;
+    [SerializeField] private int startSeed;
     private int realSeed;
     [SerializeField] private int iterations;
     [SerializeField] private float distanceBetweenVectors = 500f;
@@ -25,11 +25,18 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Vector2Int rockCountRange;
     [SerializeField] private Vector2 rockDistanceRange;
     
-    private Vector3 vectorForward => distanceBetweenVectors * Vector3.forward;
+    private Vector3 VectorForward => distanceBetweenVectors * Vector3.forward;
     [SerializeField] private float minAngle;
     [SerializeField] private LayerMask generationLayer;
     
     private void Start()
+    {
+        GenerateLevel(startSeed);
+        
+        Gate.InitGates(iterations-1);
+    }
+
+    private void GenerateLevel(int seed)
     {
         realSeed = seed != 0 ? seed : Random.Range(99999,999999);
         Random.InitState(realSeed);
@@ -51,13 +58,13 @@ public class LevelGenerator : MonoBehaviour
                 var z = Random.Range(-90f, 90f);
 
                 rot = Quaternion.AngleAxis(x, Vector3.forward);
-                vector += (Vector3.Distance(worldCenter, vector + (rot * vectorForward)) > maxDistanceFromCenter) ? rot * -vectorForward : rot * vectorForward;
+                vector += (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 rot = Quaternion.AngleAxis(y, Vector3.up);
-                vector += (Vector3.Distance(worldCenter, vector + (rot * vectorForward)) > maxDistanceFromCenter) ? rot * -vectorForward : rot * vectorForward;
+                vector += (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 rot = Quaternion.AngleAxis(z, Vector3.right);
-                vector += (Vector3.Distance(worldCenter, vector + (rot * vectorForward)) > maxDistanceFromCenter) ? rot * -vectorForward : rot * vectorForward;
+                vector += (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 Debug.DrawLine(previousPos, vector, Color.yellow, 100);
 
@@ -65,7 +72,7 @@ public class LevelGenerator : MonoBehaviour
 
                 if (!Physics.Raycast(previousPos, look, out var hit, distanceBetweenVectors, generationLayer))
                 {
-                    Debug.Log("No Hit");
+                    //  Debug.Log("No Hit");
 
                     var pos = (vector + previousPos) / 2f;
                     var ring = Instantiate(ringPrefab, pos, Quaternion.identity,ringParent);
@@ -85,6 +92,7 @@ public class LevelGenerator : MonoBehaviour
                 else
                 {
                     Debug.Log("Hit !!!");
+                    i--;
                 }
                 
                 yield return null;
