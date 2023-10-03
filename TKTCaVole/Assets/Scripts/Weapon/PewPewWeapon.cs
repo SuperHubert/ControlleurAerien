@@ -4,13 +4,4 @@ using UnityEngine;
 
 public class PewPewWeapon : Weapon
 {
-   
-    
-    
-    public override void Shoot()
-    {
-        base.Shoot();
-        if (!canFire) return;
-        
-    }
 }
