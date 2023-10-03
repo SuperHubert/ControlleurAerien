@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject ringPrefab;
+    [SerializeField] private GameObject rockPrefab;
+    
+    private void Start()
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
