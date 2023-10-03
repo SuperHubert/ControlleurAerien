@@ -5,12 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class LevelTracker : MonoBehaviour
 {
-    private static List<int> levelHighscoreTracker = new ();
+    [SerializeField] private bool showLogs;
+    private static bool log;
+    [SerializeField] private List<float> debug;
+    private static List<float> levelHighscoreTracker = new ();
     public static int AvailableLevelCount => levelHighscoreTracker.Count;
     public static int CurrentLevel { get; private set; } //0 is level 1;
     
     private void Awake()
     {
+        debug = levelHighscoreTracker;
+        log = showLogs;
+        
         levelHighscoreTracker.Clear();
 
         GetCompletedLevels();
@@ -22,8 +28,10 @@ public class LevelTracker : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("AvailableLevels"))
         {
-            var completedLevels = PlayerPrefs.GetInt("AvailableLevels");
+            var completedLevels = PlayerPrefs.GetFloat("AvailableLevels");
 
+            Log($"Found {completedLevels} available Levels");
+            
             if (completedLevels <= 0)
             {
                 IncreaseAvailableLevels();
@@ -32,7 +40,7 @@ public class LevelTracker : MonoBehaviour
             
             for (int i = 0; i < completedLevels; i++)
             {
-                levelHighscoreTracker.Add(0);
+                levelHighscoreTracker.Add(-1);
             }
             return;
         }
@@ -44,11 +52,11 @@ public class LevelTracker : MonoBehaviour
     {
         for (int i = 0; i < levelHighscoreTracker.Count; i++)
         {
-            levelHighscoreTracker[i] = GetLevelHighscore(i);
+            levelHighscoreTracker[i] = GetLevelHighscoreFromPlayerPrefs(i);
         }
     }
 
-    public static int GetLevelHighscore(int index)
+    public static float GetLevelHighscoreFromPlayerPrefs(int index)
     {
         if (index < 0 || index > levelHighscoreTracker.Count)
         {
@@ -57,30 +65,47 @@ public class LevelTracker : MonoBehaviour
 
         if (!PlayerPrefs.HasKey($"Level{index}")) return -1;
         
-        var highscore = PlayerPrefs.GetInt($"Level{index}");
+        var highscore = PlayerPrefs.GetFloat($"Level{index}");
         return highscore;
+    }
+
+    public static float GetLevelHighscore(int index)
+    {
+        if (index < 0 || index > levelHighscoreTracker.Count)
+        {
+            return -1;
+        }
+
+        return levelHighscoreTracker[index];
     }
 
     public static void LaunchLevel(int index)
     {
-        Debug.Log($"Launching level {index}");
+        Log($"Launching level {index}");
         
         CurrentLevel = index;
         
         SceneManager.LoadScene(1);
     }
 
-    public static void CompleteLevel(int score)
+    public static void CompleteLevel(float score)
     {
+        Log($"Completing level {CurrentLevel} with score of {score}");
+        
+        var key = $"Level{CurrentLevel}";
         if (PlayerPrefs.HasKey($"Level{CurrentLevel}"))
         {
-            var highscore = PlayerPrefs.GetInt($"Level{CurrentLevel}");
+            var highscore = PlayerPrefs.GetFloat(key);
             
-            if(score < highscore) return;
+            Log($"Has player pref '{key}', with score of {highscore}");
+            
+            if(score > highscore && highscore >= 0) return; //score is time, so lower is better
         }
         
-        PlayerPrefs.SetInt($"Level{CurrentLevel}",score);
-
+        PlayerPrefs.SetFloat(key,score);
+        
+        Log($"Saved player pref '{key}', with score of {score}");
+        
         if (CurrentLevel == levelHighscoreTracker.Count - 1)
         {
             IncreaseAvailableLevels();
@@ -91,15 +116,22 @@ public class LevelTracker : MonoBehaviour
 
     private static void IncreaseAvailableLevels()
     {
-        levelHighscoreTracker.Add(0);
-        PlayerPrefs.SetInt("AvailableLevels",levelHighscoreTracker.Count);
-        
-        PlayerPrefs.SetInt($"Level{levelHighscoreTracker.Count-1}",0);
+        levelHighscoreTracker.Add(-1);
+        PlayerPrefs.SetFloat("AvailableLevels",levelHighscoreTracker.Count);
+
+        var index = levelHighscoreTracker.Count - 1;
+        PlayerPrefs.SetFloat($"Level{index}",levelHighscoreTracker[index]);
     }
 
     [ContextMenu("Reset Progress")]
     private void ResetProgress()
     {
-        PlayerPrefs.SetInt("AvailableLevels",0);
+        PlayerPrefs.SetFloat("AvailableLevels",0);
+    }
+
+    private static void Log(string str)
+    {
+        if(!log) return;
+        Debug.Log(str);
     }
 }

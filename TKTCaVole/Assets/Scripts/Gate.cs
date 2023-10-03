@@ -30,17 +30,5 @@ public class Gate : MonoBehaviour
         Debug.Log($"{GatesLeft}/{TotalGates} gates left");
         
         OnGatesLeftUpdated?.Invoke(GatesLeft,TotalGates);
-
-        if (GatesLeft > 0) return;
-        
-        CompleteLevel();
-    }
-
-    [ContextMenu("Complete Level")]
-    private void CompleteLevel()
-    {
-        //TODO - Transition, score math
-        
-        LevelTracker.CompleteLevel(69);
     }
 }

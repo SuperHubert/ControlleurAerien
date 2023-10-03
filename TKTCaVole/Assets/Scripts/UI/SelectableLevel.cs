@@ -11,6 +11,7 @@ public class SelectableLevel : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI highScoreText;
+    private GameObject HighScoreGo => highScoreText.gameObject;
     [SerializeField] private RectTransform levelTr;
     
     [Header("Data")]
@@ -34,7 +35,11 @@ public class SelectableLevel : MonoBehaviour
 
     private void UpdateLevelHighscore()
     {
-        highScoreText.text = $"{LevelTracker.GetLevelHighscore(levelId)}";
+        var highscore = LevelTracker.GetLevelHighscore(levelId);
+        
+        HighScoreGo.SetActive(highscore >= 0);
+        
+        highScoreText.text = $"{LevelController.ScoreToText(highscore)}";
     }
 
     private void LaunchLevel()
