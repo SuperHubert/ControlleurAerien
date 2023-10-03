@@ -32,7 +32,7 @@ public class ShipController : MonoBehaviour
         float rotationSpeedVertical = moveVector.y * rotationSpeed * Time.deltaTime;
         float rotationSpeedHorizontal = moveVector.x * rotationSpeed * Time.deltaTime;
         
-        transform.Rotate(rotationSpeedVertical, rotationSpeedHorizontal, 0);
+        transform.Rotate(rotationSpeedVertical, 0,rotationSpeedHorizontal);
         /*if (Input.GetKeyDown(KeyCode.E) && gear < 5) gear++; //changer le FOV
         if (Input.GetKeyDown(KeyCode.A) && gear > 0) gear--;*/
     }

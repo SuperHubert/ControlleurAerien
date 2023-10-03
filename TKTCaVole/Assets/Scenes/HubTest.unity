@@ -702,6 +702,36 @@ PrefabInstance:
       propertyPath: ringParent
       value: 
       objectReference: {fileID: 1270167352}
+    - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
+        type: 3}
+      propertyPath: rockCountRange.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
+        type: 3}
+      propertyPath: rockCountRange.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
+        type: 3}
+      propertyPath: rockDistanceRange.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
+        type: 3}
+      propertyPath: rockDistanceRange.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
+        type: 3}
+      propertyPath: maxDistanceFromCenter
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
+        type: 3}
+      propertyPath: distanceBetweenVectors
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6118084783295459860, guid: ced6350908601ff4dbfd814a5a7f1d2a,
         type: 3}
       propertyPath: m_LocalPosition.x
