@@ -1,26 +1,41 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
+using TMPro;
 
 public class ShipController : MonoBehaviour
 {
     
     private Vector2 moveVector = Vector2.zero;
      
-    public float speed = 100.0F;
+    public float speed = 100.0f;
     public int gear = 0;
     public int gearValue = 20;
-    public float rotationSpeed = 75.0F;
+    public float rotationSpeed = 75.0f;
+
+    public TextMeshProUGUI gearText;
+
 
     private void Start()
     {
         GameInputManager.OnMovementPerformed += OnMovementPerformed;
         GameInputManager.OnMovementCancelled += OnMovementCancelled;
+        GameInputManager.OnGearUpPerformed += OnGearUpPerformed;
+        GameInputManager.OnGearDownPerformed += OnGearDownPerformed;
+    }
+
+    private void OnGearUpPerformed(InputAction.CallbackContext obj)
+    {
+        if (gear < 5) gear++; //changer le FOV
+        gearText.text = gear.ToString();
+    }
+
+    private void OnGearDownPerformed(InputAction.CallbackContext obj)
+    {
+        if (gear > 0) gear--;//changer le FOV
+        gearText.text = gear.ToString();
     }
 
     // Update is called once per frame
