@@ -31,12 +31,14 @@ public abstract class Weapon : MonoBehaviour
          if (!canFire) return;
         StartCoroutine(reload());
 
+        Debug.Log("Fire !");
         switch (data.type)
         {
             case WeaponType.PewPew:
                 lastBullet = BulletPoolManager.instance.getBullet().gameObject;
                 break;
             case WeaponType.Rocket:
+                Debug.Log("Rocket");
                 lastBullet = BulletPoolManager.instance.getRocket().gameObject;
                 break;
             default:

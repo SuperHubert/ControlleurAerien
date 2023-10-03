@@ -10,7 +10,7 @@ public class BulletParent : MonoBehaviour
     protected float lifeTime;
     protected float speed;
     protected int damage;
-    
+
     protected virtual void OnEnable()
     {
         StartCoroutine(FinalCountDown());
