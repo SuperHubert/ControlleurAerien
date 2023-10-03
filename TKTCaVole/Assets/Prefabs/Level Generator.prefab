@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7576465477637964312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6118084783295459860}
+  - component: {fileID: 5184176760530514031}
+  m_Layer: 0
+  m_Name: Level Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6118084783295459860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576465477637964312}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5184176760530514031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576465477637964312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2e0f263901e8b4ba6e6b91d14dc7d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ringPrefab: {fileID: 5292608408337530862, guid: acb5a0fbfa46def4e8ee608e25da0bb0,
+    type: 3}
+  rockPrefabs:
+  - {fileID: 4202891471570264506, guid: b9b5929417f0fce4297c264264c168e2, type: 3}
+  - {fileID: 9203256192350076641, guid: 346be08b490916440980e5901b9837a7, type: 3}
+  shipPrefab: {fileID: 0}
+  ringParent: {fileID: 0}
+  seed: 0
+  iterations: 30
+  distanceBetweenVectors: 500
+  maxDistanceFromCenter: 1500
+  rockCountRange: {x: 10, y: 30}
+  rockDistanceRange: {x: 50, y: 200}
+  minAngle: 0
+  generationLayer:
+    serializedVersion: 2
+    m_Bits: 4096
