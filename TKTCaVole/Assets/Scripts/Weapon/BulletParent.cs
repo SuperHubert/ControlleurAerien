@@ -19,13 +19,29 @@ public class BulletParent : MonoBehaviour
     protected IEnumerator FinalCountDown()
     {
         yield return new WaitForSeconds(lifeTime);
-        Destroy(gameObject);
+        switch (this)
+        {
+            case Bullet:
+                BulletPoolManager.instance.AddToPool(this as Bullet);
+                break;
+            case Rocket:
+                BulletPoolManager.instance.AddToPool(this as Rocket);
+                break;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.GetComponent<Enemy>())
             Destroy(other.gameObject);
-        Destroy(gameObject);
+        switch (this)
+        {
+            case Bullet:
+                BulletPoolManager.instance.AddToPool(this as Bullet);
+                break;
+            case Rocket:
+                BulletPoolManager.instance.AddToPool(this as Rocket);
+                break;
+        }
     }
 }

@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponType
+{
+    PewPew,
+    Rocket
+}
+
 [CreateAssetMenu(fileName = "WeaponData", menuName = "WeaponData", order = 0)]
 public class WeaponData : ScriptableObject
 {
@@ -9,4 +15,5 @@ public class WeaponData : ScriptableObject
     public float cooldown;
     public float speed;
     public float lifeTime;
+    public WeaponType type;
 }

@@ -6,7 +6,7 @@ using UnityEngine.PlayerLoop;
 
 public class Bullet : BulletParent
 {
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(FinalCountDown());
     }
