@@ -35,14 +35,13 @@ public class Rock : MonoBehaviour, IDamageable
     public void TakeDamage(int Damage)
     {
         health -= Damage;
-        float reelDamage = Damage / healthratio;
+        float reelDamage = Damage / (float)healthratio;
         transform.localScale -= reelDamage * Vector3.one;
 
-        reelDamage *= nbDebrisByRegularDamage;
-        //spawn particles here
+        int nbDebrisToSpawn = (1 + (int)reelDamage) * nbDebrisByRegularDamage;
         if (DebrisPoolManager.instance)
         {
-            for (int i = 0; i < reelDamage; i++)
+            for (int i = 0; i < nbDebrisToSpawn; i++)
             {
                 GameObject newDebris = DebrisPoolManager.instance.GetRandomDebris();
                 debris.Add(newDebris);
