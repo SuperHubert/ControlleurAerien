@@ -8,7 +8,7 @@ public class LevelGenerator : MonoBehaviour
 {
     [Header("Prefabs")]
     [SerializeField] private Gate ringPrefab;
-    [SerializeField] private List<GameObject> rockPrefabs;
+    [SerializeField] private List<Rock> rockPrefabs;
 
     [Header("Parents")]
     [SerializeField] private Transform ringParent;
@@ -104,7 +104,9 @@ public class LevelGenerator : MonoBehaviour
 
                     var rock = Instantiate(rockPrefabs[Random.Range(0, rockPrefabs.Count)], rockPos, Random.rotation,
                         ringParent);
-                    rock.transform.localScale = Random.Range(rockScale.x, rockScale.y) * Vector3.one;
+                    
+                    rock.SetRockData(Random.Range(rockScale.x, rockScale.y),true,1000);
+                    
                     rock.name = "Rock";
                     
                     return true;
