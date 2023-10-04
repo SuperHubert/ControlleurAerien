@@ -31,8 +31,6 @@ public class Gate : MonoBehaviour
         
         GatesLeft--;
         
-        Debug.Log($"{GatesLeft}/{TotalGates} gates left");
-        
         OnGatesLeftUpdated?.Invoke(GatesLeft,TotalGates);
         OnGatesLeftUpdatedTimer?.Invoke(increaseTimer);
     }
