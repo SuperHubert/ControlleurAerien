@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class CameraControler : MonoBehaviour
 {
-    [SerializeField] private Transform spaceShip;
+    [SerializeField] private Transform spaceShip,child;
     private Vector2 moveVector = Vector2.zero;
 
     private Vector3 _currentCameraRot = new Vector3(0, 0, -0);
@@ -18,6 +18,8 @@ public class CameraControler : MonoBehaviour
     private float animDuration = 0.1f;
     private float timeElapsed = .0f;
     private Vector3 instantTCamPos;
+
+    
     
     private void Start()
     {
@@ -45,7 +47,11 @@ public class CameraControler : MonoBehaviour
 
     void Update()
     {
+        Vector3 followPoint = spaceShip.position;
+        transform.position = followPoint;
         transform.rotation = spaceShip.rotation;
+
+        
         
         _currentCameraRot.y += moveVector.x * MouseSensitivity*Time.deltaTime;
         // _currentCameraRot.y %= 360;
@@ -67,7 +73,10 @@ public class CameraControler : MonoBehaviour
             }
         }
         
-        transform.Rotate(_currentCameraRot);
+        
+
+        child.localRotation =Quaternion.Euler(_currentCameraRot);
+        //transform.Rotate(_currentCameraRot);
 
         
         //print(_currentCameraRot);
