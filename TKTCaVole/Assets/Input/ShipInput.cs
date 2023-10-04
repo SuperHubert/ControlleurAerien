@@ -159,7 +159,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""LeftStick"",
                     ""id"": ""4a9a96b1-98d4-43a3-9b68-311148f75764"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -225,7 +225,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""RightStick"",
                     ""id"": ""70b82ed3-7dc9-441b-ac78-d9101161be16"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

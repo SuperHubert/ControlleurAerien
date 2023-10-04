@@ -18,21 +18,32 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float distanceMultiplier = 3f;
     private float maxDistanceFromCenter => distanceBetweenVectors * distanceMultiplier;
 
+    [Header("Gate")]
+    [SerializeField] private int minGate = 6;
+    [SerializeField] private int extraGatePerLevel = 1;
+    
     [Header("Rocks")]
+    [SerializeField] private int extraRockPerLevel = 1;
     [SerializeField] private Vector2Int rockCountRange;
     [SerializeField] private Vector2 rockDistanceRange;
     [SerializeField] private Vector2 rockScale;
     [SerializeField] private int hpRatio = 200;
     
-    private Vector3 VectorForward => distanceBetweenVectors * Vector3.forward;
     [SerializeField] private LayerMask generationLayer;
-    
-    
-    public void GenerateLevel(int seed,Action callback)
-    {
-        Random.InitState(seed);
 
-        var iterations = seed + 6;
+    [SerializeField] private int seed;
+    
+    [ContextMenu("Generate")]
+    private void Generate()
+    {
+        GenerateLevel(seed,null);
+    }
+    
+    public void GenerateLevel(int level,Action callback)
+    {
+        Random.InitState(level);
+
+        var iterations = minGate + level * extraGatePerLevel;
         
         var worldCenter = Vector3.zero;
         var rot = Quaternion.identity;
@@ -46,13 +57,15 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int i = 0; i < iterations; i++)
             {
-                var isFirstLevel = seed == 0;
-                var noMaxDistance = seed <= 1;
+                var isFirstLevel = level == 0;
+                var noMaxDistance = level <= 1;
                 
                 var x = Random.Range(-90f, 90f);
                 var y = Random.Range(-90f, 90f);
                 var z = isFirstLevel ? 0 : Random.Range(-90f, 90f);
 
+                var VectorForward = (distanceBetweenVectors * vector.normalized);
+                
                 rot = Quaternion.AngleAxis(x, Vector3.forward);
                 vector += noMaxDistance ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
@@ -75,13 +88,15 @@ public class LevelGenerator : MonoBehaviour
                     ring.gameObject.name = $"Gate {i}";
                     ring.transform.forward = look;
 
-                    var rockCount = Random.Range(rockCountRange.x, rockCountRange.y);
+                    var rockCount = Random.Range(rockCountRange.x, rockCountRange.y) + extraRockPerLevel * level;
+                    
                     
                     for (int j = 0; j < rockCount; j++)
                     {
                         if (!PlaceRock(pos)) j--;
                         yield return null;
                     }
+                    
             
                     previousPos = vector;
                 }
@@ -112,7 +127,7 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
             
-            callback.Invoke();
+            callback?.Invoke();
         }
     }
 }
