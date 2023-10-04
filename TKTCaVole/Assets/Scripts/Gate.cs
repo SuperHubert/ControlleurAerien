@@ -6,6 +6,9 @@ public class Gate : MonoBehaviour
     public static int GatesLeft { get; private set; }
     public static int TotalGates { get; private set; }
     public static event Action<int,int> OnGatesLeftUpdated; 
+    public static event Action<float> OnGatesLeftUpdatedTimer;
+    
+    [SerializeField] private float increaseTimer = 15f;
     
     public static void InitGates(int totalGates)
     {
@@ -31,5 +34,6 @@ public class Gate : MonoBehaviour
         Debug.Log($"{GatesLeft}/{TotalGates} gates left");
         
         OnGatesLeftUpdated?.Invoke(GatesLeft,TotalGates);
+        OnGatesLeftUpdatedTimer?.Invoke(increaseTimer);
     }
 }

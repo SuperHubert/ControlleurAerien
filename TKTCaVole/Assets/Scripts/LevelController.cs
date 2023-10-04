@@ -38,7 +38,7 @@ public class LevelController : MonoBehaviour
     {
         //TODO - setup stuff here
 
-        Gate.OnGatesLeftUpdated += IncreaseTimer;
+        Gate.OnGatesLeftUpdatedTimer += IncreaseTimer;
         Gate.OnGatesLeftUpdated += TryWinLevel;
         Hourglass.OnHourglassCollected += IncreaseTimer;
 
@@ -47,9 +47,9 @@ public class LevelController : MonoBehaviour
         running = true;
     }
 
-    private void IncreaseTimer(int _,int __)
+    private void IncreaseTimer(float _timerIncrease)
     {
-        timer += timerIncrease;
+        timer += _timerIncrease;
         
         //TODO mettre un genre +00:15 au dessus de l'ui du timer
         OnTimerUpdated?.Invoke(timer);
@@ -66,7 +66,7 @@ public class LevelController : MonoBehaviour
     {
         running = false;
         
-        Gate.OnGatesLeftUpdated -= IncreaseTimer;
+        Gate.OnGatesLeftUpdatedTimer -= IncreaseTimer;
         Gate.OnGatesLeftUpdated -= TryWinLevel;
         Hourglass.OnHourglassCollected -= IncreaseTimer;
     }
