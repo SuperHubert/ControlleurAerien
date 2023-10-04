@@ -12,7 +12,7 @@ public class ShipController : MonoBehaviour
     private Vector2 moveVector = Vector2.zero;
 
     private bool invertXAxis => settings.invertShipX;
-    private bool invertYAxis => settings.invertShipX;
+    private bool invertYAxis => settings.invertShipY;
     public float speed = 100.0f;
     public int gear = 0;
     public int gearValue = 20;

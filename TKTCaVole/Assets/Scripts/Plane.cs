@@ -9,20 +9,28 @@ public class Plane : MonoBehaviour, IDamageable
 {
     public static event Action OnPlaneDestroyed;
     
-    [SerializeField] public Weapon weapon;
+    [SerializeField] public Weapon primaryWeapon;
+    [SerializeField] public Weapon secondaryWeapon;
     [SerializeField] public Transform SpawnPoint;
     [SerializeField] private int HP = 100;
     
     // Start is called before the first frame update
     void Start()
     {
-        weapon.SetSpawnPoint(SpawnPoint);
-        GameInputManager.OnShootPerformed += ShootWeapon;
+        primaryWeapon.SetSpawnPoint(SpawnPoint);
+        secondaryWeapon.SetSpawnPoint(SpawnPoint);
+        GameInputManager.OnPrimaryShootPerformed += PrimaryShootWeapon;
+        GameInputManager.OnSecondaryShootPerformed += SecondaryShootWeapon;
     }
 
-    private void ShootWeapon(InputAction.CallbackContext ctx)
+    private void PrimaryShootWeapon(InputAction.CallbackContext ctx)
     {
-        weapon.Shoot();
+        primaryWeapon.Shoot();
+    }
+    
+    private void SecondaryShootWeapon(InputAction.CallbackContext ctx)
+    {
+        secondaryWeapon.Shoot();
     }
 
     public void TakeDamage(int Damage)
@@ -31,6 +39,7 @@ public class Plane : MonoBehaviour, IDamageable
         if (HP <= 0)
         {
             OnPlaneDestroyed?.Invoke();
+           gameObject.SetActive(false);
         }
     }
     

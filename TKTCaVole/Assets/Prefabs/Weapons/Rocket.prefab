@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2058505304141107555}
   - component: {fileID: 4220282686577907403}
   - component: {fileID: 5156524060918365003}
-  - component: {fileID: 3444841023723028692}
   m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
@@ -28,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 7194096639510827549}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 1.5, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0.75}
+  m_LocalScale: {x: 1.5, y: 3, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5689239464815921501}
@@ -84,29 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3444841023723028692
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7194096639510827549}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7203841588493640723
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,14 +94,14 @@ GameObject:
   - component: {fileID: 5689239464815921501}
   - component: {fileID: 6111708450246863105}
   - component: {fileID: 1684709108134629516}
-  - component: {fileID: 2540480733226397539}
+  - component: {fileID: 5574604288471543352}
   m_Layer: 8
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5689239464815921501
 Transform:
   m_ObjectHideFlags: 0
@@ -182,8 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rg: {fileID: 6111708450246863105}
-  coll: {fileID: 2540480733226397539}
---- !u!65 &2540480733226397539
+  coll: {fileID: 5574604288471543352}
+--- !u!65 &5574604288471543352
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,9 +174,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.4, z: 0.85}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.9077424, y: 1, z: 6.1219177}
+  m_Center: {x: 0.06543738, y: 0, z: 0.82756567}
