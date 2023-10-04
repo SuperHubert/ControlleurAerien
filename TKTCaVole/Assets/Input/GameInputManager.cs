@@ -47,7 +47,7 @@ public class GameInputManager : MonoBehaviour
 
         input.Player.Camera.performed += InvokeCamMovement;
         input.Player.Camera.canceled += InvokeCamCancel;
-        input.Player.CenterCam.performed -= InvokeCamCentre;
+        input.Player.CenterCam.performed += InvokeCamCentre;
 
         input.Player.GearUp.performed += InvokeGearUp;
         input.Player.GearDown.performed += InvokeGearDown;

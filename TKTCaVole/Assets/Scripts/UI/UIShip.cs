@@ -16,7 +16,10 @@ public class UIShip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gateLeftText;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Camera cam;
-    
+
+    [SerializeField] private Selectable pauseMenuSelectable;
+    [SerializeField] private Selectable endGamePanelWinSelectable;
+    [SerializeField] private Selectable endGamePanelLoseSelectable;
     
     private float animDuration = 1f;
     [Header("Anim FOV")]
@@ -54,9 +57,16 @@ public class UIShip : MonoBehaviour
         
         Time.timeScale = 0f;
         endGamePanel.SetActive(true);
+
+        var selectable = won ? endGamePanelWinSelectable : endGamePanelLoseSelectable;
+        selectable.Select();
+        
         Cursor.lockState = CursorLockMode.None;
         wonLossText.text = won ? "You Won !" : "You Lost !";
-        highScoreText.text = $"Your score is {score}\nYour HighScore is {LevelTracker.GetLevelHighscore(LevelTracker.CurrentLevel)}";
+
+        var scoreText = score > 0 ? $"Your score is {score}\n" : "";
+        
+        highScoreText.text = $"{scoreText}Your HighScore is {LevelTracker.GetLevelHighscore(LevelTracker.CurrentLevel)}";
     }
 
     private void OnTimerUpdated(float timer)
@@ -73,6 +83,9 @@ public class UIShip : MonoBehaviour
     {
         isGamePaused = !isGamePaused; 
         pausePanel.SetActive(isGamePaused);
+        
+        if(isGamePaused) pauseMenuSelectable.Select();
+        
         Time.timeScale = isGamePaused?0:1;
     }
 

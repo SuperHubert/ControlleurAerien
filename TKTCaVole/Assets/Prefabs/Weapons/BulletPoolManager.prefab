@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1579264711628947778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2988773421088559013}
+  - component: {fileID: 2184805683029934504}
+  - component: {fileID: 850196052774819829}
+  m_Layer: 0
+  m_Name: BulletPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2988773421088559013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579264711628947778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2184805683029934504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579264711628947778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4993da9107960c841852ea1049678ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nbBullet: 20
+  nbRocket: 10
+  bulletData: {fileID: 11400000, guid: c48936f379dd98443a2d9eff04550b26, type: 2}
+  rocketData: {fileID: 11400000, guid: e70f3ed9c78f951458a5aed3b9880927, type: 2}
+--- !u!114 &850196052774819829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579264711628947778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c208bc309b366c4798254fabd7f76aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debrisPrefabs:
+  - {fileID: 6708557400824626500, guid: 20208087cb8430b4287c006763194d43, type: 3}
+  - {fileID: 176604475658449051, guid: 4dc354cef268d1f44b8b30be2126f44d, type: 3}
+  - {fileID: 2948661923237318377, guid: 7c75f39f7a5e44a4f99d66f2e9ffa55b, type: 3}
+  HourglassPrefab: {fileID: 552362269178776240, guid: 8b0f41cdfa659644fae0f41c9c9d2525,
+    type: 3}
+  poolSizeDebris: 5
+  poolSizeHourglass: 10

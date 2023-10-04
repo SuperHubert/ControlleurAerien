@@ -1600,6 +1600,9 @@ MonoBehaviour:
   gateLeftText: {fileID: 3551519513172548445}
   timerText: {fileID: 7008966650119921630}
   cam: {fileID: 0}
+  pauseMenuSelectable: {fileID: 2067255307632542672}
+  endGamePanelWinSelectable: {fileID: 4421737194319664866}
+  endGamePanelLoseSelectable: {fileID: 5550202011692388768}
   curve:
     serializedVersion: 2
     m_Curve:
