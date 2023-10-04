@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
@@ -24,17 +26,26 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button creditsButton;
     [SerializeField] private Button returnToMenuButton;
+    private List<(RectTransform tr,Vector2 sizeDelta)> buttonTransforms = new ();
+    [SerializeField] private float buttonRevealDuration = 0.25f;
 
     [Header("Other")]
     [SerializeField] private UILevelManager uiLevelManager;
     [SerializeField] private SettingsManager settingsManager;
+    [SerializeField] private UISettingsSo uiSettings;
 
     private static bool gameLaunched;
     
     public static bool skipMenu;
     public static int lastPlayedLevel;
-    
+
+    private void Awake()
+    {
+        uiSettings.SetInstance();
+    }
+
     private void Start()
     {
         BootMenu();
@@ -59,7 +70,43 @@ public class MenuManager : MonoBehaviour
         exitButton.onClick.AddListener(Application.Quit);
         settingsButton.onClick.AddListener(OpenSettings);
         
-        if(skipMenu) ShowLevels();
+        if (skipMenu)
+        {
+            ShowLevels();
+            return;
+        }
+        
+        RevealMenuButtonAnimation();
+    }
+    
+    private void RevealMenuButtonAnimation()
+    {
+        buttonTransforms.Clear();
+
+        var tr = playButton.GetComponent<RectTransform>();
+        buttonTransforms.Add((tr,tr.sizeDelta));
+        tr = settingsButton.GetComponent<RectTransform>();
+        buttonTransforms.Add((tr,tr.sizeDelta));
+        tr = creditsButton.GetComponent<RectTransform>();
+        buttonTransforms.Add((tr,tr.sizeDelta));
+        tr = exitButton.GetComponent<RectTransform>();
+        buttonTransforms.Add((tr,tr.sizeDelta));
+
+        foreach (var couple in buttonTransforms)
+        {
+            var size = couple.sizeDelta;
+            size.x = 0;
+            couple.tr.sizeDelta = size;
+        }
+        
+        var sequence = DOTween.Sequence();
+        sequence.Append(buttonTransforms[0].tr.DOSizeDelta(buttonTransforms[0].sizeDelta, buttonRevealDuration));
+        sequence.Append(buttonTransforms[1].tr.DOSizeDelta(buttonTransforms[1].sizeDelta, buttonRevealDuration));
+        sequence.Append(buttonTransforms[2].tr.DOSizeDelta(buttonTransforms[2].sizeDelta, buttonRevealDuration));
+        sequence.Append(buttonTransforms[3].tr.DOSizeDelta(buttonTransforms[3].sizeDelta, buttonRevealDuration));
+        sequence.AppendCallback(playButton.Select);
+        
+        sequence.Play();
     }
 
     private void TryLaunchGame()
