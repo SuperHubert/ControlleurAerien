@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -33,6 +30,13 @@ public class PauseMenuButtonManager : MonoBehaviour
 
     private void OpenSettings()
     {
-        settingsManager.Open(settingsButton);
+        gameObject.SetActive(false);
+        
+        settingsManager.Open(resumeButton,ReopenPauseMenu);
+
+        void ReopenPauseMenu()
+        {
+            gameObject.SetActive(true);
+        }
     }
 }

@@ -27,6 +27,7 @@ public class SettingsManager : MonoBehaviour
     private string shipYKey = "shipY";
 
     private Selectable returnSelectable;
+    private Action extra;
     
     private void Start()
     {
@@ -121,7 +122,7 @@ public class SettingsManager : MonoBehaviour
         Close();
     }
 
-    public void Open(Selectable selectable)
+    public void Open(Selectable selectable,Action callback = null)
     {
         panel.SetActive(true);
 
@@ -129,6 +130,8 @@ public class SettingsManager : MonoBehaviour
         
         closeButton.Select();
         saveButton.Select();
+
+        extra = callback;
         
         ApplySettings();
     }
@@ -136,6 +139,8 @@ public class SettingsManager : MonoBehaviour
     private void Close()
     {
         panel.SetActive(false);
+        
+        extra?.Invoke();
         
         if(returnSelectable == null) return;
         returnSelectable.Select();
