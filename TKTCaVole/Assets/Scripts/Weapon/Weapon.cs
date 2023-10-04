@@ -32,28 +32,21 @@ public abstract class Weapon : MonoBehaviour
          if (!canFire) return;
         StartCoroutine(reload());
 
-        Debug.Log("Fire !");
+        if (!BulletPoolManager.instance) return;
         switch (data.type)
         {
             case WeaponType.PewPew:
-                Debug.Log("Fire 1");
                 lastBullet = BulletPoolManager.instance.getBullet().gameObject;
-                Debug.Log("Fire 2");
                 break;
             case WeaponType.Rocket:
-                Debug.Log("Rocket");
                 lastBullet = BulletPoolManager.instance.getRocket().gameObject;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        Debug.Log("Fire 3");
         lastBullet.transform.position = SpawnPoint.position;
-        Debug.Log("Fire 4");
         lastBullet.transform.rotation = transform.rotation;
-        Debug.Log("Fire 5");
         lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);
-        Debug.Log("Fire 6");
     }
 
     public void SetSpawnPoint(Transform spawnPoint)

@@ -13,7 +13,6 @@ public class BulletParent : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        Debug.Log("Fire 7");
         StartCoroutine(FinalCountDown());
     }
 
@@ -26,7 +25,6 @@ public class BulletParent : MonoBehaviour
 
     protected IEnumerator FinalCountDown()
     {
-        Debug.Log("Fire " + lifeTime);
         yield return new WaitForSeconds(lifeTime);
         switch (this)
         {
