@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour, IDamageable
 {
-    public bool DropsHourglass { get; private set; }
+    public int damage {get; private set;} = 9999;
+    
     private int health;
-
+    private bool DropsHourglass;
     private int healthratio = 200;
     private List<GameObject> debris = new();
 
