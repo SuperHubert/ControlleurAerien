@@ -114,11 +114,11 @@ public class SettingsManager : MonoBehaviour
         
         PlayerPrefs.SetInt(shipYKey,value ? 1 : 0);
     }
-
     private void Save()
     {
         PlayerPrefs.Save();
         ApplySettings();
+        Close();
     }
 
     public void Open(Selectable selectable)
@@ -127,6 +127,7 @@ public class SettingsManager : MonoBehaviour
 
         returnSelectable = selectable;
         
+        closeButton.Select();
         saveButton.Select();
         
         ApplySettings();

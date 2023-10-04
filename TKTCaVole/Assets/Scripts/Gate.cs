@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Gate : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Gate : MonoBehaviour
     
     [SerializeField] private float increaseTimer = 15f;
     [SerializeField] private Animator animator;
-    [SerializeField] private Collider collider;
+    [FormerlySerializedAs("collider")] [SerializeField] private Collider col;
     private static readonly int DestroyTrigger = Animator.StringToHash("Destroy");
 
     public static void InitGates(int totalGates)
@@ -30,7 +31,7 @@ public class Gate : MonoBehaviour
     private void TriggerGate()
     {
         //TODO - Better Destroy;
-        collider.enabled = false;
+        col.enabled = false;
         animator.SetTrigger(DestroyTrigger);
         
         GatesLeft--;
