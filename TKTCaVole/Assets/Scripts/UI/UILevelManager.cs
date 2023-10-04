@@ -19,11 +19,20 @@ public class UILevelManager : MonoBehaviour
         selectableLevels.Clear();
         //var levels = 150;
 
+        SelectableLevel previousCreated = null;
         for (int i = 0; i < levels; i++)
         {
-            var level = Instantiate(selectableLevelPrefab, selectableLevelParent);
-            level.InitButton(i,downSelectable);
-            selectableLevels.Add(level);
+            var createdLevel = Instantiate(selectableLevelPrefab, selectableLevelParent);
+            if (previousCreated != null)
+            {
+                previousCreated.SetNextNav(createdLevel.Button);
+                createdLevel.SetPreviousNav(previousCreated.Button);
+            }
+            
+            createdLevel.InitButton(i,downSelectable);
+            selectableLevels.Add(createdLevel);
+
+            previousCreated = createdLevel;
         }
     }
 

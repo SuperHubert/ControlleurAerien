@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class SelectableLevel : MonoBehaviour
 {
-    [Header("Components")]
-    [SerializeField] private Button button;
+    [field:Header("Components")]
+    [field:SerializeField] public Button Button { get; private set; }
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI highScoreText;
     private GameObject HighScoreGo => highScoreText.gameObject;
@@ -22,19 +22,33 @@ public class SelectableLevel : MonoBehaviour
 
     private void Start()
     {
-        button.onClick.AddListener(LaunchLevel);
+        Button.onClick.AddListener(LaunchLevel);
     }
 
     public void Select()
     {
-        button.Select();
+        Button.Select();
     }
 
     public void OnButtonSelected()
     {
         var otherNav = downSelectable.navigation;
-        otherNav.selectOnUp = button;
+        otherNav.selectOnUp = Button;
         downSelectable.navigation = otherNav;
+    }
+
+    public void SetNextNav(Selectable selectable)
+    {
+        var nav = Button.navigation;
+        nav.selectOnRight = selectable;
+        Button.navigation = nav;
+    }
+    
+    public void SetPreviousNav(Selectable selectable)
+    {
+        var nav = Button.navigation;
+        nav.selectOnLeft = selectable;
+        Button.navigation = nav;
     }
 
     public void InitButton(int id,Selectable selectable)
@@ -56,9 +70,9 @@ public class SelectableLevel : MonoBehaviour
     {
         downSelectable = selectable;
         
-        var selfNav = button.navigation;
+        var selfNav = Button.navigation;
         selfNav.selectOnDown = downSelectable;
-        button.navigation = selfNav;
+        Button.navigation = selfNav;
     }
 
     private void UpdateHeight()
