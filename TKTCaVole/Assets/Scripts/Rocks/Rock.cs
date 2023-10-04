@@ -11,6 +11,8 @@ public class Rock : MonoBehaviour, IDamageable
     [SerializeField] private float explosionPower = 100f;
     [SerializeField] private int nbDebrisByRegularDamage = 5;
     [SerializeField] private Rigidbody _rigidbody;
+
+    [SerializeField] private ParticleSystem explosion; // TEMPORARY FOR DEBUGGING after that, use pool manager
     
     private int health;
     private bool DropsHourglass;
@@ -54,6 +56,7 @@ public class Rock : MonoBehaviour, IDamageable
 
             if (health <= 0)
             {
+                Destroy(Instantiate(explosion.gameObject, transform.position, explosion.transform.rotation), 5);
                 // foreach (GameObject obj in debris) // depop all debris
                 // {
                 //     DebrisPoolManager.instance.AddToPool(obj);
