@@ -10,11 +10,12 @@ public class SettingsManager : MonoBehaviour
 {
     [SerializeField] private ScriptableSetting settings;
     [SerializeField] private GameObject panel;
-    
+    [SerializeField] private float sensitivityMult = 100f;
     [Header("Components")]
     [SerializeField] private Scrollbar mouseScrollbar;
     [SerializeField] private TextMeshProUGUI sensitivityFeedbacktext;
     [SerializeField] private Toggle cameraYToggle;
+    [SerializeField] private Toggle cameraXToggle;
     [SerializeField] private Toggle shipXToggle;
     [SerializeField] private Toggle shipYToggle;
     [SerializeField] private Button saveButton;
@@ -22,6 +23,7 @@ public class SettingsManager : MonoBehaviour
 
     private string sensitivityKey = "MouseSensitivity";
     private string cameraYKey = "cameraY";
+    private string cameraXKey = "cameraX";
     private string shipXKey = "shipX";
     private string shipYKey = "shipY";
 
@@ -37,6 +39,7 @@ public class SettingsManager : MonoBehaviour
         
         mouseScrollbar.onValueChanged.AddListener(UpdateSensitivity);
         cameraYToggle.onValueChanged.AddListener(UpdateCameraY);
+        cameraXToggle.onValueChanged.AddListener(UpdateCameraX);
         shipXToggle.onValueChanged.AddListener(UpdateShipX);
         shipYToggle.onValueChanged.AddListener(UpdateShipY);
         
@@ -44,11 +47,16 @@ public class SettingsManager : MonoBehaviour
         closeButton.onClick.AddListener(Close);
     }
 
+    
+
     private void ApplySettings()
     {
         mouseScrollbar.value = settings.cameraSensitivity;
+        
+        
         sensitivityFeedbacktext.text = $"{mouseScrollbar.value}";
         cameraYToggle.isOn = settings.invertCameraY;
+        cameraXToggle.isOn = settings.invertCameraX;
         shipXToggle.isOn = settings.invertShipX;
         shipYToggle.isOn = settings.invertShipY;
     }
@@ -57,6 +65,7 @@ public class SettingsManager : MonoBehaviour
     {
         if(!PlayerPrefs.HasKey(sensitivityKey)) PlayerPrefs.SetFloat(sensitivityKey,settings.cameraSensitivity);
         if(!PlayerPrefs.HasKey(cameraYKey)) PlayerPrefs.SetInt(cameraYKey,settings.invertCameraY ? 1 : 0);
+        if(!PlayerPrefs.HasKey(cameraXKey)) PlayerPrefs.SetInt(cameraXKey,settings.invertCameraX ? 1 : 0);
         if(!PlayerPrefs.HasKey(shipXKey)) PlayerPrefs.SetInt(shipYKey,settings.invertShipX ? 1 : 0);
         if(!PlayerPrefs.HasKey(shipYKey)) PlayerPrefs.SetInt(shipYKey,settings.invertShipY ? 1 : 0);
 
@@ -77,6 +86,7 @@ public class SettingsManager : MonoBehaviour
 
     private void UpdateSensitivity(float value)
     {
+        value *= sensitivityMult;
         sensitivityFeedbacktext.text = $"{value}";
         
         PlayerPrefs.SetFloat(sensitivityKey,value);
@@ -88,7 +98,11 @@ public class SettingsManager : MonoBehaviour
         
         PlayerPrefs.SetInt(cameraYKey,value ? 1 : 0);
     }
-    
+    private void UpdateCameraX(bool value)
+    {
+        settings.invertCameraX = value;
+        PlayerPrefs.SetInt(cameraXKey,value ? 1 : 0);
+    }
     private void UpdateShipX(bool value)
     {
         settings.invertShipX = value;
@@ -106,6 +120,7 @@ public class SettingsManager : MonoBehaviour
     private void Save()
     {
         PlayerPrefs.Save();
+        ApplySettings();
     }
 
     public void Open(Selectable selectable)
