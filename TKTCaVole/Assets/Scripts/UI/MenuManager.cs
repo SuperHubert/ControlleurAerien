@@ -28,6 +28,7 @@ public class MenuManager : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private UILevelManager uiLevelManager;
+    [SerializeField] private SettingsManager settingsManager;
 
     private static bool gameLaunched;
     
@@ -56,6 +57,7 @@ public class MenuManager : MonoBehaviour
         playButton.onClick.AddListener(ShowLevels);
         returnToMenuButton.onClick.AddListener(ShowMenu);
         exitButton.onClick.AddListener(Application.Quit);
+        settingsButton.onClick.AddListener(OpenSettings);
         
         if(skipMenu) ShowLevels();
     }
@@ -95,5 +97,10 @@ public class MenuManager : MonoBehaviour
         levelsTr.DOLocalMoveX(1920, 0.75f).SetUpdate(true);
         
         playButton.Select();
+    }
+
+    private void OpenSettings()
+    {
+        settingsManager.Open(settingsButton);
     }
 }

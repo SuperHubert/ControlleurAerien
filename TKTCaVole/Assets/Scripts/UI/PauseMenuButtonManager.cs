@@ -9,10 +9,15 @@ using UnityEngine.SceneManagement;
 public class PauseMenuButtonManager : MonoBehaviour
 {
     [SerializeField] private Button resumeButton, mainMenuButton;
+    [SerializeField] private Button settingsButton;
+
+    [SerializeField] private SettingsManager settingsManager;
+    
     void Start()
     {
         resumeButton.onClick.AddListener(ResumeButtonAction);
         mainMenuButton.onClick.AddListener(MainMenuButtonAction);
+        settingsButton.onClick.AddListener(OpenSettings);
     }
 
     private void MainMenuButtonAction()
@@ -24,5 +29,10 @@ public class PauseMenuButtonManager : MonoBehaviour
     private void ResumeButtonAction()
     { 
         GameInputManager.InvokePause(new InputAction.CallbackContext());
+    }
+
+    private void OpenSettings()
+    {
+        settingsManager.Open(settingsButton);
     }
 }

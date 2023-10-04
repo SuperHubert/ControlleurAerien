@@ -7,11 +7,12 @@ using TMPro;
 
 public class ShipController : MonoBehaviour
 {
-    
+    [SerializeField] private ScriptableSetting settings;
+        
     private Vector2 moveVector = Vector2.zero;
 
-    public bool invertXAxis = false;
-    public bool invertYAxis = false;
+    private bool invertXAxis => settings.invertShipX;
+    private bool invertYAxis => settings.invertShipX;
     public float speed = 100.0f;
     public int gear = 0;
     public int gearValue = 20;

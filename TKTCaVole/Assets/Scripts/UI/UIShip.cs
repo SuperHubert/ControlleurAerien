@@ -39,6 +39,8 @@ public class UIShip : MonoBehaviour
     private void Start()
     {
         //gateLeftText.text = $"{Gate.TotalGates}/{Gate.TotalGates}";
+        
+        pausePanel.SetActive(false);
 
         controller.OnGearChanged += UpdateGearText;
         GameInputManager.OnPausePerformed += OnPausePerformed;

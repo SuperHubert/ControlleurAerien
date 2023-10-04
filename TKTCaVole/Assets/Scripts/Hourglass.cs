@@ -16,7 +16,6 @@ public class Hourglass : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hourglass triggered");
         OnHourglassCollected?.Invoke(timeAdded);
         
         if (DebrisPoolManager.instance)
