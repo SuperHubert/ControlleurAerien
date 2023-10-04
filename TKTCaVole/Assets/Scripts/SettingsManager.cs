@@ -10,9 +10,8 @@ public class SettingsManager : MonoBehaviour
 {
     [SerializeField] private ScriptableSetting settings;
     [SerializeField] private GameObject panel;
-    [SerializeField] private float sensitivityMult = 100f;
     [Header("Components")]
-    [SerializeField] private Scrollbar mouseScrollbar;
+    [SerializeField] private Slider mouseScrollbar;
     [SerializeField] private TextMeshProUGUI sensitivityFeedbacktext;
     [SerializeField] private Toggle cameraYToggle;
     [SerializeField] private Toggle cameraXToggle;
@@ -52,9 +51,7 @@ public class SettingsManager : MonoBehaviour
     private void ApplySettings()
     {
         mouseScrollbar.value = settings.cameraSensitivity;
-        
-        
-        sensitivityFeedbacktext.text = $"{mouseScrollbar.value}";
+        sensitivityFeedbacktext.text = $"{mouseScrollbar.value:00}";
         cameraYToggle.isOn = settings.invertCameraY;
         cameraXToggle.isOn = settings.invertCameraX;
         shipXToggle.isOn = settings.invertShipX;
@@ -86,8 +83,9 @@ public class SettingsManager : MonoBehaviour
 
     private void UpdateSensitivity(float value)
     {
-        value *= sensitivityMult;
         sensitivityFeedbacktext.text = $"{value}";
+
+        settings.cameraSensitivity = value;
         
         PlayerPrefs.SetFloat(sensitivityKey,value);
     }
