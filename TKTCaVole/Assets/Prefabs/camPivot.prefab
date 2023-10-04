@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spaceShip: {fileID: 0}
   child: {fileID: 3760979737754606823}
-  MouseSensitivity: 70
+  settings: {fileID: 11400000, guid: e70ce3c3bf1a72443a54f42cb9d897ef, type: 2}
 --- !u!1 &6067743026241705043
 GameObject:
   m_ObjectHideFlags: 0
