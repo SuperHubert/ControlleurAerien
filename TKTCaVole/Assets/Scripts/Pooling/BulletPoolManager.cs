@@ -27,14 +27,19 @@ public class BulletPoolManager : MonoBehaviour
         {
             GameObject obj = Instantiate(bulletData.BulletPrefab, transform);
             obj.SetActive(false);
-            bulletPool.Add(obj.GetComponent<Bullet>());
+            Bullet bullet = obj.GetComponent<Bullet>();
+            bullet.SetData(bulletData.lifeTime, bulletData.speed, bulletData.damage);
+            bulletPool.Add(bullet);
         }
 
         for (int i = 0; i < nbRocket; i++)
         {
             GameObject obj = Instantiate(rocketData.BulletPrefab, transform);
             obj.SetActive(false);
-            rocketPool.Add(obj.GetComponent<Rocket>());
+            Rocket rocket = obj.GetComponent<Rocket>();
+            
+            rocket.SetData(bulletData.lifeTime, bulletData.speed, bulletData.damage);
+            rocketPool.Add(rocket);
         }
     }
 
