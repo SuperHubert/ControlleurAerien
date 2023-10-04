@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4220282686577907403}
   - component: {fileID: 5156524060918365003}
   - component: {fileID: 3444841023723028692}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -117,8 +117,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5689239464815921501}
   - component: {fileID: 6111708450246863105}
-  - component: {fileID: 2613689068997440488}
-  m_Layer: 0
+  - component: {fileID: 1684709108134629516}
+  - component: {fileID: 2540480733226397539}
+  m_Layer: 8
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,12 +164,12 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2613689068997440488
+--- !u!114 &1684709108134629516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,9 +178,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 7203841588493640723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d251509be575f6747933bbc469a0bb67, type: 3}
+  m_Script: {fileID: 11500000, guid: d1127dd2ac4a9ae4ab1c09bee5273ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 2
   rg: {fileID: 6111708450246863105}
-  speed: 1
+  coll: {fileID: 2540480733226397539}
+--- !u!65 &2540480733226397539
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7203841588493640723}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.4, z: 0.85}
+  m_Center: {x: 0, y: 0, z: 0}
