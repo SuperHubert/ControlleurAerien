@@ -40,8 +40,7 @@ public class BulletParent : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IDamageable target = other.GetComponent<IDamageable>();
-        if (target != null)
-            target.TakeDamage(damage);
+        target?.TakeDamage(damage);
         switch (this)
         {
             case Bullet:
