@@ -35,6 +35,7 @@ public class Rock : MonoBehaviour, IDamageable
     public void TakeDamage(int Damage)
     {
         health -= Damage;
+        CameraScreenShake.OnCameraShake?.Invoke(1f, 0.2f);
         float reelDamage = Damage / (float)healthratio;
         transform.localScale -= reelDamage * Vector3.one;
 
