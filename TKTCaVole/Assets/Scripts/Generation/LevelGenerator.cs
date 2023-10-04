@@ -91,8 +91,6 @@ public class LevelGenerator : MonoBehaviour
                 
                 yield return null;
                 
-                callback.Invoke();
-
                 bool PlaceRock(Vector3 origin)
                 {
                     var rockPos = Random.onUnitSphere * Random.Range(rockDistanceRange.x, rockDistanceRange.y) + origin;
@@ -109,6 +107,8 @@ public class LevelGenerator : MonoBehaviour
                     return true;
                 }
             }
+            
+            callback.Invoke();
         }
     }
 }
