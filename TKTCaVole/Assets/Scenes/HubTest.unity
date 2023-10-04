@@ -402,8 +402,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060160286}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 531.97925, y: 455.8588, z: 310.6155}
+  m_LocalRotation: {x: 0.20579123, y: 0.018773999, z: -0.0038980085, w: 0.9784081}
+  m_LocalPosition: {x: -45.821045, y: 76.334564, z: 421.4905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -420,13 +420,23 @@ PrefabInstance:
     - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
         type: 3}
       propertyPath: seed
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
         type: 3}
       propertyPath: ringParent
       value: 
       objectReference: {fileID: 1270167352}
+    - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
+        type: 3}
+      propertyPath: extraGatePerLevel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184176760530514031, guid: ced6350908601ff4dbfd814a5a7f1d2a,
+        type: 3}
+      propertyPath: distanceMultiplier
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6118084783295459860, guid: ced6350908601ff4dbfd814a5a7f1d2a,
         type: 3}
       propertyPath: m_LocalPosition.x
