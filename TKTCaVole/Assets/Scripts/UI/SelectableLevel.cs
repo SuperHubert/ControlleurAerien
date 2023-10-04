@@ -76,6 +76,8 @@ public class SelectableLevel : MonoBehaviour
         pos.y = y * randomHeightRange;
         
         levelTr.anchoredPosition = pos;
+        
+        Debug.Log("Updated Height");
     }
 
     private void UpdateLevelHighscore()
@@ -88,5 +90,20 @@ public class SelectableLevel : MonoBehaviour
     private void LaunchLevel()
     {
         LevelTracker.LaunchLevel(levelId);
+    }
+
+    public (Vector3 leftPos, Vector3 rightPos) GetPositions()
+    {
+        var tr = GetComponent<RectTransform>();
+        var size = levelTr.sizeDelta;
+        var left = tr.localPosition;
+        Debug.Log(left);
+        left.y += levelTr.localPosition.y;
+        left.z = 1;
+        var right = left;
+
+        right.x += size.x;
+
+        return (left, right);
     }
 }

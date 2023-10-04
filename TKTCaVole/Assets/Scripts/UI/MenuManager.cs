@@ -25,7 +25,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Transform menuCam;
     [SerializeField] private Transform menuTr;
     [SerializeField] private Transform levelsTr;
-    [SerializeField] private Transform levelsParent;
     
     [Header("Buttons")]
     [SerializeField] private Button playButton;
@@ -165,6 +164,7 @@ public class MenuManager : MonoBehaviour
         menuTr.DOLocalMoveX(-1920, 0.75f).SetUpdate(true);;
         levelsTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
         
+        uiLevelManager.UpdateLineRenderer();
         uiLevelManager.ScrollToLastLevel();
     }
 
