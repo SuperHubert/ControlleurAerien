@@ -9,7 +9,9 @@ public class ShipController : MonoBehaviour
 {
     
     private Vector2 moveVector = Vector2.zero;
-     
+
+    public bool invertXAxis = false;
+    public bool invertYAxis = false;
     public float speed = 100.0f;
     public int gear = 0;
     public int gearValue = 20;
@@ -48,6 +50,9 @@ public class ShipController : MonoBehaviour
     {
         float currentSpeed = speed + gear*gearValue;
         transform.Translate(0, 0, currentSpeed * Time.deltaTime);
+
+        if (invertXAxis) moveVector.x *= -1;
+        if (invertYAxis) moveVector.y *= -1;
         
         float rotationSpeedVertical = moveVector.y * rotationSpeed * Time.deltaTime;
         float rotationSpeedHorizontal = moveVector.x * rotationSpeed * Time.deltaTime;
