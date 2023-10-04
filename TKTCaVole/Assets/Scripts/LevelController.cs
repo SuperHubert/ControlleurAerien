@@ -41,6 +41,7 @@ public class LevelController : MonoBehaviour
         Gate.OnGatesLeftUpdatedTimer += IncreaseTimer;
         Gate.OnGatesLeftUpdated += TryWinLevel;
         Hourglass.OnHourglassCollected += IncreaseTimer;
+        Plane.OnPlaneDestroyed += LoseLevel;
 
         timer = timerStart;
         
