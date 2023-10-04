@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Plane : MonoBehaviour
 {
@@ -11,12 +12,11 @@ public class Plane : MonoBehaviour
     void Start()
     {
         weapon.SetSpawnPoint(SpawnPoint);
+        GameInputManager.OnShootPerformed += ShootWeapon;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ShootWeapon(InputAction.CallbackContext ctx)
     {
-        if (Input.GetKey(KeyCode.Space))
-            weapon.Shoot();
+        weapon.Shoot();
     }
 }

@@ -15,7 +15,6 @@ public class Rocket : BulletParent
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(target);
         rg.velocity = transform.forward * speed;
     }
 }
