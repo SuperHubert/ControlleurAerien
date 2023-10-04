@@ -8,6 +8,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponData data;
+    [SerializeField] public Transform SpawnPoint;
 
     protected GameObject lastBullet;
 
@@ -45,8 +46,13 @@ public abstract class Weapon : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
 
-        lastBullet.transform.position = transform.position + transform.forward;
+        lastBullet.transform.position = SpawnPoint.position;
         lastBullet.transform.rotation = transform.rotation;
         lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);
+    }
+
+    public void SetSpawnPoint(Transform spawnPoint)
+    {
+        SpawnPoint = spawnPoint;
     }
 }

@@ -5,11 +5,12 @@ using UnityEngine;
 public class Plane : MonoBehaviour
 {
     [SerializeField] public Weapon weapon;
+    [SerializeField] public Transform SpawnPoint;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        weapon.SetSpawnPoint(SpawnPoint);
     }
 
     // Update is called once per frame
