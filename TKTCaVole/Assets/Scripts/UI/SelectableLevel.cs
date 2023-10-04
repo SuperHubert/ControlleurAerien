@@ -41,7 +41,7 @@ public class SelectableLevel : MonoBehaviour
     {
         levelId = id; //0 is level 1
         
-        levelText.text = $"Level {levelId+1}";
+        levelText.text = $"level {levelId+1}";
 
         gameObject.name = $"Selectable Level {levelId+1}";
         
@@ -82,9 +82,7 @@ public class SelectableLevel : MonoBehaviour
     {
         var highscore = LevelTracker.GetLevelHighscore(levelId);
         
-        HighScoreGo.SetActive(highscore >= 0);
-        
-        highScoreText.text = $"{LevelController.ScoreToText(highscore)}";
+        highScoreText.text = highscore >= 0 ? $"record : {LevelController.ScoreToText(highscore)}" : "no record";
     }
 
     private void LaunchLevel()

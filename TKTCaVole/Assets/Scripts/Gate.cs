@@ -9,7 +9,10 @@ public class Gate : MonoBehaviour
     public static event Action<float> OnGatesLeftUpdatedTimer;
     
     [SerializeField] private float increaseTimer = 15f;
-    
+    [SerializeField] private Animator animator;
+    [SerializeField] private Collider collider;
+    private static readonly int DestroyTrigger = Animator.StringToHash("Destroy");
+
     public static void InitGates(int totalGates)
     {
         TotalGates = totalGates;
@@ -27,7 +30,8 @@ public class Gate : MonoBehaviour
     private void TriggerGate()
     {
         //TODO - Better Destroy;
-        Destroy(gameObject);
+        collider.enabled = false;
+        animator.SetTrigger(DestroyTrigger);
         
         GatesLeft--;
         
