@@ -11,6 +11,7 @@ public class GameInputManager : MonoBehaviour
     
     public static event Action<InputAction.CallbackContext> OnCameraPerformed;
     public static event Action<InputAction.CallbackContext> OnCameraCancelled;
+    public static event Action<InputAction.CallbackContext> OnCameraCenter;
     
     public static event Action<InputAction.CallbackContext> OnGearUpPerformed;
     public static event Action<InputAction.CallbackContext> OnGearDownPerformed;
@@ -38,6 +39,7 @@ public class GameInputManager : MonoBehaviour
         OnAimPerformed = null;
         OnShootPerformed= null;
         OnPausePerformed= null;
+        OnCameraCenter = null;
         
         input.Enable();
         input.Player.Movement.performed += InvokeMovement;
@@ -45,6 +47,7 @@ public class GameInputManager : MonoBehaviour
 
         input.Player.Camera.performed += InvokeCamMovement;
         input.Player.Camera.canceled += InvokeCamCancel;
+        input.Player.CenterCam.performed -= InvokeCamCentre;
 
         input.Player.GearUp.performed += InvokeGearUp;
         input.Player.GearDown.performed += InvokeGearDown;
@@ -53,6 +56,8 @@ public class GameInputManager : MonoBehaviour
 
         input.Player.Pause.performed += InvokePause;
     }
+
+    
 
     public static void InvokePause(InputAction.CallbackContext ctx)
     {
@@ -67,6 +72,7 @@ public class GameInputManager : MonoBehaviour
         
         input.Player.Camera.performed -= InvokeCamMovement;
         input.Player.Camera.canceled -= InvokeCamCancel;
+        input.Player.CenterCam.performed -= InvokeCamCentre;
         
         input.Player.GearUp.performed -= InvokeGearUp;
         input.Player.GearDown.performed -= InvokeGearDown;
@@ -74,6 +80,7 @@ public class GameInputManager : MonoBehaviour
         input.Player.Shoot.performed -= InvokeShoot;
 
         input.Player.Pause.performed -= InvokePause;
+        
     }
 
     private void InvokeMovement(InputAction.CallbackContext ctx)
@@ -93,6 +100,10 @@ public class GameInputManager : MonoBehaviour
     private void InvokeCamCancel(InputAction.CallbackContext ctx)
     {
         OnCameraCancelled?.Invoke(ctx);
+    }
+    private void InvokeCamCentre(InputAction.CallbackContext ctx)
+    {
+        OnCameraCenter?.Invoke(ctx);
     }
 
     private void InvokeGearUp(InputAction.CallbackContext ctx)
