@@ -1,16 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Rock : MonoBehaviour, IDamageable
 {
     public int damage {get; private set;} = 9999;
+    
+    [SerializeField] private float explosionPower = 100f;
+    [SerializeField] private int nbDebrisByRegularDamage = 5;
+    [SerializeField] private Rigidbody _rigidbody;
     
     private int health;
     private bool DropsHourglass;
     private int healthratio = 200;
     private List<GameObject> debris = new();
     private float ratioStone = 0.5f;
+
+    private void Start()
+    {
+        _rigidbody.angularVelocity = Random.onUnitSphere;
+    }
 
     public void SetRockData(float size, bool drops, int hp)
     {
@@ -27,6 +38,7 @@ public class Rock : MonoBehaviour, IDamageable
         float reelDamage = Damage / healthratio;
         transform.localScale -= reelDamage * Vector3.one;
 
+        reelDamage *= nbDebrisByRegularDamage;
         //spawn particles here
         if (DebrisPoolManager.instance)
         {
@@ -34,7 +46,10 @@ public class Rock : MonoBehaviour, IDamageable
             {
                 GameObject newDebris = DebrisPoolManager.instance.GetRandomDebris();
                 debris.Add(newDebris);
-                newDebris.transform.position = transform.position + Random.onUnitSphere * (transform.localScale.x + reelDamage + 1.5f * ratioStone);
+                newDebris.transform.position = transform.position + Random.onUnitSphere * (transform.localScale.x + 1.5f * ratioStone);
+                Rigidbody rb = newDebris.GetComponent<Rigidbody>();
+                rb.velocity = (newDebris.transform.position - transform.position).normalized * explosionPower;
+                rb.angularVelocity = Random.onUnitSphere;
             }
 
             if (health <= 0)

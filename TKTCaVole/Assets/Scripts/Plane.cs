@@ -31,6 +31,7 @@ public class Plane : MonoBehaviour, IDamageable
         if (HP <= 0)
         {
             OnPlaneDestroyed?.Invoke();
+            Destroy(gameObject);
         }
     }
     
