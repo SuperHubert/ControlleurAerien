@@ -18,12 +18,26 @@ public class SelectableLevel : MonoBehaviour
     [Header("Data")]
     [SerializeField] private int levelId;
 
+    private Selectable downSelectable;
+
     private void Start()
     {
         button.onClick.AddListener(LaunchLevel);
     }
 
-    public void InitButton(int id)
+    public void Select()
+    {
+        button.Select();
+    }
+
+    public void OnButtonSelected()
+    {
+        var otherNav = downSelectable.navigation;
+        otherNav.selectOnUp = button;
+        downSelectable.navigation = otherNav;
+    }
+
+    public void InitButton(int id,Selectable selectable)
     {
         levelId = id; //0 is level 1
         
@@ -31,9 +45,20 @@ public class SelectableLevel : MonoBehaviour
 
         gameObject.name = $"Selectable Level {levelId+1}";
         
+        UpdateSelectable(selectable);
+        
         UpdateLevelHighscore();
         
         UpdateHeight();
+    }
+
+    private void UpdateSelectable(Selectable selectable)
+    {
+        downSelectable = selectable;
+        
+        var selfNav = button.navigation;
+        selfNav.selectOnDown = downSelectable;
+        button.navigation = selfNav;
     }
 
     private void UpdateHeight()
