@@ -17,10 +17,19 @@ public class SWITCHPLANE : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
             plane.weapon = _weapons[0];
+            plane.weapon.SetSpawnPoint(plane.SpawnPoint);
+        }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
             plane.weapon = _weapons[1];
+            plane.weapon.SetSpawnPoint(plane.SpawnPoint);
+        }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
             plane.weapon = _weapons[2];
+            plane.weapon.SetSpawnPoint(plane.SpawnPoint);
+        }
     }
 }
