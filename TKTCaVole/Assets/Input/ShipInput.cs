@@ -64,7 +64,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Aim"",
+                    ""name"": ""SecondaryWeaponShoot"",
                     ""type"": ""Button"",
                     ""id"": ""b4606e5c-ca60-4992-8269-aab4dc12c752"",
                     ""expectedControlType"": ""Button"",
@@ -73,7 +73,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Shoot"",
+                    ""name"": ""PrimaryWeaponShoot"",
                     ""type"": ""Button"",
                     ""id"": ""544df53b-fa44-4c70-8c5c-78bddb45791e"",
                     ""expectedControlType"": ""Button"",
@@ -328,7 +328,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Aim"",
+                    ""action"": ""SecondaryWeaponShoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -339,7 +339,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Aim"",
+                    ""action"": ""SecondaryWeaponShoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -350,7 +350,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
+                    ""action"": ""PrimaryWeaponShoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -361,7 +361,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
+                    ""action"": ""PrimaryWeaponShoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -420,8 +420,8 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         m_Player_Camera = m_Player.FindAction("Camera", throwIfNotFound: true);
         m_Player_GearUp = m_Player.FindAction("GearUp", throwIfNotFound: true);
         m_Player_GearDown = m_Player.FindAction("GearDown", throwIfNotFound: true);
-        m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
-        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_SecondaryWeaponShoot = m_Player.FindAction("SecondaryWeaponShoot", throwIfNotFound: true);
+        m_Player_PrimaryWeaponShoot = m_Player.FindAction("PrimaryWeaponShoot", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_CenterCam = m_Player.FindAction("CenterCam", throwIfNotFound: true);
     }
@@ -489,8 +489,8 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Camera;
     private readonly InputAction m_Player_GearUp;
     private readonly InputAction m_Player_GearDown;
-    private readonly InputAction m_Player_Aim;
-    private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_SecondaryWeaponShoot;
+    private readonly InputAction m_Player_PrimaryWeaponShoot;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_CenterCam;
     public struct PlayerActions
@@ -501,8 +501,8 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         public InputAction @Camera => m_Wrapper.m_Player_Camera;
         public InputAction @GearUp => m_Wrapper.m_Player_GearUp;
         public InputAction @GearDown => m_Wrapper.m_Player_GearDown;
-        public InputAction @Aim => m_Wrapper.m_Player_Aim;
-        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @SecondaryWeaponShoot => m_Wrapper.m_Player_SecondaryWeaponShoot;
+        public InputAction @PrimaryWeaponShoot => m_Wrapper.m_Player_PrimaryWeaponShoot;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @CenterCam => m_Wrapper.m_Player_CenterCam;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -526,12 +526,12 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
             @GearDown.started += instance.OnGearDown;
             @GearDown.performed += instance.OnGearDown;
             @GearDown.canceled += instance.OnGearDown;
-            @Aim.started += instance.OnAim;
-            @Aim.performed += instance.OnAim;
-            @Aim.canceled += instance.OnAim;
-            @Shoot.started += instance.OnShoot;
-            @Shoot.performed += instance.OnShoot;
-            @Shoot.canceled += instance.OnShoot;
+            @SecondaryWeaponShoot.started += instance.OnSecondaryWeaponShoot;
+            @SecondaryWeaponShoot.performed += instance.OnSecondaryWeaponShoot;
+            @SecondaryWeaponShoot.canceled += instance.OnSecondaryWeaponShoot;
+            @PrimaryWeaponShoot.started += instance.OnPrimaryWeaponShoot;
+            @PrimaryWeaponShoot.performed += instance.OnPrimaryWeaponShoot;
+            @PrimaryWeaponShoot.canceled += instance.OnPrimaryWeaponShoot;
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
@@ -554,12 +554,12 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
             @GearDown.started -= instance.OnGearDown;
             @GearDown.performed -= instance.OnGearDown;
             @GearDown.canceled -= instance.OnGearDown;
-            @Aim.started -= instance.OnAim;
-            @Aim.performed -= instance.OnAim;
-            @Aim.canceled -= instance.OnAim;
-            @Shoot.started -= instance.OnShoot;
-            @Shoot.performed -= instance.OnShoot;
-            @Shoot.canceled -= instance.OnShoot;
+            @SecondaryWeaponShoot.started -= instance.OnSecondaryWeaponShoot;
+            @SecondaryWeaponShoot.performed -= instance.OnSecondaryWeaponShoot;
+            @SecondaryWeaponShoot.canceled -= instance.OnSecondaryWeaponShoot;
+            @PrimaryWeaponShoot.started -= instance.OnPrimaryWeaponShoot;
+            @PrimaryWeaponShoot.performed -= instance.OnPrimaryWeaponShoot;
+            @PrimaryWeaponShoot.canceled -= instance.OnPrimaryWeaponShoot;
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
@@ -589,8 +589,8 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         void OnCamera(InputAction.CallbackContext context);
         void OnGearUp(InputAction.CallbackContext context);
         void OnGearDown(InputAction.CallbackContext context);
-        void OnAim(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
+        void OnSecondaryWeaponShoot(InputAction.CallbackContext context);
+        void OnPrimaryWeaponShoot(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnCenterCam(InputAction.CallbackContext context);
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3057190364830697040}
   - component: {fileID: 1645913721157364149}
   m_Layer: 7
-  m_Name: GameObject
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceShip: {fileID: 5741299630113080098}
+  child: {fileID: 0}
   MouseSensitivity: 70
 --- !u!1 &8884211923415035991
 GameObject:
@@ -272,7 +273,7 @@ GameObject:
   - component: {fileID: 5318614623372047548}
   - component: {fileID: 4051486144677659031}
   m_Layer: 7
-  m_Name: GameObject (1)
+  m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,10 +421,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8191389531906333751}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e02631174486fcd45a554b23122cc475,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6262339805442058125}
   m_SourcePrefab: {fileID: 100100000, guid: e02631174486fcd45a554b23122cc475, type: 3}
 --- !u!1 &4964903256221850008 stripped
 GameObject:
@@ -492,8 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0823c4244fbb3548a888c03de014b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invertXAxis: 1
-  invertYAxis: 0
+  settings: {fileID: 0}
   speed: 100
   gear: 0
   gearValue: 20
@@ -623,25 +619,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fa27dc1061bb44a95c5fe747fcd4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
+  primaryWeapon: {fileID: 1645913721157364149}
+  secondaryWeapon: {fileID: 4051486144677659031}
   SpawnPoint: {fileID: 6961834605486949385}
   HP: 100
---- !u!114 &6262339805442058125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4964903256221850008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061eec23de708864293b957cd9dec37e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weapons:
-  - {fileID: 1645913721157364149}
-  - {fileID: 4051486144677659031}
-  plane: {fileID: 8191389531906333751}
 --- !u!4 &5741299630113080098 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e02631174486fcd45a554b23122cc475,

@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Aim",
+                    "name": "SecondaryWeaponShoot",
                     "type": "Button",
                     "id": "b4606e5c-ca60-4992-8269-aab4dc12c752",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shoot",
+                    "name": "PrimaryWeaponShoot",
                     "type": "Button",
                     "id": "544df53b-fa44-4c70-8c5c-78bddb45791e",
                     "expectedControlType": "Button",
@@ -306,7 +306,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Aim",
+                    "action": "SecondaryWeaponShoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -317,7 +317,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Aim",
+                    "action": "SecondaryWeaponShoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -328,7 +328,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "PrimaryWeaponShoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -339,7 +339,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "PrimaryWeaponShoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

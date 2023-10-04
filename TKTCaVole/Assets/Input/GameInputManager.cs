@@ -16,8 +16,8 @@ public class GameInputManager : MonoBehaviour
     public static event Action<InputAction.CallbackContext> OnGearUpPerformed;
     public static event Action<InputAction.CallbackContext> OnGearDownPerformed;
 
-    public static event Action<InputAction.CallbackContext> OnAimPerformed;
-    public static event Action<InputAction.CallbackContext> OnShootPerformed;
+    public static event Action<InputAction.CallbackContext> OnSecondaryShootPerformed;
+    public static event Action<InputAction.CallbackContext> OnPrimaryShootPerformed;
 
     public static event Action<InputAction.CallbackContext> OnPausePerformed;
     
@@ -36,8 +36,8 @@ public class GameInputManager : MonoBehaviour
         OnCameraCancelled= null;
         OnGearUpPerformed= null;
         OnGearDownPerformed= null;
-        OnAimPerformed = null;
-        OnShootPerformed= null;
+        OnSecondaryShootPerformed = null;
+        OnPrimaryShootPerformed= null;
         OnPausePerformed= null;
         OnCameraCenter = null;
         
@@ -51,8 +51,8 @@ public class GameInputManager : MonoBehaviour
 
         input.Player.GearUp.performed += InvokeGearUp;
         input.Player.GearDown.performed += InvokeGearDown;
-        input.Player.Aim.performed += InvokeAim;
-        input.Player.Shoot.performed += InvokeShoot;
+        input.Player.SecondaryWeaponShoot.performed += InvokeSecondaryShoot;
+        input.Player.PrimaryWeaponShoot.performed += InvokePrimaryShoot;
 
         input.Player.Pause.performed += InvokePause;
     }
@@ -76,8 +76,8 @@ public class GameInputManager : MonoBehaviour
         
         input.Player.GearUp.performed -= InvokeGearUp;
         input.Player.GearDown.performed -= InvokeGearDown;
-        input.Player.Aim.performed -= InvokeAim;
-        input.Player.Shoot.performed -= InvokeShoot;
+        input.Player.SecondaryWeaponShoot.performed -= InvokeSecondaryShoot;
+        input.Player.PrimaryWeaponShoot.performed -= InvokePrimaryShoot;
 
         input.Player.Pause.performed -= InvokePause;
         
@@ -114,13 +114,13 @@ public class GameInputManager : MonoBehaviour
     {
         OnGearDownPerformed?.Invoke(ctx);
     }
-    private void InvokeAim(InputAction.CallbackContext ctx)
+    private void InvokeSecondaryShoot(InputAction.CallbackContext ctx)
     {
-        OnAimPerformed?.Invoke(ctx);
+        OnSecondaryShootPerformed?.Invoke(ctx);
     }
-    private void InvokeShoot(InputAction.CallbackContext ctx)
+    private void InvokePrimaryShoot(InputAction.CallbackContext ctx)
     {
-        OnShootPerformed?.Invoke(ctx);
+        OnPrimaryShootPerformed?.Invoke(ctx);
     }
 
 

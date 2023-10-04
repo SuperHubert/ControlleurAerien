@@ -1003,7 +1003,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fa27dc1061bb44a95c5fe747fcd4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 381190232}
+  primaryWeapon: {fileID: 381190232}
+  secondaryWeapon: {fileID: 159271151}
   SpawnPoint: {fileID: 23243580}
   HP: 100
 --- !u!114 &2025389214
@@ -1013,7 +1014,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025389207}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 061eec23de708864293b957cd9dec37e, type: 3}
   m_Name: 
