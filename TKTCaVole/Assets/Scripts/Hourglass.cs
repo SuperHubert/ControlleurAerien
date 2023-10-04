@@ -18,7 +18,6 @@ public class Hourglass : MonoBehaviour
     {
         Debug.Log("Hourglass triggered");
         OnHourglassCollected?.Invoke(0,0);
-        // add time to timer
         
         if (DebrisPoolManager.instance)
         {

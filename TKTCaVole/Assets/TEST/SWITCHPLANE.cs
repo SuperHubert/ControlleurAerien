@@ -31,5 +31,6 @@ public class SWITCHPLANE : MonoBehaviour
             plane.weapon = _weapons[2];
             plane.weapon.SetSpawnPoint(plane.SpawnPoint);
         }
+        transform.position += Vector3.forward * Time.deltaTime * 10f;
     }
 }

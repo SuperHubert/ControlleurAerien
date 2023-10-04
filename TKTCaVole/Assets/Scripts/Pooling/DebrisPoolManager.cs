@@ -27,7 +27,7 @@ public class DebrisPoolManager : MonoBehaviour
         {
             for (int j = 0; j < poolSizeDebris; j++)
             {
-                GameObject obj = Instantiate(HourglassPrefab, transform);
+                GameObject obj = Instantiate(debrisPrefabs[i], transform);
                 obj.SetActive(false);
                 debrisPool.Add(obj);
             }
@@ -35,7 +35,7 @@ public class DebrisPoolManager : MonoBehaviour
 
         for (int i = 0; i < poolSizeHourglass; i++)
         {
-            GameObject obj = Instantiate(debrisPrefabs[i], transform);
+            GameObject obj = Instantiate(HourglassPrefab, transform);
             obj.SetActive(false);
             debrisPool.Add(obj);
         }

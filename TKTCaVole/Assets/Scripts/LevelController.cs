@@ -40,6 +40,7 @@ public class LevelController : MonoBehaviour
 
         Gate.OnGatesLeftUpdated += IncreaseTimer;
         Gate.OnGatesLeftUpdated += TryWinLevel;
+        Hourglass.OnHourglassCollected += IncreaseTimer;
 
         timer = timerStart;
         
@@ -67,6 +68,7 @@ public class LevelController : MonoBehaviour
         
         Gate.OnGatesLeftUpdated -= IncreaseTimer;
         Gate.OnGatesLeftUpdated -= TryWinLevel;
+        Hourglass.OnHourglassCollected -= IncreaseTimer;
     }
 
     [ContextMenu("Force Win")]
