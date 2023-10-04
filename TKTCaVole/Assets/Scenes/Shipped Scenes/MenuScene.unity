@@ -172,6 +172,8 @@ MonoBehaviour:
   cameraRotateSpeed: {x: 0, y: 0.005, z: 0.005}
   pressKeyGo: {fileID: 1326246269}
   restOfMenu: {fileID: 842986505}
+  titleGraphic: {fileID: 478802635}
+  pressAnyKeyText: {fileID: 1326246271}
   menuCam: {fileID: 312456703}
   menuTr: {fileID: 1369059020}
   levelsTr: {fileID: 1855509614}
@@ -389,6 +391,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &478802635 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8318347799385163581, guid: 8ae56466b8ea82f439e299d5c941f134,
+    type: 3}
+  m_PrefabInstance: {fileID: 1036999253602169856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &530156313 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3131748700841509887, guid: 8ae56466b8ea82f439e299d5c941f134,
@@ -549,6 +563,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1036999253602169856}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1326246271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8841232298609028414, guid: 8ae56466b8ea82f439e299d5c941f134,
+    type: 3}
+  m_PrefabInstance: {fileID: 1036999253602169856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326246269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1369059020 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4057640942461956613, guid: 8ae56466b8ea82f439e299d5c941f134,

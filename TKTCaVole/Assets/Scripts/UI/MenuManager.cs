@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -15,6 +16,10 @@ public class MenuManager : MonoBehaviour
     [Header("GameObjects")]
     [SerializeField] private GameObject pressKeyGo;
     [SerializeField] private GameObject restOfMenu;
+
+    [Header("Components")]
+    [SerializeField] private Graphic titleGraphic;
+    [SerializeField] private TextMeshProUGUI pressAnyKeyText;
     
     [Header("Transforms")]
     [SerializeField] private Transform menuCam;
@@ -36,10 +41,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private SettingsManager settingsManager;
     [SerializeField] private UISettingsSo uiSettings;
 
+    private Sequence glowSequence;
+    
     private static bool gameLaunched;
     
     public static bool skipMenu;
-    public static int lastPlayedLevel;
 
     private void Awake()
     {
@@ -62,9 +68,15 @@ public class MenuManager : MonoBehaviour
     {
         pressKeyGo.SetActive(!gameLaunched);
         restOfMenu.SetActive(gameLaunched);
-        
-        if(!gameLaunched) return;
-        
+
+        if (!gameLaunched)
+        {
+            StartPressAnyKeyGlow();
+            return;
+        }
+
+        glowSequence?.Kill();
+
         playButton.onClick.AddListener(ShowLevels);
         returnToMenuButton.onClick.AddListener(ShowMenu);
         exitButton.onClick.AddListener(Application.Quit);
@@ -77,6 +89,19 @@ public class MenuManager : MonoBehaviour
         }
         
         RevealMenuButtonAnimation();
+    }
+
+    private void StartPressAnyKeyGlow()
+    {
+        glowSequence = DOTween.Sequence();
+
+        glowSequence.AppendInterval(2f);
+        glowSequence.Append(pressAnyKeyText.DOFade(0, 1));
+        glowSequence.AppendInterval(1f);
+        glowSequence.Append(pressAnyKeyText.DOFade(1, 1));
+        glowSequence.SetLoops(-1);
+
+        glowSequence.Play();
     }
     
     private void RevealMenuButtonAnimation()
@@ -98,8 +123,13 @@ public class MenuManager : MonoBehaviour
             size.x = 0;
             couple.tr.sizeDelta = size;
         }
+
+        var clearWhite = Color.white;
+        clearWhite.a = 0;
+        titleGraphic.color = clearWhite;
         
         var sequence = DOTween.Sequence();
+        sequence.Append(titleGraphic.DOFade(1, 1f));
         sequence.Append(buttonTransforms[0].tr.DOSizeDelta(buttonTransforms[0].sizeDelta, buttonRevealDuration));
         sequence.Append(buttonTransforms[1].tr.DOSizeDelta(buttonTransforms[1].sizeDelta, buttonRevealDuration));
         sequence.Append(buttonTransforms[2].tr.DOSizeDelta(buttonTransforms[2].sizeDelta, buttonRevealDuration));
