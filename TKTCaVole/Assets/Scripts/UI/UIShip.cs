@@ -8,7 +8,6 @@ public class UIShip : MonoBehaviour
 {
     [SerializeField] private ShipController controller;
     
-    [SerializeField] private TextMeshProUGUI gearText;
     [SerializeField] private TextMeshProUGUI gateLeftText;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Camera cam;
@@ -16,6 +15,8 @@ public class UIShip : MonoBehaviour
     [SerializeField] private Selectable pauseMenuSelectable;
     [SerializeField] private Selectable endGamePanelWinSelectable;
     [SerializeField] private Selectable endGamePanelLoseSelectable;
+
+    [SerializeField] private Image gearFeedbackImage;
     
     private float animDuration = 1f;
     [Header("Anim FOV")]
@@ -26,7 +27,7 @@ public class UIShip : MonoBehaviour
     private bool isGamePaused = false;
     [Header("Pause")]
     [SerializeField] private GameObject pausePanel;
-    [Header("Pause")]
+    [Header("End Game")]
     [SerializeField] private GameObject endGamePanel;
     [SerializeField] private TextMeshProUGUI wonLossText, highScoreText;
     
@@ -34,6 +35,8 @@ public class UIShip : MonoBehaviour
     {
         pausePanel.SetActive(false);
         endGamePanel.SetActive(false);
+
+        gearFeedbackImage.fillAmount = 1/6f;
 
         controller.OnGearChanged += UpdateGearText;
         GameInputManager.OnPausePerformed += OnPausePerformed;
@@ -73,7 +76,7 @@ public class UIShip : MonoBehaviour
 
     private void OnGateLeftUpdate(int gateLeft, int gateTotal)
     {
-        gateLeftText.text = $"{gateLeft}/{gateTotal}";
+        gateLeftText.text = $"pass gates {gateTotal-gateLeft}/{gateTotal}";
     }
 
     private void OnPausePerformed(InputAction.CallbackContext obj)
@@ -88,7 +91,7 @@ public class UIShip : MonoBehaviour
 
     private void UpdateGearText(int gear)
     {
-        gearText.text = $"{gear}";
+        gearFeedbackImage.DOFillAmount((gear + 1) / 6f, animDuration).SetEase(curve);
         
         cam.DOKill();
         cam.DOFieldOfView(40 + gear * 5, animDuration).SetEase(curve);

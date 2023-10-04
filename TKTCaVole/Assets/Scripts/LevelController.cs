@@ -80,8 +80,6 @@ public class LevelController : MonoBehaviour
         //TODO - Transition, score math
 
         var score = totalTime;
-
-        Debug.Log($"Rounded Score is {score} ({ScoreToText(score)})");
         
         OnLevelEnd?.Invoke(true,score);
         
