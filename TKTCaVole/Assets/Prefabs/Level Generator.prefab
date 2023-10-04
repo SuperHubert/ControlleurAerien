@@ -50,12 +50,13 @@ MonoBehaviour:
   - {fileID: -5653711205410904903, guid: b9b5929417f0fce4297c264264c168e2, type: 3}
   - {fileID: -3125332071843035695, guid: 346be08b490916440980e5901b9837a7, type: 3}
   ringParent: {fileID: 0}
-  iterations: 30
+  iterations: 6
   distanceBetweenVectors: 300
   distanceMultiplier: 3
   rockCountRange: {x: 3, y: 7}
   rockDistanceRange: {x: 20, y: 300}
   rockScale: {x: 1, y: 5}
+  hpRatio: 200
   generationLayer:
     serializedVersion: 2
     m_Bits: 4096
