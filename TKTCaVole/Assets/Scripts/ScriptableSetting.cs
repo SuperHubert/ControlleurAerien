@@ -8,6 +8,7 @@ public class ScriptableSetting : ScriptableObject
     public float cameraSensitivity;
 
     public bool invertCameraY;
+    public bool invertCameraX;
     public bool invertShipY;
     public bool invertShipX;
 }

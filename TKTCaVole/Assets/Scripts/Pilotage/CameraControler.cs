@@ -8,12 +8,16 @@ using UnityEngine.InputSystem;
 public class CameraControler : MonoBehaviour
 {
     [SerializeField] private Transform spaceShip,child;
+    [SerializeField] private ScriptableSetting settings;
     private Vector2 moveVector = Vector2.zero;
+    
+    private bool invertXAxis => settings.invertCameraX;
+    private bool invertYAxis => settings.invertCameraY;
 
     private Vector3 _currentCameraRot = new Vector3(0, 0, -0);
     
-    public float MouseSensitivity;
-
+    private float MouseSensitivity => settings.cameraSensitivity;
+    
     private bool doCenter = false;
     private float animDuration = 0.1f;
     private float timeElapsed = .0f;
@@ -38,6 +42,8 @@ public class CameraControler : MonoBehaviour
     private void OnCamMovementPerformed(InputAction.CallbackContext ctx)
     {
         moveVector = ctx.ReadValue<Vector2>();
+        if (invertXAxis) moveVector.x *= -1;
+        if (invertYAxis) moveVector.y *= -1;
     }
     private void OnCamMovementCancelled(InputAction.CallbackContext ctx)
     {
@@ -47,8 +53,7 @@ public class CameraControler : MonoBehaviour
 
     void Update()
     {
-        Vector3 followPoint = spaceShip.position;
-        transform.position = followPoint;
+        transform.position = spaceShip.position;
         transform.rotation = spaceShip.rotation;
 
         
