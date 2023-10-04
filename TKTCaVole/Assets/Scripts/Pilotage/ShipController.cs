@@ -13,10 +13,13 @@ public class ShipController : MonoBehaviour
 
     private bool invertXAxis => settings.invertShipX;
     private bool invertYAxis => settings.invertShipY;
-    public float speed = 100.0f;
-    public int gear = 0;
-    public int gearValue = 20;
-    public float rotationSpeed = 75.0f;
+    [Header("Movement")]
+    [SerializeField]
+    private Rigidbody rb;
+    [SerializeField]
+    private float speed = 10f, rotationSpeed = 75.0f;
+    [SerializeField]
+    private int gear = 0, gearValue = 2;
 
     public event Action<int> OnGearChanged; 
     
@@ -47,9 +50,18 @@ public class ShipController : MonoBehaviour
         OnGearChanged?.Invoke(gear);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        float currentSpeed = speed + gear*gearValue;
+
+        float currentSpeed = speed + gear * gearValue;
+        if (rb.velocity.magnitude < currentSpeed)
+        {
+            rb.AddForce(transform.forward * currentSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
+        }
+        rb.AddTorque(transform.right * moveVector.y * rotationSpeed * Time.fixedDeltaTime, ForceMode.Acceleration);
+        rb.AddTorque(transform.forward * moveVector.x * rotationSpeed * Time.fixedDeltaTime, ForceMode.Acceleration);
+
+        /*float currentSpeed = speed + gear*gearValue;
         transform.Translate(0, 0, currentSpeed * Time.deltaTime);
 
         
@@ -57,14 +69,14 @@ public class ShipController : MonoBehaviour
         float rotationSpeedVertical = moveVector.y * rotationSpeed * Time.deltaTime;
         float rotationSpeedHorizontal = moveVector.x * rotationSpeed * Time.deltaTime;
         
-        transform.Rotate(rotationSpeedVertical, 0,rotationSpeedHorizontal);
-        /*if (Input.GetKeyDown(KeyCode.E) && gear < 5) gear++; //changer le FOV
-        if (Input.GetKeyDown(KeyCode.A) && gear > 0) gear--;*/
+        transform.Rotate(rotationSpeedVertical, 0,rotationSpeedHorizontal);*/
+
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext ctx)
     {
         moveVector = ctx.ReadValue<Vector2>();
+        moveVector = moveVector.normalized;
         if (invertXAxis) moveVector.x *= -1;
         if (invertYAxis) moveVector.y *= -1;
         
