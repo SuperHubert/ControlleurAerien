@@ -14,7 +14,6 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform ringParent;
 
     [Header("Settings")]
-    [SerializeField] private int iterations;
     [SerializeField] private float distanceBetweenVectors = 500f;
     [SerializeField] private float distanceMultiplier = 3f;
     private float maxDistanceFromCenter => distanceBetweenVectors * distanceMultiplier;
@@ -33,6 +32,8 @@ public class LevelGenerator : MonoBehaviour
     {
         Random.InitState(seed);
 
+        var iterations = seed + 6;
+        
         var worldCenter = Vector3.zero;
         var rot = Quaternion.identity;
         var vector = distanceBetweenVectors*Vector3.forward;
@@ -45,18 +46,21 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int i = 0; i < iterations; i++)
             {
+                var isFirstLevel = seed == 0;
+                var noMaxDistance = seed <= 1;
+                
                 var x = Random.Range(-90f, 90f);
                 var y = Random.Range(-90f, 90f);
-                var z = seed == 0 ? 0 : Random.Range(-90f, 90f);
+                var z = isFirstLevel ? 0 : Random.Range(-90f, 90f);
 
                 rot = Quaternion.AngleAxis(x, Vector3.forward);
-                vector += seed <= 1 ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
+                vector += noMaxDistance ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 rot = Quaternion.AngleAxis(y, Vector3.up);
-                vector += seed <= 1 ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
+                vector += noMaxDistance ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 rot = Quaternion.AngleAxis(z, Vector3.right);
-                vector += seed <= 1 ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
+                vector += noMaxDistance ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 Debug.DrawLine(previousPos, vector, Color.yellow, 100);
 
