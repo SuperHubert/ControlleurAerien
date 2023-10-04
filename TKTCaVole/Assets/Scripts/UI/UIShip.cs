@@ -4,30 +4,63 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIShip : MonoBehaviour
 {
     [SerializeField] private ShipController controller;
     
     [SerializeField] private TextMeshProUGUI gearText;
+    [SerializeField] private TextMeshProUGUI gateLeftText;
+    [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Camera cam;
     
-    [Header("Anim FOV")]
+    
     private float animDuration = 1f;
+    [Header("Anim FOV")]
     [SerializeField]
     private AnimationCurve curve;
     private Coroutine fovRoutine;
     
 
     
-    [Header("Pause")]
+    
     private bool isGamePaused = false;
-
+    [Header("Pause")]
     [SerializeField] private GameObject pausePanel;
+    [Header("Pause")]
+    [SerializeField] private GameObject EndGamePanel;
+    [SerializeField] private TextMeshProUGUI wonLossText, highScoreText;
     private void Start()
     {
+        //gateLeftText.text = $"{Gate.TotalGates}/{Gate.TotalGates}";
+
         controller.OnGearChanged += UpdateGearText;
         GameInputManager.OnPausePerformed += OnPausePerformed;
+        Gate.OnGatesLeftUpdated += OnGateLeftUpdate;
+        LevelController.OnTimerUpdated += OnTimerUpdated;
+        LevelController.OnLevelEnd += OnLevelEnd;
+    }
+
+    private void OnLevelEnd(bool won, float score)
+    {
+        Time.timeScale = 0f;
+        EndGamePanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        wonLossText.text = won ? "You Won !" : "You Lost !";
+        highScoreText.text = $"Your score is {score}\nYour HighScore is {LevelTracker.GetLevelHighscore(LevelTracker.CurrentLevel)}";
+    }
+
+    private void OnTimerUpdated(float timer)
+    {
+        timerText.text = $"{LevelController.ScoreToText(timer)}s";
+    }
+
+    private void OnGateLeftUpdate(int gateLeft, int gateTotal)
+    {
+        gateLeftText.text = $"{gateLeft}/{gateTotal}";
     }
 
     private void OnPausePerformed(InputAction.CallbackContext obj)
@@ -50,19 +83,5 @@ public class UIShip : MonoBehaviour
         */
     }
     
-    private IEnumerator LerpFOV(int gear, float duration)
-    {
-        float timeElapsed = 0f;
-        print(cam);
-        float currFov = cam.fieldOfView;
-        while (timeElapsed < duration)
-        {
-            cam.fieldOfView = Mathf.Lerp(currFov, 40 + gear * 5, curve.Evaluate(timeElapsed / duration));
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-        cam.fieldOfView = 40 + gear * 5;
-
-        yield return null;
-    }
+    
 }
