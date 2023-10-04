@@ -110,7 +110,7 @@ public class LevelTracker : MonoBehaviour
             IncreaseAvailableLevels();
         }
         
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
     }
 
     private static void IncreaseAvailableLevels()
