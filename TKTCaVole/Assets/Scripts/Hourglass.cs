@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Hourglass : MonoBehaviour
 {
-    public static event Action<int,int> OnHourglassCollected; 
+    public static event Action<float> OnHourglassCollected; 
     
     [SerializeField] private float timeAdded = 5f;
 
@@ -17,7 +17,7 @@ public class Hourglass : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Hourglass triggered");
-        OnHourglassCollected?.Invoke(0,0);
+        OnHourglassCollected?.Invoke(timeAdded);
         
         if (DebrisPoolManager.instance)
         {
