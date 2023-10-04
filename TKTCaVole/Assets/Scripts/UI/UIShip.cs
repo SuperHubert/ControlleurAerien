@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIShip : MonoBehaviour
@@ -27,18 +23,18 @@ public class UIShip : MonoBehaviour
     private AnimationCurve curve;
     private Coroutine fovRoutine;
     
-
-    
-    
     private bool isGamePaused = false;
     [Header("Pause")]
     [SerializeField] private GameObject pausePanel;
     [Header("Pause")]
     [SerializeField] private GameObject endGamePanel;
     [SerializeField] private TextMeshProUGUI wonLossText, highScoreText;
+    
     private void Start()
     {
         //gateLeftText.text = $"{Gate.TotalGates}/{Gate.TotalGates}";
+        
+        Debug.Log($"Cam set to {cam}");
         
         pausePanel.SetActive(false);
 
@@ -95,6 +91,8 @@ public class UIShip : MonoBehaviour
     {
         gearText.text = $"{gear}";
 
+        Debug.Log($"cam : {cam}");
+        
         cam.DOKill();
         cam.DOFieldOfView(40 + gear * 5, animDuration).SetEase(curve);
         
