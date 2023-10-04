@@ -33,6 +33,7 @@ public class UIShip : MonoBehaviour
     private void Start()
     {
         pausePanel.SetActive(false);
+        endGamePanel.SetActive(false);
 
         controller.OnGearChanged += UpdateGearText;
         GameInputManager.OnPausePerformed += OnPausePerformed;
@@ -56,11 +57,11 @@ public class UIShip : MonoBehaviour
         selectable.Select();
         
         Cursor.lockState = CursorLockMode.None;
-        wonLossText.text = won ? "You Won !" : "You Lost !";
+        wonLossText.text = won ? "you won !" : "you lost !";
 
-        var scoreText = score > 0 ? $"Your score is {score}\n" : "";
+        var scoreText = score > 0 ? $"time : {LevelController.ScoreToText(score)}\n" : "";
         var highscore = LevelTracker.GetLevelHighscore(LevelTracker.CurrentLevel);
-        var highscoreText = highscore > 0 ? $"Your HighScore is {highscore}" : "";
+        var highscoreText = highscore > 0 ? $"record : {LevelController.ScoreToText(highscore)}" : "";
         
         highScoreText.text = $"{scoreText}{highscoreText}";
     }
