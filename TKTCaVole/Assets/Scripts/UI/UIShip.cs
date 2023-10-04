@@ -31,7 +31,7 @@ public class UIShip : MonoBehaviour
     [Header("Pause")]
     [SerializeField] private GameObject pausePanel;
     [Header("Pause")]
-    [SerializeField] private GameObject EndGamePanel;
+    [SerializeField] private GameObject endGamePanel;
     [SerializeField] private TextMeshProUGUI wonLossText, highScoreText;
     private void Start()
     {
@@ -46,8 +46,14 @@ public class UIShip : MonoBehaviour
 
     private void OnLevelEnd(bool won, float score)
     {
+        controller.OnGearChanged -= UpdateGearText;
+        GameInputManager.OnPausePerformed -= OnPausePerformed;
+        Gate.OnGatesLeftUpdated -= OnGateLeftUpdate;
+        LevelController.OnTimerUpdated -= OnTimerUpdated;
+        LevelController.OnLevelEnd -= OnLevelEnd;
+        
         Time.timeScale = 0f;
-        EndGamePanel.SetActive(true);
+        endGamePanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         wonLossText.text = won ? "You Won !" : "You Lost !";
         highScoreText.text = $"Your score is {score}\nYour HighScore is {LevelTracker.GetLevelHighscore(LevelTracker.CurrentLevel)}";
