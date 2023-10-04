@@ -47,18 +47,15 @@ MonoBehaviour:
   ringPrefab: {fileID: 5292608408337530862, guid: acb5a0fbfa46def4e8ee608e25da0bb0,
     type: 3}
   rockPrefabs:
-  - {fileID: 4202891471570264506, guid: b9b5929417f0fce4297c264264c168e2, type: 3}
-  - {fileID: 9203256192350076641, guid: 346be08b490916440980e5901b9837a7, type: 3}
-  shipPrefab: {fileID: 0}
+  - {fileID: -5653711205410904903, guid: b9b5929417f0fce4297c264264c168e2, type: 3}
+  - {fileID: -3125332071843035695, guid: 346be08b490916440980e5901b9837a7, type: 3}
   ringParent: {fileID: 0}
-  startSeed: 0
   iterations: 30
   distanceBetweenVectors: 300
   distanceMultiplier: 3
   rockCountRange: {x: 3, y: 7}
   rockDistanceRange: {x: 20, y: 300}
   rockScale: {x: 1, y: 5}
-  minAngle: 0
   generationLayer:
     serializedVersion: 2
     m_Bits: 4096

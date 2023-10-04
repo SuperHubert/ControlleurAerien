@@ -17,6 +17,8 @@ public class GameInputManager : MonoBehaviour
 
     public static event Action<InputAction.CallbackContext> OnAimPerformed;
     public static event Action<InputAction.CallbackContext> OnShootPerformed;
+
+    public static event Action<InputAction.CallbackContext> OnPausePerformed;
     
     
     
@@ -27,6 +29,16 @@ public class GameInputManager : MonoBehaviour
 
     void OnEnable()
     {
+        OnMovementPerformed = null;
+        OnMovementCancelled = null;
+        OnCameraPerformed = null;
+        OnCameraCancelled= null;
+        OnGearUpPerformed= null;
+        OnGearDownPerformed= null;
+        OnAimPerformed = null;
+        OnShootPerformed= null;
+        OnPausePerformed= null;
+        
         input.Enable();
         input.Player.Movement.performed += InvokeMovement;
         input.Player.Movement.canceled += InvokeCancel;
@@ -38,6 +50,13 @@ public class GameInputManager : MonoBehaviour
         input.Player.GearDown.performed += InvokeGearDown;
         input.Player.Aim.performed += InvokeAim;
         input.Player.Shoot.performed += InvokeShoot;
+
+        input.Player.Pause.performed += InvokePause;
+    }
+
+    public static void InvokePause(InputAction.CallbackContext ctx)
+    {
+        OnPausePerformed?.Invoke(ctx);
     }
 
     private void OnDisable()
@@ -48,6 +67,13 @@ public class GameInputManager : MonoBehaviour
         
         input.Player.Camera.performed -= InvokeCamMovement;
         input.Player.Camera.canceled -= InvokeCamCancel;
+        
+        input.Player.GearUp.performed -= InvokeGearUp;
+        input.Player.GearDown.performed -= InvokeGearDown;
+        input.Player.Aim.performed -= InvokeAim;
+        input.Player.Shoot.performed -= InvokeShoot;
+
+        input.Player.Pause.performed -= InvokePause;
     }
 
     private void InvokeMovement(InputAction.CallbackContext ctx)

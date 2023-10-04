@@ -64,7 +64,7 @@ public class MenuManager : MonoBehaviour
     {
         if(gameLaunched) return;
 
-        if (Keyboard.current.anyKey.wasPressedThisFrame)
+        if (Keyboard.current.anyKey.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame || Mouse.current.rightButton.wasPressedThisFrame)
         {
             gameLaunched = true;
         

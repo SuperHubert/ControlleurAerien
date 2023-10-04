@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,10 @@ public class LevelController : MonoBehaviour
     [SerializeField] private float timer;
     [SerializeField] private float totalTime;
 
+    public static event Action<bool,float> OnLevelEnd;
+    public static event Action<float> OnTimerUpdated;
+    public static event Action<float> OnTotalTimerUpdated;
+
     
     private void Start()
     {
@@ -33,7 +38,7 @@ public class LevelController : MonoBehaviour
     {
         //TODO - setup stuff here
 
-        Gate.OnGatesLeftUpdated += ResetTimer;
+        Gate.OnGatesLeftUpdated += IncreaseTimer;
         Gate.OnGatesLeftUpdated += TryWinLevel;
 
         timer = timerStart;
@@ -41,9 +46,12 @@ public class LevelController : MonoBehaviour
         running = true;
     }
 
-    private void ResetTimer(int _,int __)
+    private void IncreaseTimer(int _,int __)
     {
         timer += timerIncrease;
+        
+        //TODO mettre un genre +00:15 au dessus de l'ui du timer
+        OnTimerUpdated?.Invoke(timer);
     }
 
     private void TryWinLevel(int gatesLeft,int _)
@@ -57,7 +65,7 @@ public class LevelController : MonoBehaviour
     {
         running = false;
         
-        Gate.OnGatesLeftUpdated -= ResetTimer;
+        Gate.OnGatesLeftUpdated -= IncreaseTimer;
         Gate.OnGatesLeftUpdated -= TryWinLevel;
     }
 
@@ -72,6 +80,8 @@ public class LevelController : MonoBehaviour
 
         Debug.Log($"Rounded Score is {score} ({ScoreToText(score)})");
         
+        OnLevelEnd?.Invoke(true,score);
+        
         LevelTracker.CompleteLevel(score);
     }
 
@@ -82,7 +92,7 @@ public class LevelController : MonoBehaviour
         
         // TODO - Display lost UI, (send event)
         
-        Debug.Log("Lost");
+        OnLevelEnd?.Invoke(false,-1);
     }
 
     private void Update()
@@ -91,6 +101,9 @@ public class LevelController : MonoBehaviour
 
         timer -= decayRate * Time.deltaTime;
         totalTime += decayRate * Time.deltaTime;
+        
+        OnTimerUpdated?.Invoke(timer);
+        OnTotalTimerUpdated?.Invoke(totalTime);
         
         if(timer > 0) return;
         

@@ -14,8 +14,6 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform ringParent;
 
     [Header("Settings")]
-    [SerializeField] private int startSeed;
-    private int realSeed;
     [SerializeField] private int iterations;
     [SerializeField] private float distanceBetweenVectors = 500f;
     [SerializeField] private float distanceMultiplier = 3f;
@@ -27,14 +25,12 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Vector2 rockScale;
     
     private Vector3 VectorForward => distanceBetweenVectors * Vector3.forward;
-    [SerializeField] private float minAngle;
     [SerializeField] private LayerMask generationLayer;
     
     
     public void GenerateLevel(int seed,Action callback)
     {
-        realSeed = seed != 0 ? seed : Random.Range(99999,999999);
-        Random.InitState(realSeed);
+        Random.InitState(seed);
 
         var worldCenter = Vector3.zero;
         var rot = Quaternion.identity;
@@ -90,7 +86,7 @@ public class LevelGenerator : MonoBehaviour
                     i--;
                 }
                 
-                Gate.InitGates(iterations-1);
+                Gate.InitGates(iterations);
                 
                 yield return null;
                 

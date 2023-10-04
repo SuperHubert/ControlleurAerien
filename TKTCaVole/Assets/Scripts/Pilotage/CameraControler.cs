@@ -10,7 +10,7 @@ public class CameraControler : MonoBehaviour
     private Vector2 moveVector = Vector2.zero;
 
     private Vector3 _currentCameraRot = new Vector3(0, 0, -0);
-    [Range(0.1f,1f)]
+    
     public float MouseSensitivity;
     private void Start()
     {
@@ -34,9 +34,9 @@ public class CameraControler : MonoBehaviour
     {
         transform.rotation = spaceShip.rotation;
         
-        _currentCameraRot.y += moveVector.x * MouseSensitivity;
+        _currentCameraRot.y += moveVector.x * MouseSensitivity*Time.deltaTime;
         // _currentCameraRot.y %= 360;
-        _currentCameraRot.x += moveVector.y * MouseSensitivity;
+        _currentCameraRot.x += moveVector.y * MouseSensitivity*Time.deltaTime;
         //_currentCameraRot.x %= 360;
         
         transform.Rotate(_currentCameraRot);

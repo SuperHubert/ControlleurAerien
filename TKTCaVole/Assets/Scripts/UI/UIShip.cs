@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UIShip : MonoBehaviour
 {
@@ -15,12 +16,25 @@ public class UIShip : MonoBehaviour
     private float animDuration = 1f;
     [SerializeField]
     private AnimationCurve curve;
-
     private Coroutine fovRoutine;
     
+
+    
+    [Header("Pause")]
+    private bool isGamePaused = false;
+
+    [SerializeField] private GameObject pausePanel;
     private void Start()
     {
         controller.OnGearChanged += UpdateGearText;
+        GameInputManager.OnPausePerformed += OnPausePerformed;
+    }
+
+    private void OnPausePerformed(InputAction.CallbackContext obj)
+    {
+        isGamePaused = !isGamePaused; 
+        pausePanel.SetActive(isGamePaused);
+        Time.timeScale = isGamePaused?0:1;
     }
 
     private void UpdateGearText(int gear)

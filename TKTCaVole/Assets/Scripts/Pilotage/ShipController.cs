@@ -24,6 +24,7 @@ public class ShipController : MonoBehaviour
         GameInputManager.OnGearUpPerformed += OnGearUpPerformed;
         GameInputManager.OnGearDownPerformed += OnGearDownPerformed;
     }
+    
 
     private void OnGearUpPerformed(InputAction.CallbackContext obj)
     {
