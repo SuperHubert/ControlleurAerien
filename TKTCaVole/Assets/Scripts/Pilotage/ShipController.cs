@@ -51,8 +51,7 @@ public class ShipController : MonoBehaviour
         float currentSpeed = speed + gear*gearValue;
         transform.Translate(0, 0, currentSpeed * Time.deltaTime);
 
-        if (invertXAxis) moveVector.x *= -1;
-        if (invertYAxis) moveVector.y *= -1;
+        
         
         float rotationSpeedVertical = moveVector.y * rotationSpeed * Time.deltaTime;
         float rotationSpeedHorizontal = moveVector.x * rotationSpeed * Time.deltaTime;
@@ -65,6 +64,8 @@ public class ShipController : MonoBehaviour
     private void OnMovementPerformed(InputAction.CallbackContext ctx)
     {
         moveVector = ctx.ReadValue<Vector2>();
+        if (invertXAxis) moveVector.x *= -1;
+        if (invertYAxis) moveVector.y *= -1;
         
         
     }
