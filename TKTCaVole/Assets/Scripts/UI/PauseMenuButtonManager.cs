@@ -5,16 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuButtonManager : MonoBehaviour
 {
-    [SerializeField] private Button resumeButton, mainMenuButton;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button mainMenuButton;
+    [SerializeField] private Button restartButton;
     [SerializeField] private Button settingsButton;
 
     [SerializeField] private SettingsManager settingsManager;
     
-    void Start()
+    private void Start()
     {
         resumeButton.onClick.AddListener(ResumeButtonAction);
         mainMenuButton.onClick.AddListener(MainMenuButtonAction);
         settingsButton.onClick.AddListener(OpenSettings);
+        restartButton.onClick.AddListener(RestartButtonAction);
     }
 
     private void MainMenuButtonAction()
@@ -27,12 +30,18 @@ public class PauseMenuButtonManager : MonoBehaviour
     { 
         GameInputManager.InvokePause(new InputAction.CallbackContext());
     }
+    
+    private void RestartButtonAction()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     private void OpenSettings()
     {
         gameObject.SetActive(false);
         
-        settingsManager.Open(resumeButton,ReopenPauseMenu);
+        settingsManager.Open(settingsButton,ReopenPauseMenu);
 
         void ReopenPauseMenu()
         {

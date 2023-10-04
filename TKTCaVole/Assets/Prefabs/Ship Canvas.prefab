@@ -1032,6 +1032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resumeButton: {fileID: 2489373050418706721}
   mainMenuButton: {fileID: 2592902613561896185}
+  restartButton: {fileID: 6916736084225301098}
   settingsButton: {fileID: 2716734606407061131}
   settingsManager: {fileID: 0}
 --- !u!1 &8163010216329725076
