@@ -15,15 +15,8 @@ public class ShipController : MonoBehaviour
     public int gearValue = 20;
     public float rotationSpeed = 75.0f;
 
-
-    public TextMeshProUGUI gearText;
-
-    [Header("Anim FOV")]
-    private float animDuration = 1f;
-    [SerializeField]
-    private AnimationCurve curve;
-
-
+    public event Action<int> OnGearChanged; 
+    
     private void Start()
     {
         GameInputManager.OnMovementPerformed += OnMovementPerformed;
@@ -34,44 +27,22 @@ public class ShipController : MonoBehaviour
 
     private void OnGearUpPerformed(InputAction.CallbackContext obj)
     {
-        if (gear < 5)
-        {
-            gear++; //changer le FOV
-            StopAllCoroutines();
-            StartCoroutine(LerpFOV(gear, animDuration));
-        }
-        gearText.text = gear.ToString();
+        if (gear >= 5) return;
+        
+        gear++; //changer le FOV
+            
+        OnGearChanged?.Invoke(gear);
     }
 
     private void OnGearDownPerformed(InputAction.CallbackContext obj)
     {
-        if (gear > 0)
-        {
-            gear--;
-            StopAllCoroutines();
-            StartCoroutine(LerpFOV(gear, animDuration)); //changer le FOV
-        }
-        gearText.text = gear.ToString();
+        if (gear <= 0) return;
+        
+        gear--;
+            
+        OnGearChanged?.Invoke(gear);
     }
 
-    private IEnumerator LerpFOV(int gear, float duration)
-    {
-        float timeElapsed = 0f;
-        Camera cam = Camera.main;
-        print(cam);
-        float currFov = cam.fieldOfView;
-        while (timeElapsed < duration)
-        {
-            cam.fieldOfView = Mathf.Lerp(currFov, 40 + gear * 5, curve.Evaluate(timeElapsed / duration));
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-        cam.fieldOfView = 40 + gear * 5;
-
-        yield return null;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         float currentSpeed = speed + gear*gearValue;
