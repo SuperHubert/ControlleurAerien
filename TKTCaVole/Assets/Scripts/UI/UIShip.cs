@@ -32,10 +32,6 @@ public class UIShip : MonoBehaviour
     
     private void Start()
     {
-        //gateLeftText.text = $"{Gate.TotalGates}/{Gate.TotalGates}";
-        
-        Debug.Log($"Cam set to {cam}");
-        
         pausePanel.SetActive(false);
 
         controller.OnGearChanged += UpdateGearText;
@@ -63,8 +59,10 @@ public class UIShip : MonoBehaviour
         wonLossText.text = won ? "You Won !" : "You Lost !";
 
         var scoreText = score > 0 ? $"Your score is {score}\n" : "";
+        var highscore = LevelTracker.GetLevelHighscore(LevelTracker.CurrentLevel);
+        var highscoreText = highscore > 0 ? $"Your HighScore is {highscore}" : "";
         
-        highScoreText.text = $"{scoreText}Your HighScore is {LevelTracker.GetLevelHighscore(LevelTracker.CurrentLevel)}";
+        highScoreText.text = $"{scoreText}{highscoreText}";
     }
 
     private void OnTimerUpdated(float timer)
@@ -90,8 +88,6 @@ public class UIShip : MonoBehaviour
     private void UpdateGearText(int gear)
     {
         gearText.text = $"{gear}";
-
-        Debug.Log($"cam : {cam}");
         
         cam.DOKill();
         cam.DOFieldOfView(40 + gear * 5, animDuration).SetEase(curve);

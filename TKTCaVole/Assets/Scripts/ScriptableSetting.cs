@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Settings")]
 public class ScriptableSetting : ScriptableObject
 {
-    public float cameraSensitivity;
+    public float cameraSensitivity = 70f;
 
     public bool invertCameraY;
     public bool invertCameraX;
