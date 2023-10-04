@@ -23,6 +23,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Vector2Int rockCountRange;
     [SerializeField] private Vector2 rockDistanceRange;
     [SerializeField] private Vector2 rockScale;
+    [SerializeField] private int hpRatio = 200;
     
     private Vector3 VectorForward => distanceBetweenVectors * Vector3.forward;
     [SerializeField] private LayerMask generationLayer;
@@ -46,16 +47,16 @@ public class LevelGenerator : MonoBehaviour
             {
                 var x = Random.Range(-90f, 90f);
                 var y = Random.Range(-90f, 90f);
-                var z = Random.Range(-90f, 90f);
+                var z = seed == 0 ? 0 : Random.Range(-90f, 90f);
 
                 rot = Quaternion.AngleAxis(x, Vector3.forward);
-                vector += (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
+                vector += seed <= 1 ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 rot = Quaternion.AngleAxis(y, Vector3.up);
-                vector += (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
+                vector += seed <= 1 ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 rot = Quaternion.AngleAxis(z, Vector3.right);
-                vector += (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
+                vector += seed <= 1 ? rot * VectorForward : (Vector3.Distance(worldCenter, vector + (rot * VectorForward)) > maxDistanceFromCenter) ? rot * -VectorForward : rot * VectorForward;
                 
                 Debug.DrawLine(previousPos, vector, Color.yellow, 100);
 
@@ -90,8 +91,6 @@ public class LevelGenerator : MonoBehaviour
                 
                 yield return null;
                 
-                callback.Invoke();
-
                 bool PlaceRock(Vector3 origin)
                 {
                     var rockPos = Random.onUnitSphere * Random.Range(rockDistanceRange.x, rockDistanceRange.y) + origin;
@@ -101,13 +100,15 @@ public class LevelGenerator : MonoBehaviour
                     var rock = Instantiate(rockPrefabs[Random.Range(0, rockPrefabs.Count)], rockPos, Random.rotation,
                         ringParent);
                     
-                    rock.SetRockData(Random.Range(rockScale.x, rockScale.y),true,1000);
+                    rock.SetRockData(Random.Range(rockScale.x, rockScale.y),true,hpRatio);
                     
                     rock.name = "Rock";
                     
                     return true;
                 }
             }
+            
+            callback.Invoke();
         }
     }
 }

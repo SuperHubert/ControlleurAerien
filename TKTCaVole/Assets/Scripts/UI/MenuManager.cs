@@ -73,7 +73,7 @@ public class MenuManager : MonoBehaviour
         
         if(Gamepad.current == null) return;
 
-        if (Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic))
+        if (Gamepad.current.allControls.Any(x => x is ButtonControl && x.IsPressed() && !x.synthetic))
         {
             gameLaunched = true;
         
@@ -83,15 +83,17 @@ public class MenuManager : MonoBehaviour
     
     private void ShowLevels()
     {
-        menuTr.DOLocalMoveX(-1920, 0.75f);
-        levelsTr.DOLocalMoveX(0, 0.75f);
+        menuTr.DOLocalMoveX(-1920, 0.75f).SetUpdate(true);;
+        levelsTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
         
         uiLevelManager.ScrollToLastLevel();
     }
 
     private void ShowMenu()
     {
-        menuTr.DOLocalMoveX(0, 0.75f);
-        levelsTr.DOLocalMoveX(1920, 0.75f);
+        menuTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
+        levelsTr.DOLocalMoveX(1920, 0.75f).SetUpdate(true);
+        
+        playButton.Select();
     }
 }

@@ -11,7 +11,8 @@ public class Gate : MonoBehaviour
     {
         TotalGates = totalGates;
         GatesLeft = TotalGates;
-        OnGatesLeftUpdated = null;
+        
+        OnGatesLeftUpdated?.Invoke(GatesLeft,TotalGates);
     }
 
     private void OnTriggerEnter(Collider other)
