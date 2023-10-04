@@ -31,13 +31,7 @@ public class Plane : MonoBehaviour, IDamageable
         if (HP <= 0)
         {
             OnPlaneDestroyed?.Invoke();
-            Debug.Log("Plane destroyed ! ... Loser");
         }
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("Plane collided with " + other.gameObject.name);
     }
     
     private void OnTriggerEnter(Collider other)

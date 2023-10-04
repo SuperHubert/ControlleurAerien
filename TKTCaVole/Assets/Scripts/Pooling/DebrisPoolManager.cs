@@ -37,7 +37,7 @@ public class DebrisPoolManager : MonoBehaviour
         {
             GameObject obj = Instantiate(HourglassPrefab, transform);
             obj.SetActive(false);
-            debrisPool.Add(obj);
+            hourglassPool.Add(obj);
         }
     }
 

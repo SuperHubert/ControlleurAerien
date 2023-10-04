@@ -10,6 +10,7 @@ public class Rock : MonoBehaviour, IDamageable
     private bool DropsHourglass;
     private int healthratio = 200;
     private List<GameObject> debris = new();
+    private float ratioStone = 0.5f;
 
     public void SetRockData(float size, bool drops, int hp)
     {
@@ -17,6 +18,7 @@ public class Rock : MonoBehaviour, IDamageable
         DropsHourglass = drops;
         healthratio = hp;
         health = (int)size * healthratio;
+        ratioStone = transform.GetChild(0).localScale.x;
     }
 
     public void TakeDamage(int Damage)
@@ -32,7 +34,7 @@ public class Rock : MonoBehaviour, IDamageable
             {
                 GameObject newDebris = DebrisPoolManager.instance.GetRandomDebris();
                 debris.Add(newDebris);
-                newDebris.transform.position = transform.position + Random.insideUnitSphere * 5f;
+                newDebris.transform.position = transform.position + Random.onUnitSphere * (transform.localScale.x + reelDamage + 1.5f * ratioStone);
             }
 
             if (health <= 0)
