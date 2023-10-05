@@ -9,7 +9,9 @@ public class LevelController : MonoBehaviour
     [SerializeField] private LevelGenerator generator;
 
     [Header("Settings")]
-    [SerializeField] private float timerStart = 15f;
+    [SerializeField] private float timerStart = 30f;
+    [SerializeField] private float timerDecreasePerLevel = 2.5f;
+    [SerializeField] private float minTime = 15f;
     [SerializeField] private float decayRate = 1f;
     [SerializeField] private float timerIncrease = 15f;
 
@@ -28,8 +30,6 @@ public class LevelController : MonoBehaviour
         running = false;
 
         var level = LevelTracker.CurrentLevel;
-            
-        Debug.Log($"Launching level {level}");
         
         generator.GenerateLevel(level,OnLevelGenerated);
     }
@@ -43,7 +43,10 @@ public class LevelController : MonoBehaviour
         Hourglass.OnHourglassCollected += IncreaseTimer;
         Plane.OnPlaneDestroyed += LoseLevel;
 
-        timer = timerStart;
+        var level = LevelTracker.CurrentLevel;
+        
+        timer = timerStart - level * timerDecreasePerLevel;
+        if (timer < minTime) timer = minTime;
         
         running = true;
     }
@@ -118,8 +121,8 @@ public class LevelController : MonoBehaviour
         var deci = score % 1;
 
         seconds -= deci;
-        deci *= 1000;
+        deci *= 100;
 
-        return $"{minutes:00}:{seconds:00}:{deci:000}";
+        return $"{minutes:00}:{seconds:00}:{deci:00}";
     }
 }
