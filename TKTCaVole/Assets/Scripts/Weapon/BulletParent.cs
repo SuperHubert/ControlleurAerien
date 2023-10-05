@@ -41,7 +41,6 @@ public class BulletParent : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IDamageable target = other.GetComponent<IDamageable>();
-        Debug.Log("Triggered");
         target?.TakeDamage(damage);
         switch (this)
         {
