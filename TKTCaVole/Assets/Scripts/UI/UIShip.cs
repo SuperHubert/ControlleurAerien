@@ -48,6 +48,7 @@ public class UIShip : MonoBehaviour
     private bool isGamePaused = false;
     [Header("Pause")]
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private float pausePanelTransitionDuration = 0.25f;
     [Header("End Game")]
     [SerializeField] private GameObject endGamePanel;
     [SerializeField] private TextMeshProUGUI wonLossText, highScoreText;
@@ -99,7 +100,7 @@ public class UIShip : MonoBehaviour
     {
         RemoveCallbacks();
         
-        endGamePanel.SetActive(true);
+        ShowEndGamePanel(true);
 
         var selectable = won ? endGamePanelWinSelectable : endGamePanelLoseSelectable;
         selectable.Select();
@@ -112,6 +113,16 @@ public class UIShip : MonoBehaviour
         var highscoreText = highscore > 0 ? $"record : {LevelController.ScoreToText(highscore)}" : "";
         
         highScoreText.text = $"{scoreText}{highscoreText}";
+    }
+    
+    private void ShowEndGamePanel(bool value)
+    {
+        if(value) endGamePanel.SetActive(true);
+
+        var tr = endGamePanel.transform;
+
+        tr.localScale = new Vector3(1, value ? 0 : 1, 1);
+        tr.DOScaleY(value ? 1 : 0, pausePanelTransitionDuration).OnComplete(()=>endGamePanel.SetActive(value)).SetUpdate(true);
     }
 
     private void InitUIExtraTime()
@@ -206,7 +217,9 @@ public class UIShip : MonoBehaviour
     private void OnPausePerformed(InputAction.CallbackContext obj)
     {
         isGamePaused = !isGamePaused; 
-        pausePanel.SetActive(isGamePaused);
+        
+        ShowPauseMenu(isGamePaused);
+        
 
         if (isGamePaused) pauseMenuSelectable.Select();
         
@@ -214,6 +227,16 @@ public class UIShip : MonoBehaviour
         Cursor.visible = isGamePaused;
         //Debug.Log(isGamePaused ? "UnPause : Unlocked Cursor":"Pause :Locked Cursor");
         Time.timeScale = isGamePaused?0:1;
+    }
+
+    private void ShowPauseMenu(bool value)
+    {
+        if(value) pausePanel.SetActive(true);
+
+        var tr = pausePanel.transform;
+
+        tr.localScale = new Vector3(1, value ? 0 : 1, 1);
+        tr.DOScaleY(value ? 1 : 0, pausePanelTransitionDuration).OnComplete(()=>pausePanel.SetActive(value)).SetUpdate(true);
     }
 
     private void UpdateGearText(int gear)

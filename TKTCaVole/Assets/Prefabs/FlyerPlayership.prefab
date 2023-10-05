@@ -5479,15 +5479,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e02631174486fcd45a554b23122cc475,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1237091701416757165}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e02631174486fcd45a554b23122cc475,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3877429164698070982}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e02631174486fcd45a554b23122cc475,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8191389531906333751}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e02631174486fcd45a554b23122cc475,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4179958425593661033}
   m_SourcePrefab: {fileID: 100100000, guid: e02631174486fcd45a554b23122cc475, type: 3}
 --- !u!1 &4964903256221850008 stripped
 GameObject:
@@ -5522,28 +5522,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &1237091701416757165
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4964903256221850008}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7050600192769789254, guid: 24a7fcb0817dc2d409ff39517b0a4f2e, type: 3}
 --- !u!114 &3877429164698070982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5557,7 +5535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: e70ce3c3bf1a72443a54f42cb9d897ef, type: 2}
-  col: {fileID: 1237091701416757165}
+  col: {fileID: 4179958425593661033}
   rb: {fileID: 3889492365918495131}
   speed: 100
   rotationSpeed: 125
@@ -5585,6 +5563,29 @@ MonoBehaviour:
   - {fileID: 6961834605486949385}
   audioGameOver: GameOver
   HP: 100
+--- !u!136 &4179958425593661033
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4964903256221850008}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.8
+  m_Height: 34.53
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 5.3}
 --- !u!4 &5741299630113080098 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e02631174486fcd45a554b23122cc475,

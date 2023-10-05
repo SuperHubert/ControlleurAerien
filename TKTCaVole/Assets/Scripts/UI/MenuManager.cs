@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -13,6 +14,14 @@ public class MenuManager : MonoBehaviour
 {
     [FormerlySerializedAs("rotateSpeed")] [SerializeField] private Vector3 cameraRotateSpeed;
 
+    [Header("Camera Angles")]
+    
+    [SerializeField] private Vector3 levelCamRot;
+    [SerializeField] private Vector3 creditsCamRot;
+    private Vector3 camPosCache;
+    private Quaternion camRotCache;
+    private bool rotateCam;
+    
     [Header("GameObjects")]
     [SerializeField] private GameObject pressKeyGo;
     [SerializeField] private GameObject restOfMenu;
@@ -25,6 +34,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Transform menuCam;
     [SerializeField] private Transform menuTr;
     [SerializeField] private Transform levelsTr;
+    [SerializeField] private Transform creditsTr;
     
     [Header("Buttons")]
     [SerializeField] private Button playButton;
@@ -34,7 +44,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button returnToMenuButton;
     private List<(RectTransform tr,Vector2 sizeDelta)> buttonTransforms = new ();
     [SerializeField] private float buttonRevealDuration = 0.25f;
-
+    [SerializeField] private Button returnCreditButton;
+    
     [Header("Other")]
     [SerializeField] private UILevelManager uiLevelManager;
     [SerializeField] private SettingsManager settingsManager;
@@ -58,7 +69,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        menuCam.Rotate(cameraRotateSpeed);
+        menuCam.Rotate(cameraRotateSpeed * (rotateCam ? 1 : -1));
 
         TryLaunchGame();
     }
@@ -78,8 +89,12 @@ public class MenuManager : MonoBehaviour
 
         playButton.onClick.AddListener(ShowLevels);
         returnToMenuButton.onClick.AddListener(ShowMenu);
+        returnCreditButton.onClick.AddListener(ShowMenu);
         exitButton.onClick.AddListener(Application.Quit);
         settingsButton.onClick.AddListener(OpenSettings);
+        creditsButton.onClick.AddListener(ShowCredits);
+
+        rotateCam = true;
         
         if (skipMenu)
         {
@@ -161,6 +176,13 @@ public class MenuManager : MonoBehaviour
     
     private void ShowLevels()
     {
+        rotateCam = false;
+
+        camPosCache = menuCam.position;
+        camRotCache = menuCam.rotation;
+        
+        menuCam.DORotate(levelCamRot, 0.75f);
+        
         menuTr.DOLocalMoveX(-1920, 0.75f).SetUpdate(true);;
         levelsTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
         
@@ -168,9 +190,30 @@ public class MenuManager : MonoBehaviour
         uiLevelManager.ScrollToLastLevel();
     }
 
+    private void ShowCredits()
+    {
+        rotateCam = false;
+        
+        camPosCache = menuCam.position;
+        camRotCache = menuCam.rotation;
+        
+        menuCam.DORotate(creditsCamRot, 0.75f);
+        
+        menuTr.DOLocalMoveX(1920, 0.75f).SetUpdate(true);;
+        creditsTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
+        
+        returnCreditButton.Select();
+    }
+
     private void ShowMenu()
     {
-        menuTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
+        rotateCam = true;
+
+        menuCam.DOMove(camPosCache, 0.75f);
+        menuCam.DORotate(camRotCache.eulerAngles, 0.75f);
+        
+        creditsTr.DOLocalMoveX(-1920, 0.75f).SetUpdate(true);
+        menuTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);
         levelsTr.DOLocalMoveX(1920, 0.75f).SetUpdate(true);
         
         playButton.Select();

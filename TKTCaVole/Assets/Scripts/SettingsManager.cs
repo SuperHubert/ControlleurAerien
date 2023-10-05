@@ -1,15 +1,15 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
     [SerializeField] private ScriptableSetting settings;
     [SerializeField] private GameObject panel;
+    [SerializeField] private float transitionDuration = 0.05f;
+    
     [Header("Components")]
     [SerializeField] private Slider mouseScrollbar;
     [SerializeField] private TextMeshProUGUI sensitivityFeedbacktext;
@@ -31,7 +31,7 @@ public class SettingsManager : MonoBehaviour
     
     private void Start()
     {
-        Close();
+        Close(true);
         
         LoadSettings();
         
@@ -44,7 +44,13 @@ public class SettingsManager : MonoBehaviour
         shipYToggle.onValueChanged.AddListener(UpdateShipY);
         
         saveButton.onClick.AddListener(Save);
-        closeButton.onClick.AddListener(Close);
+        closeButton.onClick.AddListener(ClosePanel);
+        return;
+
+        void ClosePanel()
+        {
+            Close();
+        }
     }
 
     
@@ -127,7 +133,11 @@ public class SettingsManager : MonoBehaviour
     public void Open(Selectable selectable,Action callback = null)
     {
         panel.SetActive(true);
+        var tr = panel.transform;
 
+        tr.localScale = new Vector3(1, 0, 1);
+        tr.DOScaleY(1, transitionDuration).SetUpdate(true);
+        
         returnSelectable = selectable;
         
         closeButton.Select();
@@ -138,13 +148,29 @@ public class SettingsManager : MonoBehaviour
         ApplySettings();
     }
 
-    private void Close()
+    private void Close(bool skipAnimation = false)
     {
-        panel.SetActive(false);
+        if (skipAnimation)
+        {
+            Skip();
+            return;
+        }
         
-        extra?.Invoke();
+        var tr = panel.transform;
+
+        tr.localScale = new Vector3(1, 1, 1);
+        tr.DOScaleY(0, transitionDuration).OnComplete(Skip).SetUpdate(true);
         
-        if(returnSelectable == null) return;
-        returnSelectable.Select();
+        return;
+        
+        void Skip()
+        {
+            panel.SetActive(false);
+        
+            extra?.Invoke();
+        
+            if(returnSelectable == null) return;
+            returnSelectable.Select();
+        }
     }
 }
