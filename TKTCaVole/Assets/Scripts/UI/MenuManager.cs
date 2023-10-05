@@ -13,6 +13,16 @@ public class MenuManager : MonoBehaviour
 {
     [FormerlySerializedAs("rotateSpeed")] [SerializeField] private Vector3 cameraRotateSpeed;
 
+    [Header("Camera Angles")]
+    
+    [SerializeField] private Vector3 levelsCamPos;
+    [SerializeField] private Quaternion levelCamRot;
+    [SerializeField] private Vector3 creditsCamPos;
+    [SerializeField] private Quaternion creditsCamRot;
+    private Vector3 camPosCache;
+    private Quaternion camRotCache;
+    private bool rotateCam;
+    
     [Header("GameObjects")]
     [SerializeField] private GameObject pressKeyGo;
     [SerializeField] private GameObject restOfMenu;
@@ -58,7 +68,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        menuCam.Rotate(cameraRotateSpeed);
+        menuCam.Rotate(cameraRotateSpeed * (rotateCam ? 1 : -1));
 
         TryLaunchGame();
     }
@@ -80,6 +90,8 @@ public class MenuManager : MonoBehaviour
         returnToMenuButton.onClick.AddListener(ShowMenu);
         exitButton.onClick.AddListener(Application.Quit);
         settingsButton.onClick.AddListener(OpenSettings);
+
+        rotateCam = true;
         
         if (skipMenu)
         {
@@ -161,6 +173,14 @@ public class MenuManager : MonoBehaviour
     
     private void ShowLevels()
     {
+        rotateCam = false;
+
+        camPosCache = menuCam.position;
+        camRotCache = menuCam.rotation;
+        
+        menuCam.DOMove(levelsCamPos, 0.75f);
+        menuCam.DORotate(levelCamRot.eulerAngles, 0.75f);
+        
         menuTr.DOLocalMoveX(-1920, 0.75f).SetUpdate(true);;
         levelsTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
         
@@ -170,6 +190,11 @@ public class MenuManager : MonoBehaviour
 
     private void ShowMenu()
     {
+        rotateCam = true;
+
+        menuCam.DOMove(camPosCache, 0.75f);
+        menuCam.DORotate(camRotCache.eulerAngles, 0.75f);
+        
         menuTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
         levelsTr.DOLocalMoveX(1920, 0.75f).SetUpdate(true);
         

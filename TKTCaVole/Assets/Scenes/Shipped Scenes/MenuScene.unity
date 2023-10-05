@@ -170,6 +170,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRotateSpeed: {x: 0, y: 0.005, z: 0.005}
+  levelsCamPos: {x: 0, y: 1, z: -10}
+  levelCamRot: {x: -0.4320323, y: -0.5968005, z: -0.45124185, w: 0.5035455}
+  creditsCamPos: {x: 0, y: 0, z: 0}
+  creditsCamRot: {x: 0, y: 0, z: 0, w: 0}
   pressKeyGo: {fileID: 1326246269}
   restOfMenu: {fileID: 842986505}
   titleGraphic: {fileID: 478802635}
@@ -1622,6 +1626,11 @@ PrefabInstance:
     - target: {fileID: 2941381409578773141, guid: 8ae56466b8ea82f439e299d5c941f134,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941381409578773141, guid: 8ae56466b8ea82f439e299d5c941f134,
+        type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3131748700841509887, guid: 8ae56466b8ea82f439e299d5c941f134,
