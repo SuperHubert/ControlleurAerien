@@ -76,6 +76,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rg: {fileID: 9218612525565955518}
   coll: {fileID: 2372028580729768204}
+  particle: {fileID: 8304020372005708383, guid: e0a1716790e09554f8c0327fc8d74d8e,
+    type: 3}
 --- !u!65 &2372028580729768204
 BoxCollider:
   m_ObjectHideFlags: 0

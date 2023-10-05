@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletParent : MonoBehaviour
@@ -11,8 +12,15 @@ public class BulletParent : MonoBehaviour
     protected float speed;
     protected int damage;
 
+    [SerializeField] private ParticleSystem particle;
+
     protected virtual void OnEnable()
     {
+    }
+
+    private void OnDisable()
+    {
+        
     }
 
     public void SetData(float _lifeTime, float _speed, int _damage)
@@ -51,5 +59,8 @@ public class BulletParent : MonoBehaviour
                 BulletPoolManager.instance.AddToPool(this as Rocket);
                 break;
         }
+        print("ParticleSpawned");
+        ParticleSystem particleObj = Instantiate(particle, transform.position, transform.rotation);
+        //Destroy(particleObj,0.2f);
     }
 }
