@@ -13,12 +13,20 @@ public class Plane : MonoBehaviour, IDamageable
     [SerializeField] public Weapon secondaryWeapon;
     [SerializeField] public Transform SpawnPoint;
     [SerializeField] private int HP = 100;
+    
+    public static Weapon Rocket { get; private set; }
+    
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
+    {
+        Rocket = secondaryWeapon;
+    }
+
+    private void Start()
     {
         primaryWeapon.SetSpawnPoint(SpawnPoint);
         secondaryWeapon.SetSpawnPoint(SpawnPoint);
+        
         GameInputManager.OnPrimaryShootPerformed += PrimaryShootWeapon;
         GameInputManager.OnSecondaryShootPerformed += SecondaryShootWeapon;
     }

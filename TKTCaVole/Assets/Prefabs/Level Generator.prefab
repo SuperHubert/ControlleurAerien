@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: -3125332071843035695, guid: 346be08b490916440980e5901b9837a7, type: 3}
   ringParent: {fileID: 0}
   distanceBetweenVectors: 300
-  distanceMultiplier: 3
+  distanceMultiplier: 3.5
   minGate: 6
   extraGatePerLevel: 1
   extraRockPerLevel: 1
