@@ -37,17 +37,14 @@ public abstract class Weapon : MonoBehaviour
         switch (data.type)
         {
             case WeaponType.PewPew:
-                lastBullet = BulletPoolManager.instance.getBullet(SpawnPoint.position).gameObject;
+                lastBullet = BulletPoolManager.instance.getBullet(SpawnPoint.position, transform.rotation).gameObject;
                 break;
             case WeaponType.Rocket:
-                lastBullet = BulletPoolManager.instance.getRocket(SpawnPoint.position).gameObject;
+                lastBullet = BulletPoolManager.instance.getRocket(SpawnPoint.position, transform.rotation).gameObject;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
-        //lastBullet.transform.position = SpawnPoint.position;
-        lastBullet.transform.rotation = transform.rotation;
         lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);
     }
 

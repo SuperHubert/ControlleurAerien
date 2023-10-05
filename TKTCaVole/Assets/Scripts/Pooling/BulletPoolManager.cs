@@ -57,7 +57,7 @@ public class BulletPoolManager : MonoBehaviour
         }
     }
 
-    public Rocket getRocket(Vector3 pos)
+    public Rocket getRocket(Vector3 pos, Quaternion rot)
     {
         Rocket obj = null;
         if (rocketPool.Count > 0)
@@ -68,11 +68,12 @@ public class BulletPoolManager : MonoBehaviour
         else
             obj = Instantiate(rocketData.BulletPrefab, transform).GetComponent<Rocket>();
         obj.transform.position = pos;
+        obj.transform.rotation = rot;
         obj.gameObject.SetActive(true);
         return obj;
     }
     
-    public Bullet getBullet(Vector3 pos)
+    public Bullet getBullet(Vector3 pos, Quaternion rot)
     {
         Bullet obj = null;
         if (bulletPool.Count > 0)
@@ -84,6 +85,7 @@ public class BulletPoolManager : MonoBehaviour
             obj = Instantiate(bulletData.BulletPrefab, transform).GetComponent<Bullet>();
 
         obj.transform.position = pos;
+        obj.transform.rotation = rot;
         obj.gameObject.SetActive(true);
         return obj;
     }
