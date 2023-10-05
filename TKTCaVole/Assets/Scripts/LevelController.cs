@@ -127,6 +127,8 @@ public class LevelController : MonoBehaviour
 
     public static string ScoreToText(float score)
     {
+        if (score < 0) return ":("; //😭😭😭😡
+        
         var minutes = score / 60;
         minutes -= minutes % 1;
         var seconds = score % 60;
