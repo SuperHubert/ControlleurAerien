@@ -81,6 +81,8 @@ public class LevelTracker : MonoBehaviour
     public static void LaunchLevel(int index)
     {
         Log($"Launching level {index}");
+
+        MenuManager.skipMenu = true;
         
         CurrentLevel = index;
         

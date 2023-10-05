@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -13,28 +16,41 @@ public class MenuManager : MonoBehaviour
     [Header("GameObjects")]
     [SerializeField] private GameObject pressKeyGo;
     [SerializeField] private GameObject restOfMenu;
+
+    [Header("Components")]
+    [SerializeField] private Graphic titleGraphic;
+    [SerializeField] private TextMeshProUGUI pressAnyKeyText;
     
     [Header("Transforms")]
     [SerializeField] private Transform menuCam;
     [SerializeField] private Transform menuTr;
     [SerializeField] private Transform levelsTr;
-    [SerializeField] private Transform levelsParent;
     
     [Header("Buttons")]
     [SerializeField] private Button playButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button creditsButton;
     [SerializeField] private Button returnToMenuButton;
+    private List<(RectTransform tr,Vector2 sizeDelta)> buttonTransforms = new ();
+    [SerializeField] private float buttonRevealDuration = 0.25f;
 
     [Header("Other")]
     [SerializeField] private UILevelManager uiLevelManager;
     [SerializeField] private SettingsManager settingsManager;
+    [SerializeField] private UISettingsSo uiSettings;
 
+    private Sequence glowSequence;
+    
     private static bool gameLaunched;
     
     public static bool skipMenu;
-    public static int lastPlayedLevel;
-    
+
+    private void Awake()
+    {
+        uiSettings.SetInstance();
+    }
+
     private void Start()
     {
         BootMenu();
@@ -51,15 +67,75 @@ public class MenuManager : MonoBehaviour
     {
         pressKeyGo.SetActive(!gameLaunched);
         restOfMenu.SetActive(gameLaunched);
-        
-        if(!gameLaunched) return;
-        
+
+        if (!gameLaunched)
+        {
+            StartPressAnyKeyGlow();
+            return;
+        }
+
+        glowSequence?.Kill();
+
         playButton.onClick.AddListener(ShowLevels);
         returnToMenuButton.onClick.AddListener(ShowMenu);
         exitButton.onClick.AddListener(Application.Quit);
         settingsButton.onClick.AddListener(OpenSettings);
         
-        if(skipMenu) ShowLevels();
+        if (skipMenu)
+        {
+            ShowLevels();
+            return;
+        }
+        
+        RevealMenuButtonAnimation();
+    }
+
+    private void StartPressAnyKeyGlow()
+    {
+        glowSequence = DOTween.Sequence();
+
+        glowSequence.AppendInterval(2f);
+        glowSequence.Append(pressAnyKeyText.DOFade(0, 1));
+        glowSequence.AppendInterval(1f);
+        glowSequence.Append(pressAnyKeyText.DOFade(1, 1));
+        glowSequence.SetLoops(-1);
+
+        glowSequence.Play();
+    }
+    
+    private void RevealMenuButtonAnimation()
+    {
+        buttonTransforms.Clear();
+
+        var tr = playButton.GetComponent<RectTransform>();
+        buttonTransforms.Add((tr,tr.sizeDelta));
+        tr = settingsButton.GetComponent<RectTransform>();
+        buttonTransforms.Add((tr,tr.sizeDelta));
+        tr = creditsButton.GetComponent<RectTransform>();
+        buttonTransforms.Add((tr,tr.sizeDelta));
+        tr = exitButton.GetComponent<RectTransform>();
+        buttonTransforms.Add((tr,tr.sizeDelta));
+
+        foreach (var couple in buttonTransforms)
+        {
+            var size = couple.sizeDelta;
+            size.x = 0;
+            couple.tr.sizeDelta = size;
+        }
+
+        var clearWhite = Color.white;
+        clearWhite.a = 0;
+        titleGraphic.color = clearWhite;
+        
+        var sequence = DOTween.Sequence();
+        sequence.Append(titleGraphic.DOFade(1, 1f));
+        sequence.Append(buttonTransforms[0].tr.DOSizeDelta(buttonTransforms[0].sizeDelta, buttonRevealDuration));
+        sequence.Append(buttonTransforms[1].tr.DOSizeDelta(buttonTransforms[1].sizeDelta, buttonRevealDuration));
+        sequence.Append(buttonTransforms[2].tr.DOSizeDelta(buttonTransforms[2].sizeDelta, buttonRevealDuration));
+        sequence.Append(buttonTransforms[3].tr.DOSizeDelta(buttonTransforms[3].sizeDelta, buttonRevealDuration));
+        sequence.AppendCallback(playButton.Select);
+        
+        sequence.Play();
     }
 
     private void TryLaunchGame()
@@ -88,6 +164,7 @@ public class MenuManager : MonoBehaviour
         menuTr.DOLocalMoveX(-1920, 0.75f).SetUpdate(true);;
         levelsTr.DOLocalMoveX(0, 0.75f).SetUpdate(true);;
         
+        uiLevelManager.UpdateLineRenderer();
         uiLevelManager.ScrollToLastLevel();
     }
 

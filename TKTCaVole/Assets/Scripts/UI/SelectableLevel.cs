@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class SelectableLevel : MonoBehaviour
 {
-    [Header("Components")]
-    [SerializeField] private Button button;
+    [field:Header("Components")]
+    [field:SerializeField] public Button Button { get; private set; }
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI highScoreText;
     private GameObject HighScoreGo => highScoreText.gameObject;
@@ -22,26 +22,40 @@ public class SelectableLevel : MonoBehaviour
 
     private void Start()
     {
-        button.onClick.AddListener(LaunchLevel);
+        Button.onClick.AddListener(LaunchLevel);
     }
 
     public void Select()
     {
-        button.Select();
+        Button.Select();
     }
 
     public void OnButtonSelected()
     {
         var otherNav = downSelectable.navigation;
-        otherNav.selectOnUp = button;
+        otherNav.selectOnUp = Button;
         downSelectable.navigation = otherNav;
+    }
+
+    public void SetNextNav(Selectable selectable)
+    {
+        var nav = Button.navigation;
+        nav.selectOnRight = selectable;
+        Button.navigation = nav;
+    }
+    
+    public void SetPreviousNav(Selectable selectable)
+    {
+        var nav = Button.navigation;
+        nav.selectOnLeft = selectable;
+        Button.navigation = nav;
     }
 
     public void InitButton(int id,Selectable selectable)
     {
         levelId = id; //0 is level 1
         
-        levelText.text = $"Level {levelId+1}";
+        levelText.text = $"level {levelId+1}";
 
         gameObject.name = $"Selectable Level {levelId+1}";
         
@@ -56,9 +70,9 @@ public class SelectableLevel : MonoBehaviour
     {
         downSelectable = selectable;
         
-        var selfNav = button.navigation;
+        var selfNav = Button.navigation;
         selfNav.selectOnDown = downSelectable;
-        button.navigation = selfNav;
+        Button.navigation = selfNav;
     }
 
     private void UpdateHeight()
@@ -82,13 +96,25 @@ public class SelectableLevel : MonoBehaviour
     {
         var highscore = LevelTracker.GetLevelHighscore(levelId);
         
-        HighScoreGo.SetActive(highscore >= 0);
-        
-        highScoreText.text = $"{LevelController.ScoreToText(highscore)}";
+        highScoreText.text = highscore >= 0 ? $"record : {LevelController.ScoreToText(highscore)}" : "no record";
     }
 
     private void LaunchLevel()
     {
         LevelTracker.LaunchLevel(levelId);
+    }
+
+    public (Vector3 leftPos, Vector3 rightPos) GetPositions()
+    {
+        var tr = GetComponent<RectTransform>();
+        var size = levelTr.sizeDelta;
+        var left = tr.localPosition;
+        left.y += levelTr.localPosition.y;
+        left.z = 1;
+        var right = left;
+
+        right.x += size.x;
+
+        return (left, right);
     }
 }
