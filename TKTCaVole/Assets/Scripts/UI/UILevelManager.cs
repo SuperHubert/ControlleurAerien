@@ -38,16 +38,23 @@ public class UILevelManager : MonoBehaviour
 
     public void UpdateLineRenderer()
     {
-        lineRenderer.startColor = UISettingsSo.CurrentSettings.White;
-        lineRenderer.endColor = UISettingsSo.CurrentSettings.White;
-        lineRenderer.positionCount = selectableLevels.Count * 2;
-        for (var index = 0; index < selectableLevels.Count; index++)
+        StartCoroutine(Delay());
+        return;
+        
+        IEnumerator Delay()
         {
-            var selectable = selectableLevels[index];
-            var points = selectable.GetPositions();
+            yield return null;
+            lineRenderer.startColor = UISettingsSo.CurrentSettings.White;
+            lineRenderer.endColor = UISettingsSo.CurrentSettings.White;
+            lineRenderer.positionCount = selectableLevels.Count * 2;
+            for (var index = 0; index < selectableLevels.Count; index++)
+            {
+                var selectable = selectableLevels[index];
+                var points = selectable.GetPositions();
             
-            lineRenderer.SetPosition(2*index,points.leftPos);
-            lineRenderer.SetPosition(2*index+1,points.rightPos);
+                lineRenderer.SetPosition(2*index,points.leftPos);
+                lineRenderer.SetPosition(2*index+1,points.rightPos);
+            }
         }
     }
 
