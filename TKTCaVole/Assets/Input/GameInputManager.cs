@@ -61,6 +61,8 @@ public class GameInputManager : MonoBehaviour
         input.Player.PrimaryWeaponShoot.performed += InvokePrimaryShoot;
 
         input.Player.Pause.performed += InvokePause;
+        
+        
     }
 
     

@@ -4,6 +4,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIShip : MonoBehaviour
@@ -14,6 +15,12 @@ public class UIShip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Camera cam;
 
+    [Header("Extra Time")]
+    [SerializeField] private UIExtraTime uiExtraTimePrefab;
+    [SerializeField] private Transform uiExtraTimeParent;
+    [SerializeField] private int uiExtraTimePoolSize;
+    private Queue<UIExtraTime> uiExtraTimeQueue = new ();
+    
     [Header("Shooting")]
     [SerializeField] private Image rocketCooldownImage;
     [SerializeField] private List<Graphic> elementsToShow = new();
@@ -48,12 +55,15 @@ public class UIShip : MonoBehaviour
 
         weapon.OnReloadStart += OnReloadStart;
 
+        InitUIExtraTime();
         InitRocketCooldown();
         gearFeedbackImage.fillAmount = 1/6f;
 
+        
         controller.OnGearChanged += UpdateGearText;
         GameInputManager.OnPausePerformed += OnPausePerformed;
         Gate.OnGatesLeftUpdated += OnGateLeftUpdate;
+        LevelController.OnTimerAdded += DisplayExtraTime;
         LevelController.OnTimerUpdated += OnTimerUpdated;
         LevelController.OnLevelEnd += OnLevelEnd;
     }
@@ -71,6 +81,7 @@ public class UIShip : MonoBehaviour
         controller.OnGearChanged -= UpdateGearText;
         GameInputManager.OnPausePerformed -= OnPausePerformed;
         Gate.OnGatesLeftUpdated -= OnGateLeftUpdate;
+        LevelController.OnTimerAdded -= DisplayExtraTime;
         LevelController.OnTimerUpdated -= OnTimerUpdated;
         LevelController.OnLevelEnd -= OnLevelEnd;
     }
@@ -93,6 +104,24 @@ public class UIShip : MonoBehaviour
         var highscoreText = highscore > 0 ? $"record : {LevelController.ScoreToText(highscore)}" : "";
         
         highScoreText.text = $"{scoreText}{highscoreText}";
+    }
+
+    private void InitUIExtraTime()
+    {
+        for (int i = 0; i < uiExtraTimePoolSize; i++)
+        {
+            var extraTime = Instantiate(uiExtraTimePrefab, uiExtraTimeParent);
+            extraTime.Init();
+            
+            uiExtraTimeQueue.Enqueue(extraTime);
+        }
+    }
+
+    private void DisplayExtraTime(float time)
+    {
+        var extraTime = uiExtraTimeQueue.Dequeue();
+        extraTime.PlayAnim(time);
+        uiExtraTimeQueue.Enqueue(extraTime);
     }
 
     private void InitRocketCooldown()
