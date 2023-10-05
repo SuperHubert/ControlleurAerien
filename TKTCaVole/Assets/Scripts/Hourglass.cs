@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class Hourglass : MonoBehaviour
 {
-    public static event Action<float> OnHourglassCollected; 
-    
+    public static event Action<float> OnHourglassCollected;
+
     [SerializeField] private float timeAdded = 5f;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float startDissolveKey = 10;
     [SerializeField] private float endDissolveKey = -10;
     [SerializeField] private float speedDissolve = 120;
     [SerializeField] private List<Renderer> rends;
-    
+    [SerializeField] private Material referenceMat;
+
     private static readonly int CutoffHeight = Shader.PropertyToID("_CutoffHeight");
 
 
@@ -22,13 +23,14 @@ public class Hourglass : MonoBehaviour
         rb.angularVelocity = new Vector3(0, 0, 5f);
         foreach (var rend in rends)
         {
-            var mat = new Material(rend.material);
-            
+            var mat = new Material(referenceMat);
+            rend.material = null;
+
             mat.SetFloat(CutoffHeight, startDissolveKey);
             rend.material = mat;
         }
     }
-    
+
     private IEnumerator DissolveManagement()
     {
         bool Dissolve = false;
@@ -45,14 +47,8 @@ public class Hourglass : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-        if (DebrisPoolManager.instance)
-        {
-            DebrisPoolManager.instance.AddHourglassToPool(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

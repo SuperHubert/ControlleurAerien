@@ -8,7 +8,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponData data;
-    [SerializeField] public Transform SpawnPoint;
+    [SerializeField] public List<Transform> SpawnPoint;
     
     protected BulletParent lastBullet;
     public event Action<float> OnReloadStart; 
@@ -43,13 +43,17 @@ public abstract class Weapon : MonoBehaviour
         
         if(!BulletPoolManager.instance) yield break;
 
-        lastBullet = data.type switch
+        foreach (var t in SpawnPoint)
         {
-            WeaponType.PewPew => BulletPoolManager.instance.getBullet(SpawnPoint.position, transform.rotation),
-            WeaponType.Rocket => BulletPoolManager.instance.getRocket(SpawnPoint.position, transform.rotation),
-            _ => throw new ArgumentOutOfRangeException()
-        };
-        lastBullet.SetData(data.lifeTime, data.speed, data.damage);
+            lastBullet = data.type switch
+            {
+                WeaponType.PewPew => BulletPoolManager.instance.getBullet(t.position, transform.rotation),
+                WeaponType.Rocket => BulletPoolManager.instance.getRocket(t.position, transform.rotation),
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            lastBullet.SetData(data.lifeTime, data.speed, data.damage);
+        }
+
         AudioManager.Instance.PlaySound(data.SoundKey);
     }
 
@@ -64,7 +68,7 @@ public abstract class Weapon : MonoBehaviour
         wantFire = false;
     }
 
-    public void SetSpawnPoint(Transform spawnPoint)
+    public void SetSpawnPoint(List<Transform> spawnPoint)
     {
         SpawnPoint = spawnPoint;
     }

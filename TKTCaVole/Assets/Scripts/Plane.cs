@@ -11,7 +11,8 @@ public class Plane : MonoBehaviour, IDamageable
 
     [SerializeField] private Weapon primaryWeapon;
     [SerializeField] private Weapon secondaryWeapon;
-    [SerializeField] private Transform SpawnPoint;
+    [SerializeField] private List<Transform> primaryWeaponSpawnPoint;
+    [SerializeField] private List<Transform> secondaryWeaponSpawnPoint;
     [SerializeField] private string audioGameOver;
     [SerializeField] private int HP = 100;
     
@@ -25,8 +26,8 @@ public class Plane : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        primaryWeapon.SetSpawnPoint(SpawnPoint);
-        secondaryWeapon.SetSpawnPoint(SpawnPoint);
+        primaryWeapon.SetSpawnPoint(primaryWeaponSpawnPoint);
+        secondaryWeapon.SetSpawnPoint(secondaryWeaponSpawnPoint);
         
         GameInputManager.OnPrimaryShootPerformed += PrimaryShootWeapon;
         GameInputManager.OnSecondaryShootPerformed += SecondaryShootWeapon;

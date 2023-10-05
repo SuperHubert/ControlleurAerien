@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: c48936f379dd98443a2d9eff04550b26, type: 2}
-  SpawnPoint: {fileID: 6961834605486949385}
+  SpawnPoint:
+  - {fileID: 0}
 --- !u!1 &1286484852162362344
 GameObject:
   m_ObjectHideFlags: 0
@@ -5232,7 +5233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6961834605486949385}
   m_Layer: 7
-  m_Name: SpawnPoint
+  m_Name: RocketSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5248,6 +5249,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 24.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5741299630113080098}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6313651810684841292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3116582042877857658}
+  m_Layer: 7
+  m_Name: PewPewSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3116582042877857658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6313651810684841292}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11, y: -2, z: 4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5298,7 +5330,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: e70f3ed9c78f951458a5aed3b9880927, type: 2}
-  SpawnPoint: {fileID: 6961834605486949385}
+  SpawnPoint:
+  - {fileID: 0}
+--- !u!1 &9173805068299762185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7586228621455925790}
+  m_Layer: 7
+  m_Name: PewPewSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7586228621455925790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173805068299762185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11, y: -2, z: 4.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5741299630113080098}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5199274812878726345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5387,6 +5451,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6961834605486949385}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e02631174486fcd45a554b23122cc475,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3116582042877857658}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e02631174486fcd45a554b23122cc475,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7586228621455925790}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e02631174486fcd45a554b23122cc475,
         type: 3}
       insertIndex: -1
@@ -5506,7 +5578,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   primaryWeapon: {fileID: 1645913721157364149}
   secondaryWeapon: {fileID: 4051486144677659031}
-  SpawnPoint: {fileID: 6961834605486949385}
+  primaryWeaponSpawnPoint:
+  - {fileID: 3116582042877857658}
+  - {fileID: 7586228621455925790}
+  secondaryWeaponSpawnPoint:
+  - {fileID: 6961834605486949385}
   audioGameOver: GameOver
   HP: 100
 --- !u!4 &5741299630113080098 stripped
