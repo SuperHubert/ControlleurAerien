@@ -6,14 +6,13 @@ using Random = UnityEngine.Random;
 
 public class Rock : MonoBehaviour, IDamageable
 {
-    public int damage {get; private set;} = 9999;
-    
+    public int damage { get; private set; } = 9999;
+
     [SerializeField] private float explosionPower = 100f;
     [SerializeField] private int nbDebrisByRegularDamage = 5;
     [SerializeField] private Rigidbody _rigidbody;
-
     [SerializeField] private ParticleSystem explosion; // TEMPORARY FOR DEBUGGING after that, use pool manager
-    
+
     private int health;
     private bool DropsHourglass;
     private int healthratio = 200;
@@ -34,6 +33,7 @@ public class Rock : MonoBehaviour, IDamageable
         ratioStone = transform.GetChild(0).localScale.x;
     }
 
+
     public void TakeDamage(int Damage)
     {
         health -= Damage;
@@ -48,7 +48,8 @@ public class Rock : MonoBehaviour, IDamageable
             {
                 GameObject newDebris = DebrisPoolManager.instance.GetRandomDebris();
                 debris.Add(newDebris);
-                newDebris.transform.position = transform.position + Random.onUnitSphere * (transform.localScale.x + 1.5f * ratioStone);
+                newDebris.transform.position =
+                    transform.position + Random.onUnitSphere * (transform.localScale.x + 1.5f * ratioStone);
                 Rigidbody rb = newDebris.GetComponent<Rigidbody>();
                 rb.velocity = (newDebris.transform.position - transform.position).normalized * explosionPower;
                 rb.angularVelocity = Random.onUnitSphere;
