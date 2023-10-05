@@ -57,7 +57,7 @@ public class BulletPoolManager : MonoBehaviour
         }
     }
 
-    public Rocket getRocket()
+    public Rocket getRocket(Vector3 pos)
     {
         Rocket obj = null;
         if (rocketPool.Count > 0)
@@ -67,12 +67,12 @@ public class BulletPoolManager : MonoBehaviour
         }
         else
             obj = Instantiate(rocketData.BulletPrefab, transform).GetComponent<Rocket>();
-
+        obj.transform.position = pos;
         obj.gameObject.SetActive(true);
         return obj;
     }
     
-    public Bullet getBullet()
+    public Bullet getBullet(Vector3 pos)
     {
         Bullet obj = null;
         if (bulletPool.Count > 0)
@@ -83,6 +83,7 @@ public class BulletPoolManager : MonoBehaviour
         else
             obj = Instantiate(bulletData.BulletPrefab, transform).GetComponent<Bullet>();
 
+        obj.transform.position = pos;
         obj.gameObject.SetActive(true);
         return obj;
     }
