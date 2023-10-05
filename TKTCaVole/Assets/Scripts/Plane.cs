@@ -29,6 +29,7 @@ public class Plane : MonoBehaviour, IDamageable
         
         GameInputManager.OnPrimaryShootPerformed += PrimaryShootWeapon;
         GameInputManager.OnSecondaryShootPerformed += SecondaryShootWeapon;
+        
         GameInputManager.OnPrimaryShootCancelled += StopPrimaryShootWeapon;
         GameInputManager.OnSecondaryShootCancelled += StopSecondaryShootWeapon;
     }
@@ -41,7 +42,7 @@ public class Plane : MonoBehaviour, IDamageable
     
     private void StopPrimaryShootWeapon(InputAction.CallbackContext ctx)
     {
-        if (gameObject.activeSelf && Time.timeScale > 0.1f)
+        if (gameObject.activeSelf)
             primaryWeapon.StopShoot();
     }
 
@@ -53,7 +54,7 @@ public class Plane : MonoBehaviour, IDamageable
     
     private void StopSecondaryShootWeapon(InputAction.CallbackContext ctx)
     {
-        if (gameObject.activeSelf && Time.timeScale > 0.1f)
+        if (gameObject.activeSelf)
             secondaryWeapon.StopShoot();
     }
 

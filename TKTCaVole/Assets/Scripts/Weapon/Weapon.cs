@@ -26,6 +26,11 @@ public abstract class Weapon : MonoBehaviour
         OnReloadStart?.Invoke(data.cooldown);
         yield return new WaitForSeconds(data.cooldown);
         canFire = true;
+        if (wantFire)
+        {
+            yield return new WaitForEndOfFrame();
+            StartCoroutine(Shootswsssssszs());
+        }
     }
 
     private IEnumerator Shootswsssssszs()
@@ -50,12 +55,6 @@ public abstract class Weapon : MonoBehaviour
             }
 
             lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);
-        }
-
-        if (wantFire)
-        {
-            yield return new WaitForEndOfFrame();
-            StartCoroutine(Shootswsssssszs());
         }
     }
 
