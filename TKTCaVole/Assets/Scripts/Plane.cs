@@ -11,7 +11,8 @@ public class Plane : MonoBehaviour, IDamageable
 
     [SerializeField] private Weapon primaryWeapon;
     [SerializeField] private Weapon secondaryWeapon;
-    [SerializeField] public Transform SpawnPoint;
+    [SerializeField] private Transform SpawnPoint;
+    [SerializeField] private string audioGameOver;
     [SerializeField] private int HP = 100;
     
     public static Weapon Rocket { get; private set; }
@@ -64,6 +65,7 @@ public class Plane : MonoBehaviour, IDamageable
         if (HP <= 0)
         {
             OnPlaneDestroyed?.Invoke();
+            AudioManager.Instance.PlaySound(audioGameOver);
             gameObject.SetActive(false);
         }
     }

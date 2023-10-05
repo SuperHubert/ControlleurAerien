@@ -12,7 +12,9 @@ public class Rock : MonoBehaviour, IDamageable
     [SerializeField] private int nbDebrisByRegularDamage = 5;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private ParticleSystem explosion; // TEMPORARY FOR DEBUGGING after that, use pool manager
-
+    [SerializeField] private string damageKeySound;
+    [SerializeField] private string explosionKeySound;
+    
     private int health;
     private bool DropsHourglass;
     private int healthratio = 200;
@@ -57,6 +59,7 @@ public class Rock : MonoBehaviour, IDamageable
 
             if (health <= 0)
             {
+                AudioManager.Instance.PlaySound(explosionKeySound);
                 Destroy(Instantiate(explosion.gameObject, transform.position, explosion.transform.rotation), 5);
                 // foreach (GameObject obj in debris) // depop all debris
                 // {
@@ -70,6 +73,8 @@ public class Rock : MonoBehaviour, IDamageable
 
                 Destroy(gameObject);
             }
+            else
+                AudioManager.Instance.PlaySound(damageKeySound);
         }
     }
 }

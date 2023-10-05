@@ -228,6 +228,8 @@ MonoBehaviour:
   _rigidbody: {fileID: 1188058487648125733}
   explosion: {fileID: 606801270142196365, guid: 6a47555f1e03e6640b6bad2688c1ebd2,
     type: 3}
+  damageKeySound: Damage
+  explosionKeySound: Explosion
 --- !u!64 &-5951225058620249159
 MeshCollider:
   m_ObjectHideFlags: 0

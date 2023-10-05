@@ -48,3 +48,36 @@ MonoBehaviour:
   - <Key>k__BackingField: Laser
     <Clip>k__BackingField: {fileID: 8300000, guid: ec852c072c538774c93b8311b76790e7,
       type: 3}
+    <Volume>k__BackingField: 0.64
+  - <Key>k__BackingField: ClickButton
+    <Clip>k__BackingField: {fileID: 8300000, guid: 7e297c21b5877c147b783899aef95d4b,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Key>k__BackingField: SelectionButton
+    <Clip>k__BackingField: {fileID: 8300000, guid: b29c8b45ab54e5b4f9b1f4f7e5a60f3c,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Key>k__BackingField: Damage
+    <Clip>k__BackingField: {fileID: 8300000, guid: 9fa73f8c70980ce45913b7057c14e9bd,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Key>k__BackingField: Explosion
+    <Clip>k__BackingField: {fileID: 8300000, guid: 191ab98e4c847894f89522cd7eb25404,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Key>k__BackingField: GameOver
+    <Clip>k__BackingField: {fileID: 8300000, guid: d0b63d49907598b4c8f3ec8717056794,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Key>k__BackingField: GateFinish
+    <Clip>k__BackingField: {fileID: 8300000, guid: 39bef46ff5524c5469e4723ce9f61e39,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Key>k__BackingField: RocketShoot
+    <Clip>k__BackingField: {fileID: 8300000, guid: 531630c2fd7aaf847aaa590274ff5fc4,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Key>k__BackingField: TimerIncrease
+    <Clip>k__BackingField: {fileID: 8300000, guid: 24e0176bbab11834aa8a41bfa34ccfc2,
+      type: 3}
+    <Volume>k__BackingField: 1
