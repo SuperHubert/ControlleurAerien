@@ -76,6 +76,7 @@ MonoBehaviour:
   rends:
   - {fileID: 4500587791168141046}
   - {fileID: 1207670653048985605}
+  referenceMat: {fileID: 2100000, guid: 9995a63da59f69e4797678a92fba1753, type: 2}
 --- !u!54 &3455320976293795170
 Rigidbody:
   m_ObjectHideFlags: 0
