@@ -23,6 +23,7 @@ public class LevelController : MonoBehaviour
     public static event Action<bool,float> OnLevelEnd;
     public static event Action<float> OnTimerUpdated;
     public static event Action<float> OnTotalTimerUpdated;
+    public static event Action<float> OnTimerAdded; 
 
     
     private void Start()
@@ -55,7 +56,8 @@ public class LevelController : MonoBehaviour
     {
         timer += _timerIncrease;
         
-        //TODO mettre un genre +00:15 au dessus de l'ui du timer
+        OnTimerAdded?.Invoke(_timerIncrease);
+        
         OnTimerUpdated?.Invoke(timer);
     }
 
