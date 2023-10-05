@@ -17,6 +17,7 @@ public class Gate : MonoBehaviour
     [SerializeField] private List<GameObject> matDissolver;
     [SerializeField] private float speedDissolve = 240;
     [SerializeField] private float limitDissolve = -500.0f;
+    [SerializeField] private string GateFinishKeySound = "GateFinish";
 
     [FormerlySerializedAs("collider")] [SerializeField]
     private Collider col;
@@ -68,6 +69,7 @@ public class Gate : MonoBehaviour
     private void TriggerGate()
     {
         //TODO - Better Destroy;
+        AudioManager.Instance.PlaySound(GateFinishKeySound);
         col.enabled = false;
         animator.SetTrigger(DestroyTrigger);
         StartCoroutine(DissolveManagement());

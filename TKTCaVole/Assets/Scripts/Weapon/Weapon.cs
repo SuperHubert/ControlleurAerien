@@ -30,11 +30,11 @@ public abstract class Weapon : MonoBehaviour
         if (wantFire)
         {
             yield return new WaitForEndOfFrame();
-            StartCoroutine(Shootswsssssszs());
+            StartCoroutine(Shoot());
         }
     }
 
-    private IEnumerator Shootswsssssszs()
+    private IEnumerator Shoot()
     {
         lastBullet = null;
         if (!canFire) yield break;
@@ -56,7 +56,7 @@ public abstract class Weapon : MonoBehaviour
     public virtual void StartShoot()
     {
         wantFire = true;
-        StartCoroutine(Shootswsssssszs());
+        StartCoroutine(Shoot());
     }
 
     public virtual void StopShoot()

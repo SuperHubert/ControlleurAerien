@@ -19,3 +19,4 @@ MonoBehaviour:
   lifeTime: 1000
   type: 1
   damage: 2000
+  <SoundKey>k__BackingField: RocketShoot

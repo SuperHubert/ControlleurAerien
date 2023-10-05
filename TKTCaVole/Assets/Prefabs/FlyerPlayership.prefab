@@ -5507,6 +5507,7 @@ MonoBehaviour:
   primaryWeapon: {fileID: 1645913721157364149}
   secondaryWeapon: {fileID: 4051486144677659031}
   SpawnPoint: {fileID: 6961834605486949385}
+  audioGameOver: GameOver
   HP: 100
 --- !u!4 &5741299630113080098 stripped
 Transform:

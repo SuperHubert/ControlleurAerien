@@ -22,6 +22,7 @@ public class LevelController : MonoBehaviour
 
     [Header("Ship")]
     [SerializeField] private GameObject shipGo;
+    [SerializeField] private string  addTimerKeyAudio= "TimerIncrease";
 
     public static event Action<bool,float> OnLevelEnd;
     public static event Action<float> OnTimerUpdated;
@@ -60,6 +61,8 @@ public class LevelController : MonoBehaviour
     private void IncreaseTimer(float _timerIncrease)
     {
         timer += _timerIncrease;
+        
+        AudioManager.Instance.PlaySound(addTimerKeyAudio);
         
         OnTimerAdded?.Invoke(_timerIncrease);
         

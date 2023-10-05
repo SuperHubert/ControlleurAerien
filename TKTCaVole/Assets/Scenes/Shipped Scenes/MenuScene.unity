@@ -637,11 +637,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4399580418130733450, guid: 6710f376dd64d854e9578c3f2eadbb5c,
-        type: 3}
-      propertyPath: clips.Array.data[0].<Volume>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4402745920963584892, guid: 6710f376dd64d854e9578c3f2eadbb5c,
         type: 3}
       propertyPath: m_Name

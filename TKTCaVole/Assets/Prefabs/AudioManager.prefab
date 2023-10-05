@@ -48,7 +48,7 @@ MonoBehaviour:
   - <Key>k__BackingField: Laser
     <Clip>k__BackingField: {fileID: 8300000, guid: ec852c072c538774c93b8311b76790e7,
       type: 3}
-    <Volume>k__BackingField: 1
+    <Volume>k__BackingField: 0.64
   - <Key>k__BackingField: ClickButton
     <Clip>k__BackingField: {fileID: 8300000, guid: 7e297c21b5877c147b783899aef95d4b,
       type: 3}
