@@ -9,10 +9,12 @@ public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponData data;
     [SerializeField] public Transform SpawnPoint;
-
+    
     protected BulletParent lastBullet;
     public event Action<float> OnReloadStart; 
+
     protected bool canFire = true;
+    private bool wantFire = false;
 
     private void Start()
     {
@@ -25,28 +27,41 @@ public abstract class Weapon : MonoBehaviour
         OnReloadStart?.Invoke(data.cooldown);
         yield return new WaitForSeconds(data.cooldown);
         canFire = true;
+        if (wantFire)
+        {
+            yield return new WaitForEndOfFrame();
+            StartCoroutine(Shootswsssssszs());
+        }
     }
 
-    public virtual void Shoot()
+    private IEnumerator Shootswsssssszs()
     {
         lastBullet = null;
-        if (!canFire) return;
-        StartCoroutine(reload());
+        if (!canFire) yield break;
 
-        if (!BulletPoolManager.instance) return;
-        switch (data.type)
+        StartCoroutine(reload());
+        
+        if(!BulletPoolManager.instance) yield break;
+
+        lastBullet = data.type switch
         {
-            case WeaponType.PewPew:
-                lastBullet = BulletPoolManager.instance.getBullet(SpawnPoint.position, transform.rotation);
-                break;
-            case WeaponType.Rocket:
-                lastBullet = BulletPoolManager.instance.getRocket(SpawnPoint.position, transform.rotation);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            WeaponType.PewPew => BulletPoolManager.instance.getBullet(SpawnPoint.position, transform.rotation),
+            WeaponType.Rocket => BulletPoolManager.instance.getRocket(SpawnPoint.position, transform.rotation),
+            _ => throw new ArgumentOutOfRangeException()
+        };
         lastBullet.SetData(data.lifeTime, data.speed, data.damage);
         AudioManager.Instance.PlaySound(data.SoundKey);
+    }
+
+    public virtual void StartShoot()
+    {
+        wantFire = true;
+        StartCoroutine(Shootswsssssszs());
+    }
+
+    public virtual void StopShoot()
+    {
+        wantFire = false;
     }
 
     public void SetSpawnPoint(Transform spawnPoint)

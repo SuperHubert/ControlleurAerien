@@ -9,8 +9,8 @@ public class Plane : MonoBehaviour, IDamageable
 {
     public static event Action OnPlaneDestroyed;
 
-    [SerializeField] public Weapon primaryWeapon;
-    [SerializeField] public Weapon secondaryWeapon;
+    [SerializeField] private Weapon primaryWeapon;
+    [SerializeField] private Weapon secondaryWeapon;
     [SerializeField] public Transform SpawnPoint;
     [SerializeField] private int HP = 100;
     
@@ -29,18 +29,33 @@ public class Plane : MonoBehaviour, IDamageable
         
         GameInputManager.OnPrimaryShootPerformed += PrimaryShootWeapon;
         GameInputManager.OnSecondaryShootPerformed += SecondaryShootWeapon;
+        
+        GameInputManager.OnPrimaryShootCancelled += StopPrimaryShootWeapon;
+        GameInputManager.OnSecondaryShootCancelled += StopSecondaryShootWeapon;
     }
 
     private void PrimaryShootWeapon(InputAction.CallbackContext ctx)
     {
+        if (gameObject.activeSelf && Time.timeScale > 0.1f)
+            primaryWeapon.StartShoot();
+    }
+    
+    private void StopPrimaryShootWeapon(InputAction.CallbackContext ctx)
+    {
         if (gameObject.activeSelf)
-            primaryWeapon.Shoot();
+            primaryWeapon.StopShoot();
     }
 
     private void SecondaryShootWeapon(InputAction.CallbackContext ctx)
     {
+        if (gameObject.activeSelf && Time.timeScale > 0.1f)
+            secondaryWeapon.StartShoot();
+    }
+    
+    private void StopSecondaryShootWeapon(InputAction.CallbackContext ctx)
+    {
         if (gameObject.activeSelf)
-            secondaryWeapon.Shoot();
+            secondaryWeapon.StopShoot();
     }
 
     public void TakeDamage(int Damage)
