@@ -14,7 +14,9 @@ public class Plane : MonoBehaviour, IDamageable
     [SerializeField] private List<Transform> primaryWeaponSpawnPoint;
     [SerializeField] private List<Transform> secondaryWeaponSpawnPoint;
     [SerializeField] private string audioGameOver;
+    [SerializeField] private string audioExplosion = "Explosion";
     [SerializeField] private int HP = 100;
+    [SerializeField] private ParticleSystem explosion; // TEMPORARY FOR DEBUGGING after that, use pool manager
     
     public static Weapon Rocket { get; private set; }
     
@@ -66,7 +68,9 @@ public class Plane : MonoBehaviour, IDamageable
         if (HP <= 0)
         {
             OnPlaneDestroyed?.Invoke();
+            Destroy(Instantiate(explosion.gameObject, transform.position, explosion.transform.rotation), 5);
             AudioManager.Instance.PlaySound(audioGameOver);
+            AudioManager.Instance.PlaySound(audioExplosion);
             gameObject.SetActive(false);
         }
     }
