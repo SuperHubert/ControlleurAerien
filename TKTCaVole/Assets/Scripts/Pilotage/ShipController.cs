@@ -8,6 +8,7 @@ using TMPro;
 public class ShipController : MonoBehaviour
 {
     [SerializeField] private ScriptableSetting settings;
+    [SerializeField] private Collider col;
         
     private Vector2 moveVector = Vector2.zero;
 
@@ -34,9 +35,28 @@ public class ShipController : MonoBehaviour
         GameInputManager.OnGearUpCancelled += OnGearUpCancelled;
         GameInputManager.OnGearDownPerformed += OnGearDownPerformed;
         GameInputManager.OnGearDownCancelled += OnGearDownCancelled;
+
+        LevelController.OnLevelEnd -= OnLevelEnd;
+        
+        col.enabled = true;
     }
 
-    
+    private void OnDisable()
+    {
+        GameInputManager.OnMovementPerformed -= OnMovementPerformed;
+        GameInputManager.OnMovementCancelled -= OnMovementCancelled;
+        GameInputManager.OnGearUpPerformed -= OnGearUpPerformed;
+        GameInputManager.OnGearUpCancelled -= OnGearUpCancelled;
+        GameInputManager.OnGearDownPerformed -= OnGearDownPerformed;
+        GameInputManager.OnGearDownCancelled -= OnGearDownCancelled;
+
+        LevelController.OnLevelEnd -= OnLevelEnd;
+    }
+
+    private void OnLevelEnd(bool _,float __)
+    {
+        col.enabled = false;
+    }
 
 
     private void OnGearUpPerformed(InputAction.CallbackContext obj)
