@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
 
 
 public abstract class Weapon : MonoBehaviour
@@ -11,9 +11,7 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] public Transform SpawnPoint;
 
     protected GameObject lastBullet;
-
     public event Action<float> OnReloadStart; 
-    
     protected bool canFire = true;
 
     private void Start()
@@ -26,13 +24,13 @@ public abstract class Weapon : MonoBehaviour
         canFire = false;
         OnReloadStart?.Invoke(data.cooldown);
         yield return new WaitForSeconds(data.cooldown);
-          canFire = true;
+        canFire = true;
     }
 
     public virtual void Shoot()
     {
         lastBullet = null;
-         if (!canFire) return;
+        if (!canFire) return;
         StartCoroutine(reload());
 
         if (!BulletPoolManager.instance) return;
@@ -47,6 +45,7 @@ public abstract class Weapon : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
         lastBullet.transform.position = SpawnPoint.position;
         lastBullet.transform.rotation = transform.rotation;
         lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);

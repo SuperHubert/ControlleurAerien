@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class Plane : MonoBehaviour, IDamageable
 {
     public static event Action OnPlaneDestroyed;
-    
+
     [SerializeField] public Weapon primaryWeapon;
     [SerializeField] public Weapon secondaryWeapon;
     [SerializeField] public Transform SpawnPoint;
@@ -33,12 +33,14 @@ public class Plane : MonoBehaviour, IDamageable
 
     private void PrimaryShootWeapon(InputAction.CallbackContext ctx)
     {
-        primaryWeapon.Shoot();
+        if (gameObject.activeSelf)
+            primaryWeapon.Shoot();
     }
-    
+
     private void SecondaryShootWeapon(InputAction.CallbackContext ctx)
     {
-        secondaryWeapon.Shoot();
+        if (gameObject.activeSelf)
+            secondaryWeapon.Shoot();
     }
 
     public void TakeDamage(int Damage)
@@ -47,10 +49,10 @@ public class Plane : MonoBehaviour, IDamageable
         if (HP <= 0)
         {
             OnPlaneDestroyed?.Invoke();
-           gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         Rock rock = other.gameObject.GetComponent<Rock>();
