@@ -22,6 +22,7 @@ public class LevelController : MonoBehaviour
     [Header("Ship")]
     [SerializeField] private GameObject shipGo;
     [SerializeField] private string  addTimerKeyAudio= "TimerIncrease";
+    [SerializeField] private string audioGameOver = "GameOver";
 
     public static event Action<bool,float> OnLevelEnd;
     public static event Action<float> OnTimerUpdated;
@@ -43,7 +44,6 @@ public class LevelController : MonoBehaviour
     {
         shipGo.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
-        Debug.Log("Locked Cursor");
 
         Gate.OnGatesLeftUpdatedTimer += IncreaseTimer;
         Gate.OnGatesLeftUpdated += TryWinLevel;
@@ -121,6 +121,7 @@ public class LevelController : MonoBehaviour
         OnTotalTimerUpdated?.Invoke(totalTime);
         
         if(timer > 0) return;
+        AudioManager.Instance.PlaySound(audioGameOver);
         
         LoseLevel();
     }

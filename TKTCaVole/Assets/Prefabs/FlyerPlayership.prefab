@@ -5563,6 +5563,8 @@ MonoBehaviour:
   - {fileID: 6961834605486949385}
   audioGameOver: GameOver
   HP: 100
+  explosion: {fileID: 606801270142196365, guid: 6a47555f1e03e6640b6bad2688c1ebd2,
+    type: 3}
 --- !u!136 &4179958425593661033
 CapsuleCollider:
   m_ObjectHideFlags: 0
