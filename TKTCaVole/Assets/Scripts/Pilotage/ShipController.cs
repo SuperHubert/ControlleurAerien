@@ -36,7 +36,7 @@ public class ShipController : MonoBehaviour
         GameInputManager.OnGearDownPerformed += OnGearDownPerformed;
         GameInputManager.OnGearDownCancelled += OnGearDownCancelled;
 
-        LevelController.OnLevelEnd -= OnLevelEnd;
+        LevelController.OnLevelEnd += OnLevelEnd;
         
         col.enabled = true;
     }
@@ -55,6 +55,7 @@ public class ShipController : MonoBehaviour
 
     private void OnLevelEnd(bool _,float __)
     {
+        Debug.Log("Disabled col");
         col.enabled = false;
     }
 

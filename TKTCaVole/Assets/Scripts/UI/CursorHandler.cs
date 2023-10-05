@@ -7,10 +7,12 @@ public class CursorHandler : MonoBehaviour
 {
     private void Start()
     {
+        /*
         return;
         GameInputManager.OnPausePerformed += OnPausePerformed;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        */
     }
 
     private void OnPausePerformed(InputAction.CallbackContext obj)

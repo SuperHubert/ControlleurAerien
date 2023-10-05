@@ -43,6 +43,7 @@ public class LevelController : MonoBehaviour
     {
         shipGo.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
+        Debug.Log("Locked Cursor");
 
         Gate.OnGatesLeftUpdatedTimer += IncreaseTimer;
         Gate.OnGatesLeftUpdated += TryWinLevel;
