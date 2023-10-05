@@ -17,7 +17,7 @@ public class ShipController : MonoBehaviour
     [SerializeField]
     private Rigidbody rb;
     [SerializeField]
-    private float speed = 10f, rotationSpeed = 75.0f;
+    private float speed = 10f, rotationSpeed = 75.0f, clockRotSpeed = 2f;
     [SerializeField]
     private int gear = 0, gearValue = 2;
     
@@ -67,8 +67,8 @@ public class ShipController : MonoBehaviour
         }
         rb.AddTorque(transform.right * (moveVector.y * rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
         rb.AddTorque(transform.up * (moveVector.x * rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
-        if(rotateClockwise) rb.AddTorque(transform.forward * (-1*rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
-        else if(rotateCounterClockwise) rb.AddTorque(transform.forward * (1*rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
+        if(rotateClockwise) rb.AddTorque(transform.forward * (-clockRotSpeed*rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
+        else if(rotateCounterClockwise) rb.AddTorque(transform.forward * (clockRotSpeed*rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
 
         /*float currentSpeed = speed + gear*gearValue;
         transform.Translate(0, 0, currentSpeed * Time.deltaTime);
