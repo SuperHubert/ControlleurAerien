@@ -148,3 +148,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 0
   speedDissolve: 160
+  limitDissolve: -300
+  rend: {fileID: 1833968513961824590}
+--- !u!23 &1833968513961824590 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5a39bccc21ac11e47876ed6e4cd664e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1058914378621947338}
+  m_PrefabAsset: {fileID: 0}

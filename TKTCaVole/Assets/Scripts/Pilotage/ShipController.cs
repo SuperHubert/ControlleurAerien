@@ -55,7 +55,6 @@ public class ShipController : MonoBehaviour
 
     private void OnLevelEnd(bool _,float __)
     {
-        Debug.Log("Disabled col");
         col.enabled = false;
     }
 

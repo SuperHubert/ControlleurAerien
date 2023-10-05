@@ -9,16 +9,42 @@ public class Hourglass : MonoBehaviour
     
     [SerializeField] private float timeAdded = 5f;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private float startDissolveKey = 10;
+    [SerializeField] private float endDissolveKey = -10;
+    [SerializeField] private float speedDissolve = 120;
+    [SerializeField] private List<Renderer> rends;
+    
+    private static readonly int CutoffHeight = Shader.PropertyToID("_CutoffHeight");
+
 
     private void Start()
     {
         rb.angularVelocity = new Vector3(0, 0, 5f);
+        foreach (var rend in rends)
+        {
+            var mat = new Material(rend.material);
+            
+            mat.SetFloat(CutoffHeight, startDissolveKey);
+            rend.material = mat;
+        }
     }
-
-    private void OnTriggerEnter(Collider other)
+    
+    private IEnumerator DissolveManagement()
     {
-        OnHourglassCollected?.Invoke(timeAdded);
-        
+        bool Dissolve = false;
+
+        while (!Dissolve)
+        {
+            foreach (var render in rends)
+            {
+                render.material.SetFloat(CutoffHeight,
+                    render.material.GetFloat(CutoffHeight) - Time.deltaTime * speedDissolve);
+                if (render.material.GetFloat(CutoffHeight) <= endDissolveKey)
+                    Dissolve = true;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
         if (DebrisPoolManager.instance)
         {
             DebrisPoolManager.instance.AddHourglassToPool(gameObject);
@@ -27,5 +53,11 @@ public class Hourglass : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        OnHourglassCollected?.Invoke(timeAdded);
+        StartCoroutine(DissolveManagement());
     }
 }

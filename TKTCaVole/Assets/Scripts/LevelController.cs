@@ -13,7 +13,6 @@ public class LevelController : MonoBehaviour
     [SerializeField] private float timerDecreasePerLevel = 2.5f;
     [SerializeField] private float minTime = 15f;
     [SerializeField] private float decayRate = 1f;
-    [SerializeField] private float timerIncrease = 15f;
 
     [Header("Debug")]
     [SerializeField] private bool running;
