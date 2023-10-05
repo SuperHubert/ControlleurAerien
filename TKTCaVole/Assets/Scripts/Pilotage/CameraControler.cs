@@ -30,6 +30,8 @@ public class CameraControler : MonoBehaviour
         GameInputManager.OnCameraPerformed += OnCamMovementPerformed;
         GameInputManager.OnCameraCancelled += OnCamMovementCancelled;
         GameInputManager.OnCameraCenter += OnCameraCenter;
+        
+        OnCameraCenter(new InputAction.CallbackContext());
     }
 
     private void OnCameraCenter(InputAction.CallbackContext obj)
