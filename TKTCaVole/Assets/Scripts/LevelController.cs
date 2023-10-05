@@ -117,6 +117,7 @@ public class LevelController : MonoBehaviour
     public static string ScoreToText(float score)
     {
         var minutes = score / 60;
+        minutes -= minutes % 1;
         var seconds = score % 60;
         var deci = score % 1;
 
