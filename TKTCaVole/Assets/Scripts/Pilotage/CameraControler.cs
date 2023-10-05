@@ -23,6 +23,8 @@ public class CameraControler : MonoBehaviour
     private float timeElapsed = .0f;
     private Vector3 instantTCamPos;
 
+    private bool gameEnded = false;
+
     
     
     private void Start()
@@ -30,8 +32,22 @@ public class CameraControler : MonoBehaviour
         GameInputManager.OnCameraPerformed += OnCamMovementPerformed;
         GameInputManager.OnCameraCancelled += OnCamMovementCancelled;
         GameInputManager.OnCameraCenter += OnCameraCenter;
+
+        LevelController.OnLevelEnd += Disable;
+
+        gameEnded = false;
         
         OnCameraCenter(new InputAction.CallbackContext());
+    }
+
+    private void Disable(bool win,float _)
+    {
+        if(win) return;
+
+        gameEnded = true;
+        GameInputManager.OnCameraPerformed -= OnCamMovementPerformed;
+        GameInputManager.OnCameraCancelled -= OnCamMovementCancelled;
+        GameInputManager.OnCameraCenter -= OnCameraCenter;
     }
 
     private void OnCameraCenter(InputAction.CallbackContext obj)
@@ -55,10 +71,9 @@ public class CameraControler : MonoBehaviour
 
     void Update()
     {
-        transform.position = spaceShip.position;
-        transform.rotation = spaceShip.rotation;
-
+        if(gameEnded) return;
         
+        transform.SetPositionAndRotation(spaceShip.position,spaceShip.rotation);
         
         _currentCameraRot.y += moveVector.x * MouseSensitivity*Time.deltaTime;
         // _currentCameraRot.y %= 360;

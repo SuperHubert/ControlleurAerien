@@ -211,6 +211,8 @@ public class UIShip : MonoBehaviour
         if (isGamePaused) pauseMenuSelectable.Select();
         
         Cursor.lockState = isGamePaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isGamePaused;
+        //Debug.Log(isGamePaused ? "UnPause : Unlocked Cursor":"Pause :Locked Cursor");
         Time.timeScale = isGamePaused?0:1;
     }
 
