@@ -14,15 +14,16 @@ public class Gate : MonoBehaviour
     [SerializeField] private float increaseTimer = 15f;
     [SerializeField] private Animator animator;
     [Header("Dissolve")]
-    [SerializeField] private List<GameObject> matDissolver;
+    [SerializeField] private List<Renderer> matDissolver;
     [SerializeField] private float speedDissolve = 240;
     [SerializeField] private float limitDissolve = -500.0f;
     [SerializeField] private string GateFinishKeySound = "GateFinish";
 
     [FormerlySerializedAs("collider")] [SerializeField]
     private Collider col;
-
+    
     private static readonly int DestroyTrigger = Animator.StringToHash("Destroy");
+    private static readonly int CutoffHeight = Shader.PropertyToID("_CutoffHeight");
 
     public static void InitGates(int totalGates)
     {
@@ -34,10 +35,12 @@ public class Gate : MonoBehaviour
 
     private void OnEnable()
     {
-        for (int i = 0; i < matDissolver.Count; i++)
+        foreach (var rend in matDissolver)
         {
+            var mat = new Material(rend.material);
             
-            matDissolver[i].GetComponent<Renderer>().material.SetFloat("_CutoffHeight", 130);
+            mat.SetFloat(CutoffHeight, 130);
+            rend.material = mat;
         }
     }
 
@@ -52,12 +55,11 @@ public class Gate : MonoBehaviour
 
         while (!Dissolve)
         {
-            for (int i = 0; i < matDissolver.Count; i++)
+            foreach (var render in matDissolver)
             {
-                Renderer renderer = matDissolver[i].GetComponent<Renderer>();
-                renderer.material.SetFloat("_CutoffHeight",
-                    renderer.material.GetFloat("_CutoffHeight") - Time.deltaTime * speedDissolve);
-                if (renderer.material.GetFloat("_CutoffHeight") <= limitDissolve)
+                render.material.SetFloat(CutoffHeight,
+                    render.material.GetFloat(CutoffHeight) - Time.deltaTime * speedDissolve);
+                if (render.material.GetFloat(CutoffHeight) <= limitDissolve)
                     Dissolve = true;
             }
 
