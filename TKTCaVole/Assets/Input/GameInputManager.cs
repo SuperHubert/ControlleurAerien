@@ -14,7 +14,9 @@ public class GameInputManager : MonoBehaviour
     public static event Action<InputAction.CallbackContext> OnCameraCenter;
     
     public static event Action<InputAction.CallbackContext> OnGearUpPerformed;
+    public static event Action<InputAction.CallbackContext> OnGearUpCancelled;
     public static event Action<InputAction.CallbackContext> OnGearDownPerformed;
+    public static event Action<InputAction.CallbackContext> OnGearDownCancelled;
 
     public static event Action<InputAction.CallbackContext> OnSecondaryShootPerformed;
     public static event Action<InputAction.CallbackContext> OnPrimaryShootPerformed;
@@ -35,7 +37,9 @@ public class GameInputManager : MonoBehaviour
         OnCameraPerformed = null;
         OnCameraCancelled= null;
         OnGearUpPerformed= null;
+        OnGearUpCancelled= null;
         OnGearDownPerformed= null;
+        OnGearDownCancelled= null;
         OnSecondaryShootPerformed = null;
         OnPrimaryShootPerformed= null;
         OnPausePerformed= null;
@@ -50,7 +54,9 @@ public class GameInputManager : MonoBehaviour
         input.Player.CenterCam.performed += InvokeCamCentre;
 
         input.Player.GearUp.performed += InvokeGearUp;
+        input.Player.GearUp.canceled += InvokeGearUpCancelled;
         input.Player.GearDown.performed += InvokeGearDown;
+        input.Player.GearDown.canceled += InvokeGearDownCancelled;
         input.Player.SecondaryWeaponShoot.performed += InvokeSecondaryShoot;
         input.Player.PrimaryWeaponShoot.performed += InvokePrimaryShoot;
 
@@ -58,11 +64,6 @@ public class GameInputManager : MonoBehaviour
     }
 
     
-
-    public static void InvokePause(InputAction.CallbackContext ctx)
-    {
-        OnPausePerformed?.Invoke(ctx);
-    }
 
     private void OnDisable()
     {
@@ -75,12 +76,30 @@ public class GameInputManager : MonoBehaviour
         input.Player.CenterCam.performed -= InvokeCamCentre;
         
         input.Player.GearUp.performed -= InvokeGearUp;
+        input.Player.GearUp.canceled -= InvokeGearUpCancelled;
         input.Player.GearDown.performed -= InvokeGearDown;
+        input.Player.GearDown.canceled -= InvokeGearDownCancelled;
         input.Player.SecondaryWeaponShoot.performed -= InvokeSecondaryShoot;
         input.Player.PrimaryWeaponShoot.performed -= InvokePrimaryShoot;
 
         input.Player.Pause.performed -= InvokePause;
         
+    }
+    
+    private void InvokeGearUpCancelled(InputAction.CallbackContext ctx)
+    {
+        OnGearUpCancelled?.Invoke(ctx);
+    }
+
+    private void InvokeGearDownCancelled(InputAction.CallbackContext ctx)
+    {
+        OnGearDownCancelled?.Invoke(ctx);
+    }
+
+
+    public static void InvokePause(InputAction.CallbackContext ctx)
+    {
+        OnPausePerformed?.Invoke(ctx);
     }
 
     private void InvokeMovement(InputAction.CallbackContext ctx)

@@ -345,6 +345,28 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""761e9fb4-7f2d-4498-86fd-10eb9666d326"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryWeaponShoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fc13cdd-54a2-4619-8336-2fce1d2742e9"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryWeaponShoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""039d9151-f75e-4292-89e4-3823a4da5021"",
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
@@ -358,6 +380,28 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""4447ab83-fab4-455e-ad17-000c55bdebd2"",
                     ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryWeaponShoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a71503a-c4c7-49cc-a44f-c82457d507f1"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryWeaponShoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17277023-21d5-44c6-945d-a7b5fe74744e"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

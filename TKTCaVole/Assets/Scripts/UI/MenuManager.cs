@@ -129,11 +129,11 @@ public class MenuManager : MonoBehaviour
         
         var sequence = DOTween.Sequence();
         sequence.Append(titleGraphic.DOFade(1, 1f));
+        sequence.AppendCallback(playButton.Select);
         sequence.Append(buttonTransforms[0].tr.DOSizeDelta(buttonTransforms[0].sizeDelta, buttonRevealDuration));
         sequence.Append(buttonTransforms[1].tr.DOSizeDelta(buttonTransforms[1].sizeDelta, buttonRevealDuration));
         sequence.Append(buttonTransforms[2].tr.DOSizeDelta(buttonTransforms[2].sizeDelta, buttonRevealDuration));
         sequence.Append(buttonTransforms[3].tr.DOSizeDelta(buttonTransforms[3].sizeDelta, buttonRevealDuration));
-        sequence.AppendCallback(playButton.Select);
         
         sequence.Play();
     }

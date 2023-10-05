@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7855021076159642216
 RectTransform:
   m_ObjectHideFlags: 0
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294705114
   m_fontColor: {r: 0.85490197, g: 1, b: 0.9843137, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1332,18 +1332,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'new text
-
-'
+  m_text: new text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 85752b664f0849e478296e931edbb961, type: 2}
+  m_sharedMaterial: {fileID: -1671365206546372292, guid: 85752b664f0849e478296e931edbb961,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294705114
   m_fontColor: {r: 0.85490197, g: 1, b: 0.9843137, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1421,7 +1420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9197291064072163923
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1603,7 +1602,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
