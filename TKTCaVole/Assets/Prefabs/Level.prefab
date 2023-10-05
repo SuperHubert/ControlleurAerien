@@ -45,11 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 7896380630940572866}
-  timerStart: 15
+  timerStart: 30
+  timerDecreasePerLevel: 2.5
+  minTime: 15
   decayRate: 1
   timerIncrease: 15
   running: 0
   timer: 0
+  totalTime: 0
 --- !u!1 &3581367964844791672
 GameObject:
   m_ObjectHideFlags: 0

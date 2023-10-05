@@ -71,7 +71,7 @@ public class UIShip : MonoBehaviour
 
     private void OnTimerUpdated(float timer)
     {
-        timerText.text = $"{LevelController.ScoreToText(timer)}s";
+        timerText.text = $"{LevelController.ScoreToText(timer)}";
     }
 
     private void OnGateLeftUpdate(int gateLeft, int gateTotal)

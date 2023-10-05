@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [SerializeField] private UISettingsSo uiSettings;
+    
     [Header("Prefabs")]
     [SerializeField] private Gate ringPrefab;
     [SerializeField] private List<Rock> rockPrefabs;
@@ -41,6 +43,8 @@ public class LevelGenerator : MonoBehaviour
     
     public void GenerateLevel(int level,Action callback)
     {
+        if(UISettingsSo.CurrentSettings == null) uiSettings.SetInstance();
+        
         Random.InitState(level);
 
         var iterations = minGate + level * extraGatePerLevel;

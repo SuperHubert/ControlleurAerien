@@ -68,6 +68,7 @@ public class SettingsManager : MonoBehaviour
         if(!PlayerPrefs.HasKey(shipYKey)) PlayerPrefs.SetInt(shipYKey,settings.invertShipY ? 1 : 0);
 
         settings.cameraSensitivity = PlayerPrefs.GetFloat(sensitivityKey);
+        settings.invertCameraX = PlayerPrefs.GetInt(cameraXKey) == 1;
         settings.invertCameraY = PlayerPrefs.GetInt(cameraYKey) == 1;
         settings.invertShipX = PlayerPrefs.GetInt(shipXKey) == 1;
         settings.invertShipY = PlayerPrefs.GetInt(shipYKey) == 1;
@@ -76,10 +77,11 @@ public class SettingsManager : MonoBehaviour
     [ContextMenu("Reset Prefs")]
     private void ResetSettings()
     {
-        PlayerPrefs.SetFloat(sensitivityKey,0);
-        PlayerPrefs.SetInt(cameraYKey,0);
-        PlayerPrefs.SetInt(shipYKey,0);
-        PlayerPrefs.SetInt(shipYKey,0);
+        PlayerPrefs.SetFloat(sensitivityKey,settings.cameraSensitivity);
+        PlayerPrefs.SetInt(cameraYKey,settings.invertCameraY ? 1 : 0);
+        PlayerPrefs.SetInt(cameraXKey,settings.invertCameraX ? 1 : 0);
+        PlayerPrefs.SetInt(shipYKey,settings.invertShipX ? 1 : 0);
+        PlayerPrefs.SetInt(shipYKey,settings.invertShipY ? 1 : 0);
     }
 
     private void UpdateSensitivity(float value)
