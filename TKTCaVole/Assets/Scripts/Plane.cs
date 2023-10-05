@@ -33,13 +33,13 @@ public class Plane : MonoBehaviour, IDamageable
 
     private void PrimaryShootWeapon(InputAction.CallbackContext ctx)
     {
-        if (gameObject.activeSelf)
+        if (gameObject.activeSelf && Time.timeScale > 0.1f)
             primaryWeapon.Shoot();
     }
 
     private void SecondaryShootWeapon(InputAction.CallbackContext ctx)
     {
-        if (gameObject.activeSelf)
+        if (gameObject.activeSelf && Time.timeScale > 0.1f)
             secondaryWeapon.Shoot();
     }
 
