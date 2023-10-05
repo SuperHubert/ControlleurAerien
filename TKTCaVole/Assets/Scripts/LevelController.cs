@@ -71,7 +71,8 @@ public class LevelController : MonoBehaviour
     private void EndLevel()
     {
         running = false;
-        
+        Cursor.visible = true;
+
         Gate.OnGatesLeftUpdatedTimer -= IncreaseTimer;
         Gate.OnGatesLeftUpdated -= TryWinLevel;
         Hourglass.OnHourglassCollected -= IncreaseTimer;

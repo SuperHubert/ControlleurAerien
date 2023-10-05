@@ -16,6 +16,7 @@ public class Gate : MonoBehaviour
     [Header("Dissolve")]
     [SerializeField] private List<GameObject> matDissolver;
     [SerializeField] private float speedDissolve = 240;
+    [SerializeField] private float limitDissolve = -500.0f;
 
     [FormerlySerializedAs("collider")] [SerializeField]
     private Collider col;
@@ -52,9 +53,10 @@ public class Gate : MonoBehaviour
         {
             for (int i = 0; i < matDissolver.Count; i++)
             {
-                matDissolver[i].GetComponent<Renderer>().material.SetFloat("_CutoffHeight",
-                    matDissolver[i].GetComponent<Renderer>().material.GetFloat("_CutoffHeight") - Time.deltaTime * speedDissolve);
-                if ( matDissolver[i].GetComponent<Renderer>().material.GetFloat("_CutoffHeight") <= -500.0f)
+                Renderer renderer = matDissolver[i].GetComponent<Renderer>();
+                renderer.material.SetFloat("_CutoffHeight",
+                    renderer.material.GetFloat("_CutoffHeight") - Time.deltaTime * speedDissolve);
+                if (renderer.material.GetFloat("_CutoffHeight") <= limitDissolve)
                     Dissolve = true;
             }
 
