@@ -8,15 +8,19 @@ public class Debris : MonoBehaviour
     [SerializeField] private float lifeTime = 2f;
     [SerializeField] private float speedDissolve = 240;
     [SerializeField] private float limitDissolve = -300.0f;
-    
+    [SerializeField] private Renderer rend;
+
+    private void Start()
+    {
+        rend.material = new Material(rend.material);
+    }
+
     private IEnumerator DissolveManagement()
     {
-        Renderer renderer = gameObject.GetComponent<Renderer>();
-
-        while (renderer.material.GetFloat("_CutoffHeight") > limitDissolve)
+        while (GetComponent<Renderer>().material.GetFloat("_CutoffHeight") > limitDissolve)
         {
-            renderer.material.SetFloat("_CutoffHeight",
-                renderer.material.GetFloat("_CutoffHeight") - Time.deltaTime * speedDissolve);
+            GetComponent<Renderer>().material.SetFloat("_CutoffHeight",
+                GetComponent<Renderer>().material.GetFloat("_CutoffHeight") - Time.deltaTime * speedDissolve);
             yield return new WaitForEndOfFrame();
         }
         DebrisPoolManager.instance.AddDebrisToPool(gameObject);
