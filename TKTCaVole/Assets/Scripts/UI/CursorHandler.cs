@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class CursorHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        return;
         GameInputManager.OnPausePerformed += OnPausePerformed;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

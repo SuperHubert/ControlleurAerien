@@ -67,6 +67,7 @@ public class UIShip : MonoBehaviour
         InitRocketCooldown();
         gearFeedbackImage.fillAmount = 1/6f;
 
+        Cursor.lockState = CursorLockMode.Locked;
         
         controller.OnGearChanged += UpdateGearText;
         GameInputManager.OnPausePerformed += OnPausePerformed;
@@ -98,7 +99,6 @@ public class UIShip : MonoBehaviour
     {
         RemoveCallbacks();
         
-        Time.timeScale = 0f;
         endGamePanel.SetActive(true);
 
         var selectable = won ? endGamePanelWinSelectable : endGamePanelLoseSelectable;
@@ -207,9 +207,10 @@ public class UIShip : MonoBehaviour
     {
         isGamePaused = !isGamePaused; 
         pausePanel.SetActive(isGamePaused);
+
+        if (isGamePaused) pauseMenuSelectable.Select();
         
-        if(isGamePaused) pauseMenuSelectable.Select();
-        
+        Cursor.lockState = isGamePaused ? CursorLockMode.None : CursorLockMode.Locked;
         Time.timeScale = isGamePaused?0:1;
     }
 

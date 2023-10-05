@@ -5485,6 +5485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: e70ce3c3bf1a72443a54f42cb9d897ef, type: 2}
+  col: {fileID: 1237091701416757165}
   rb: {fileID: 3889492365918495131}
   speed: 100
   rotationSpeed: 125
