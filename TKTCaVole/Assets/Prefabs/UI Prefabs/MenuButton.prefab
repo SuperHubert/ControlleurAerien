@@ -272,6 +272,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 7383427983095154301}
   rectTransform: {fileID: 1573473801315788000}
+  SelectAudioKey: SelectionButton
+  ConfirmAudioKey: ClickButton
 --- !u!114 &428803841779986504
 MonoBehaviour:
   m_ObjectHideFlags: 0
