@@ -19,7 +19,11 @@ public class GameInputManager : MonoBehaviour
     public static event Action<InputAction.CallbackContext> OnGearDownCancelled;
 
     public static event Action<InputAction.CallbackContext> OnSecondaryShootPerformed;
+    public static event Action<InputAction.CallbackContext> OnSecondaryShootCancelled;
+
     public static event Action<InputAction.CallbackContext> OnPrimaryShootPerformed;
+    
+    public static event Action<InputAction.CallbackContext> OnPrimaryShootCancelled;
 
     public static event Action<InputAction.CallbackContext> OnPausePerformed;
     
@@ -41,7 +45,9 @@ public class GameInputManager : MonoBehaviour
         OnGearDownPerformed= null;
         OnGearDownCancelled= null;
         OnSecondaryShootPerformed = null;
+        OnSecondaryShootCancelled = null;
         OnPrimaryShootPerformed= null;
+        OnPrimaryShootCancelled = null;
         OnPausePerformed= null;
         OnCameraCenter = null;
         
@@ -58,15 +64,15 @@ public class GameInputManager : MonoBehaviour
         input.Player.GearDown.performed += InvokeGearDown;
         input.Player.GearDown.canceled += InvokeGearDownCancelled;
         input.Player.SecondaryWeaponShoot.performed += InvokeSecondaryShoot;
+        input.Player.PrimaryWeaponShoot.canceled += InvokSecondaryShootCancelled;
         input.Player.PrimaryWeaponShoot.performed += InvokePrimaryShoot;
+        input.Player.PrimaryWeaponShoot.canceled += InvokePrimaryShootCancelled;
 
         input.Player.Pause.performed += InvokePause;
         
         
     }
-
     
-
     private void OnDisable()
     {
         input.Disable();
@@ -135,13 +141,25 @@ public class GameInputManager : MonoBehaviour
     {
         OnGearDownPerformed?.Invoke(ctx);
     }
+    private void InvokePrimaryShoot(InputAction.CallbackContext ctx)
+    {
+        OnPrimaryShootPerformed?.Invoke(ctx);
+        Debug.Log("Active");
+    }
+    
+    private void InvokePrimaryShootCancelled(InputAction.CallbackContext ctx)
+    {
+        OnPrimaryShootCancelled?.Invoke(ctx);
+        Debug.Log("Cancel");
+    }
+    
     private void InvokeSecondaryShoot(InputAction.CallbackContext ctx)
     {
         OnSecondaryShootPerformed?.Invoke(ctx);
     }
-    private void InvokePrimaryShoot(InputAction.CallbackContext ctx)
+    private void InvokSecondaryShootCancelled(InputAction.CallbackContext ctx)
     {
-        OnPrimaryShootPerformed?.Invoke(ctx);
+        OnSecondaryShootCancelled.Invoke(ctx);
     }
 
 
