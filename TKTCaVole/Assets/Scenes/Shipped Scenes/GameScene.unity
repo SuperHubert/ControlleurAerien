@@ -1216,7 +1216,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1716375878}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1716375881}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0823c4244fbb3548a888c03de014b7d, type: 3}
@@ -1225,6 +1225,12 @@ MonoBehaviour:
 --- !u!4 &1716375880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5741299630113080098, guid: 72084f1e18db65740ae3a244badb3558,
+    type: 3}
+  m_PrefabInstance: {fileID: 1716375878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1716375881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4964903256221850008, guid: 72084f1e18db65740ae3a244badb3558,
     type: 3}
   m_PrefabInstance: {fileID: 1716375878}
   m_PrefabAsset: {fileID: 0}
@@ -1507,6 +1513,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5221085897237501327, guid: fb81caf0786814848ae7215ef7f83bdf,
+        type: 3}
+      propertyPath: shipGo
+      value: 
+      objectReference: {fileID: 1716375881}
     - target: {fileID: 5771364178965932728, guid: fb81caf0786814848ae7215ef7f83bdf,
         type: 3}
       propertyPath: m_LocalPosition.x

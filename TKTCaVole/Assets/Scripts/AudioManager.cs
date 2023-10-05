@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     {
         [field:SerializeField] public string Key { get; private set; }
         [field:SerializeField] public AudioClip Clip { get; private set; }
+        [field: SerializeField, Range(0f, 1f)] public float Volume { get; private set; } = 1;
     }
     
     
@@ -39,13 +40,14 @@ public class AudioManager : MonoBehaviour
     private void CreateAudioSources()
     {
         sources.Clear();
-        foreach (var clip in clips)
+        foreach (var sound in clips)
         {
             var source = gameObject.AddComponent<AudioSource>();
-
-            source.clip = clip.Clip;
+            source.playOnAwake = false;
+            source.volume = sound.Volume;
+            source.clip = sound.Clip;
             
-            sources.Add(clip.Key,source);
+            sources.Add(sound.Key,source);
             
         }
     }

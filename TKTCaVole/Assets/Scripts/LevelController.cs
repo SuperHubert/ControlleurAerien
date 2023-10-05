@@ -20,6 +20,9 @@ public class LevelController : MonoBehaviour
     [SerializeField] private float timer;
     [SerializeField] private float totalTime;
 
+    [Header("Ship")]
+    [SerializeField] private GameObject shipGo;
+
     public static event Action<bool,float> OnLevelEnd;
     public static event Action<float> OnTimerUpdated;
     public static event Action<float> OnTotalTimerUpdated;
@@ -29,7 +32,8 @@ public class LevelController : MonoBehaviour
     private void Start()
     {
         running = false;
-
+        shipGo.SetActive(false);
+        
         var level = LevelTracker.CurrentLevel;
         
         generator.GenerateLevel(level,OnLevelGenerated);
@@ -37,7 +41,8 @@ public class LevelController : MonoBehaviour
 
     private void OnLevelGenerated()
     {
-        //TODO - setup stuff here
+        shipGo.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
 
         Gate.OnGatesLeftUpdatedTimer += IncreaseTimer;
         Gate.OnGatesLeftUpdated += TryWinLevel;
