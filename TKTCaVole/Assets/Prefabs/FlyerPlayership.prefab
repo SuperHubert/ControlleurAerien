@@ -597,7 +597,7 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: e70ce3c3bf1a72443a54f42cb9d897ef, type: 2}
   rb: {fileID: 3889492365918495131}
   speed: 100
-  rotationSpeed: 100
+  rotationSpeed: 125
   gear: 0
   gearValue: 20
 --- !u!114 &8191389531906333751

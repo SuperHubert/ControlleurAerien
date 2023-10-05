@@ -20,46 +20,55 @@ public class ShipController : MonoBehaviour
     private float speed = 10f, rotationSpeed = 75.0f;
     [SerializeField]
     private int gear = 0, gearValue = 2;
+    
+    public event Action<int> OnGearChanged;
 
-    public event Action<int> OnGearChanged; 
+    
+    private bool rotateClockwise, rotateCounterClockwise;
     
     private void Start()
     {
         GameInputManager.OnMovementPerformed += OnMovementPerformed;
         GameInputManager.OnMovementCancelled += OnMovementCancelled;
         GameInputManager.OnGearUpPerformed += OnGearUpPerformed;
+        GameInputManager.OnGearUpCancelled += OnGearUpCancelled;
         GameInputManager.OnGearDownPerformed += OnGearDownPerformed;
+        GameInputManager.OnGearDownCancelled += OnGearDownCancelled;
     }
+
     
+
 
     private void OnGearUpPerformed(InputAction.CallbackContext obj)
     {
-        if (gear >= 5) return;
-        
-        gear++; //changer le FOV
-            
-        OnGearChanged?.Invoke(gear);
-    }
+        rotateClockwise = true;
 
+    }
+    private void OnGearUpCancelled(InputAction.CallbackContext obj)
+    {
+        rotateClockwise = false;
+    }
     private void OnGearDownPerformed(InputAction.CallbackContext obj)
     {
-        if (gear <= 0) return;
-        
-        gear--;
-            
-        OnGearChanged?.Invoke(gear);
+        rotateCounterClockwise = true;
     }
-
+    private void OnGearDownCancelled(InputAction.CallbackContext obj)
+    {
+        rotateCounterClockwise = false;
+    }
+    
     void FixedUpdate()
     {
 
         float currentSpeed = speed + gear * gearValue;
         if (rb.velocity.magnitude < currentSpeed)
         {
-            rb.AddForce(transform.forward * currentSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
+            rb.AddForce(transform.forward * (currentSpeed * Time.deltaTime), ForceMode.Impulse);
         }
-        rb.AddTorque(transform.right * moveVector.y * rotationSpeed * Time.fixedDeltaTime, ForceMode.Acceleration);
-        rb.AddTorque(transform.forward * moveVector.x * rotationSpeed * Time.fixedDeltaTime, ForceMode.Acceleration);
+        rb.AddTorque(transform.right * (moveVector.y * rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
+        rb.AddTorque(transform.up * (moveVector.x * rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
+        if(rotateClockwise) rb.AddTorque(transform.forward * (-1*rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
+        else if(rotateCounterClockwise) rb.AddTorque(transform.forward * (1*rotationSpeed * Time.deltaTime), ForceMode.Acceleration);
 
         /*float currentSpeed = speed + gear*gearValue;
         transform.Translate(0, 0, currentSpeed * Time.deltaTime);

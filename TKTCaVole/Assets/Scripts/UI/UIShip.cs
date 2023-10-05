@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -45,13 +46,23 @@ public class UIShip : MonoBehaviour
         LevelController.OnLevelEnd += OnLevelEnd;
     }
 
-    private void OnLevelEnd(bool won, float score)
+    private void OnDisable()
+    {
+        RemoveCallbacks();
+    }
+
+    private void RemoveCallbacks()
     {
         controller.OnGearChanged -= UpdateGearText;
         GameInputManager.OnPausePerformed -= OnPausePerformed;
         Gate.OnGatesLeftUpdated -= OnGateLeftUpdate;
         LevelController.OnTimerUpdated -= OnTimerUpdated;
         LevelController.OnLevelEnd -= OnLevelEnd;
+    }
+
+    private void OnLevelEnd(bool won, float score)
+    {
+        RemoveCallbacks();
         
         Time.timeScale = 0f;
         endGamePanel.SetActive(true);
