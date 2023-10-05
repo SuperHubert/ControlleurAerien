@@ -10,7 +10,7 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected WeaponData data;
     [SerializeField] public Transform SpawnPoint;
 
-    protected GameObject lastBullet;
+    protected BulletParent lastBullet;
     public event Action<float> OnReloadStart; 
     protected bool canFire = true;
 
@@ -37,15 +37,16 @@ public abstract class Weapon : MonoBehaviour
         switch (data.type)
         {
             case WeaponType.PewPew:
-                lastBullet = BulletPoolManager.instance.getBullet(SpawnPoint.position, transform.rotation).gameObject;
+                lastBullet = BulletPoolManager.instance.getBullet(SpawnPoint.position, transform.rotation);
                 break;
             case WeaponType.Rocket:
-                lastBullet = BulletPoolManager.instance.getRocket(SpawnPoint.position, transform.rotation).gameObject;
+                lastBullet = BulletPoolManager.instance.getRocket(SpawnPoint.position, transform.rotation);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);
+        lastBullet.SetData(data.lifeTime, data.speed, data.damage);
+        AudioManager.Instance.PlaySound(data.SoundKey);
     }
 
     public void SetSpawnPoint(Transform spawnPoint)

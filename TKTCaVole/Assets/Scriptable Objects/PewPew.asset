@@ -19,3 +19,4 @@ MonoBehaviour:
   lifeTime: 2
   type: 0
   damage: 100
+  <SoundKey>k__BackingField: Laser

@@ -41,11 +41,12 @@ public class AudioManager : MonoBehaviour
         sources.Clear();
         foreach (var clip in clips)
         {
-            var source = new AudioSource
-            {
-                clip = clip.Clip
-            };
+            var source = gameObject.AddComponent<AudioSource>();
+
+            source.clip = clip.Clip;
+            
             sources.Add(clip.Key,source);
+            
         }
     }
 
