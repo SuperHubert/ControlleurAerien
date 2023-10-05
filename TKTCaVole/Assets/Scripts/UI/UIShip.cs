@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,12 @@ public class UIShip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Camera cam;
 
+    [Header("Shooting")]
+    [SerializeField] private Image rocketCooldownImage;
+    [SerializeField] private List<Graphic> elementsToShow = new();
+    private Weapon weapon;
+    
+    [Header("Selectables")]
     [SerializeField] private Selectable pauseMenuSelectable;
     [SerializeField] private Selectable endGamePanelWinSelectable;
     [SerializeField] private Selectable endGamePanelLoseSelectable;
@@ -37,6 +44,11 @@ public class UIShip : MonoBehaviour
         pausePanel.SetActive(false);
         endGamePanel.SetActive(false);
 
+        weapon = Plane.Rocket;
+
+        weapon.OnReloadStart += OnReloadStart;
+
+        InitRocketCooldown();
         gearFeedbackImage.fillAmount = 1/6f;
 
         controller.OnGearChanged += UpdateGearText;
@@ -53,6 +65,9 @@ public class UIShip : MonoBehaviour
 
     private void RemoveCallbacks()
     {
+        rocketCooldownImage.DOKill();
+        
+        weapon.OnReloadStart -= OnReloadStart;
         controller.OnGearChanged -= UpdateGearText;
         GameInputManager.OnPausePerformed -= OnPausePerformed;
         Gate.OnGatesLeftUpdated -= OnGateLeftUpdate;
@@ -78,6 +93,38 @@ public class UIShip : MonoBehaviour
         var highscoreText = highscore > 0 ? $"record : {LevelController.ScoreToText(highscore)}" : "";
         
         highScoreText.text = $"{scoreText}{highscoreText}";
+    }
+
+    private void InitRocketCooldown()
+    {
+        foreach (var element in elementsToShow)
+        {
+            var col = element.color;
+            col.a = 0;
+            element.color = col;
+        }
+        rocketCooldownImage.fillAmount = 0;
+    }
+
+    private void OnReloadStart(float duration)
+    {
+        foreach (var element in elementsToShow)
+        {
+            element.DOFade(1, 0.1f);
+        }
+        
+        rocketCooldownImage.fillAmount = 0;
+        
+        rocketCooldownImage.DOFillAmount(1, duration).OnComplete(RevealElements);
+        return;
+
+        void RevealElements()
+        {
+            foreach (var element in elementsToShow)
+            {
+                element.DOFade(0, 0.1f);
+            }
+        }
     }
 
     private void OnTimerUpdated(float timer)

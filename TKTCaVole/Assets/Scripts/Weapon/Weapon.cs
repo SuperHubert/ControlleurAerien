@@ -12,6 +12,8 @@ public abstract class Weapon : MonoBehaviour
 
     protected GameObject lastBullet;
 
+    public event Action<float> OnReloadStart; 
+    
     protected bool canFire = true;
 
     private void Start()
@@ -22,6 +24,7 @@ public abstract class Weapon : MonoBehaviour
     private IEnumerator reload()
     {
         canFire = false;
+        OnReloadStart?.Invoke(data.cooldown);
         yield return new WaitForSeconds(data.cooldown);
           canFire = true;
     }
