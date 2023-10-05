@@ -17,4 +17,5 @@ public class WeaponData : ScriptableObject
     public float lifeTime;
     public WeaponType type;
     public int damage;
+    [field:SerializeField] public string SoundKey { get; private set; }
 }

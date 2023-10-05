@@ -28,7 +28,6 @@ public class GameInputManager : MonoBehaviour
     public static event Action<InputAction.CallbackContext> OnPausePerformed;
     
     
-    
     void Awake()
     {
         input = new ShipInput();
@@ -64,7 +63,7 @@ public class GameInputManager : MonoBehaviour
         input.Player.GearDown.performed += InvokeGearDown;
         input.Player.GearDown.canceled += InvokeGearDownCancelled;
         input.Player.SecondaryWeaponShoot.performed += InvokeSecondaryShoot;
-        input.Player.SecondaryWeaponShoot.canceled += InvokSecondaryShootCancelled;
+        input.Player.SecondaryWeaponShoot.canceled += InvokeSecondaryShootCancelled;
         input.Player.PrimaryWeaponShoot.performed += InvokePrimaryShoot;
         input.Player.PrimaryWeaponShoot.canceled += InvokePrimaryShootCancelled;
 
@@ -90,7 +89,7 @@ public class GameInputManager : MonoBehaviour
         input.Player.SecondaryWeaponShoot.performed -= InvokeSecondaryShoot;
         input.Player.PrimaryWeaponShoot.performed -= InvokePrimaryShoot;
         input.Player.PrimaryWeaponShoot.canceled -= InvokePrimaryShootCancelled;
-        input.Player.SecondaryWeaponShoot.canceled -= InvokSecondaryShootCancelled;
+        input.Player.SecondaryWeaponShoot.canceled -= InvokeSecondaryShootCancelled;
 
         input.Player.Pause.performed -= InvokePause;
         
@@ -157,9 +156,9 @@ public class GameInputManager : MonoBehaviour
     {
         OnSecondaryShootPerformed?.Invoke(ctx);
     }
-    private void InvokSecondaryShootCancelled(InputAction.CallbackContext ctx)
+    private void InvokeSecondaryShootCancelled(InputAction.CallbackContext ctx)
     {
-        OnSecondaryShootCancelled.Invoke(ctx);
+        OnSecondaryShootCancelled?.Invoke(ctx);
     }
 
 

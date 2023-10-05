@@ -9,9 +9,10 @@ public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponData data;
     [SerializeField] public Transform SpawnPoint;
+    
+    protected BulletParent lastBullet;
+    public event Action<float> OnReloadStart; 
 
-    protected GameObject lastBullet;
-    public event Action<float> OnReloadStart;
     protected bool canFire = true;
     private bool wantFire = false;
 
@@ -36,26 +37,20 @@ public abstract class Weapon : MonoBehaviour
     private IEnumerator Shootswsssssszs()
     {
         lastBullet = null;
-        if (canFire)
-        {
-            StartCoroutine(reload());
-            if (!BulletPoolManager.instance) yield break;
-            switch (data.type)
-            {
-                case WeaponType.PewPew:
-                    lastBullet = BulletPoolManager.instance.getBullet(SpawnPoint.position, transform.rotation)
-                        .gameObject;
-                    break;
-                case WeaponType.Rocket:
-                    lastBullet = BulletPoolManager.instance.getRocket(SpawnPoint.position, transform.rotation)
-                        .gameObject;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        if (!canFire) yield break;
 
-            lastBullet.GetComponent<BulletParent>().SetData(data.lifeTime, data.speed, data.damage);
-        }
+        StartCoroutine(reload());
+        
+        if(!BulletPoolManager.instance) yield break;
+
+        lastBullet = data.type switch
+        {
+            WeaponType.PewPew => BulletPoolManager.instance.getBullet(SpawnPoint.position, transform.rotation),
+            WeaponType.Rocket => BulletPoolManager.instance.getRocket(SpawnPoint.position, transform.rotation),
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        lastBullet.SetData(data.lifeTime, data.speed, data.damage);
+        AudioManager.Instance.PlaySound(data.SoundKey);
     }
 
     public virtual void StartShoot()
