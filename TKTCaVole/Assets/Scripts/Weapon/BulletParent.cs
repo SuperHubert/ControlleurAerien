@@ -13,7 +13,6 @@ public class BulletParent : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        StartCoroutine(FinalCountDown());
     }
 
     public void SetData(float _lifeTime, float _speed, int _damage)
@@ -21,6 +20,8 @@ public class BulletParent : MonoBehaviour
         lifeTime = _lifeTime;
         speed = _speed;
         damage = _damage;
+        if (gameObject.activeSelf)
+            StartCoroutine(FinalCountDown());
     }
 
     protected IEnumerator FinalCountDown()
@@ -40,6 +41,7 @@ public class BulletParent : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IDamageable target = other.GetComponent<IDamageable>();
+        Debug.Log("Triggered");
         target?.TakeDamage(damage);
         switch (this)
         {

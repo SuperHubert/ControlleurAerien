@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: c48936f379dd98443a2d9eff04550b26, type: 2}
-  SpawnPoint: {fileID: 0}
+  SpawnPoint: {fileID: 6961834605486949385}
 --- !u!1 &1286484852162362344
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: e70f3ed9c78f951458a5aed3b9880927, type: 2}
-  SpawnPoint: {fileID: 0}
+  SpawnPoint: {fileID: 6961834605486949385}
 --- !u!1001 &5199274812878726345
 PrefabInstance:
   m_ObjectHideFlags: 0
