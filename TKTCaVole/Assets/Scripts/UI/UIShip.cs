@@ -15,6 +15,12 @@ public class UIShip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Camera cam;
 
+    [Header("Time Warning")]
+    [SerializeField] private float timeWarning = 15f;
+    [SerializeField] private float blinkFrequency = 0.75f;
+    private bool isBlinking;
+    private Sequence blinkSequence;
+    
     [Header("Extra Time")]
     [SerializeField] private UIExtraTime uiExtraTimePrefab;
     [SerializeField] private Transform uiExtraTimeParent;
@@ -51,10 +57,12 @@ public class UIShip : MonoBehaviour
         pausePanel.SetActive(false);
         endGamePanel.SetActive(false);
 
+        isBlinking = false;
         weapon = Plane.Rocket;
 
         weapon.OnReloadStart += OnReloadStart;
 
+        InitTimerSequence();
         InitUIExtraTime();
         InitRocketCooldown();
         gearFeedbackImage.fillAmount = 1/6f;
@@ -156,9 +164,38 @@ public class UIShip : MonoBehaviour
         }
     }
 
+    private void InitTimerSequence()
+    {
+        blinkSequence = DOTween.Sequence();
+
+        blinkSequence.AppendCallback(() => timerText.color = Color.red);
+        blinkSequence.AppendInterval(blinkFrequency);
+        blinkSequence.AppendCallback(() => timerText.color = UISettingsSo.CurrentSettings.White);
+        blinkSequence.AppendInterval(blinkFrequency);
+        blinkSequence.SetLoops(-1);
+
+        blinkSequence.Pause();
+    }
+
     private void OnTimerUpdated(float timer)
     {
         timerText.text = $"{LevelController.ScoreToText(timer)}";
+
+        var warning = timer < timeWarning;
+        
+        if (warning && !isBlinking)
+        {
+            isBlinking = true;
+            blinkSequence.Play();
+            return;
+        }
+
+        if (!warning && isBlinking)
+        {
+            isBlinking = false;
+            timerText.color = UISettingsSo.CurrentSettings.White;
+            blinkSequence.Pause();
+        }
     }
 
     private void OnGateLeftUpdate(int gateLeft, int gateTotal)
